@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace ClsOutDocDeliveryCtrl
+﻿namespace ClsOutDocDeliveryCtrl
 {
     public partial class frm_StartUp : Form
     {
@@ -16,10 +6,13 @@ namespace ClsOutDocDeliveryCtrl
         {
             InitializeComponent();
         }
-
+        frm_welcome frm_Welcome = new frm_welcome();
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("بسم الله الرحمن الرحيم");
+            this.Hide();
+            frm_Welcome.ShowDialog();
+            this.Visible = true;
+            // open new welcome form 
         }
     }
 }

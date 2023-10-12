@@ -28,11 +28,27 @@ internal class AppDBContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //unique project name
+        modelBuilder.Entity<Project>()
+            .HasIndex(p => p.Name)
+            .IsUnique();
+
         // Configure the relationship between Project and Document with cascading delete
         modelBuilder.Entity<Document>()
             .HasOne(d => d.Project)
             .WithMany(p => p.Documents)
             .HasForeignKey(d => d.ProjectId)
+            .HasPrincipalKey(p => p.ProjectId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        //project id in the document is not null 
+        modelBuilder.Entity<Document>()
+            .Property(d => d.ProjectId)
+            .IsRequired();
+
+        //project id  + document name is unique combination
+        modelBuilder.Entity<Document>()
+            .HasIndex(d => new { d.Name, d.ProjectId })
+            .IsUnique();
     }
 }
