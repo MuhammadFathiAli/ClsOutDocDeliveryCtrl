@@ -81,5 +81,13 @@ namespace ClsOutDocDeliveryCtrl
             frm_newProject.ShowDialog();
             this.Visible = true;
         }
+
+        private void btn_ProjectSearch_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            frm_ProjectList projectListForm = new frm_ProjectList();
+            projectListForm.ShowDialog();
+            this.Visible = true;
+        }
     }
 }

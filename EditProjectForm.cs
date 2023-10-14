@@ -3,46 +3,76 @@ using ClsOutDocDeliveryCtrl.Entities;
 
 namespace ClsOutDocDeliveryCtrl
 {
-    public partial class frm_NewProject : Form
+    public partial class frm_EditProject : Form
     {
+        private Project _project;
         private Dictionary<Control, string> customErrorMessages = new();
         private string errorMessage = "";
-        public frm_NewProject()
+
+        public frm_EditProject(Project project)
         {
+            _project = project;
             InitializeComponent();
         }
-        private void frm_NewProject_Load(object sender, EventArgs e)
+
+        private void frm_EditProject_Load(object sender, EventArgs e)
         {
             ClearForm();
             SetCustomErrors();
+
+            // Populate the controls with the properties of the selected project
+            txt_PrjctName.Text = _project.Name;
+            datime_StartDate.Value = _project.StartDate;
+            datime_PEndDate.Value = _project.PlannedEndDate;
+            num_ContactValue.Value = _project.ContractValue;
+            txt_Currency.Text = _project.Currency;
+            txt_OwnerName.Text = _project.OwnerName;
+            txt_ConsltName.Text = _project.ConsultantName;
+            txt_ContrctName.Text = _project.ContractorName;
+            num_ConsltReviewDays.Value = _project.ConsultantReviewTimeInDays;
         }
-        private void btn_Next_Click(object sender, EventArgs e)
+        private void btn_Save_Click(object sender, EventArgs e)
         {
             try
             {
-                Project project = new Project();
-                project.Name = this.txt_PrjctName.Text;
-                project.StartDate = this.datime_StartDate.Value;
-                project.PlannedEndDate = this.datime_PEndDate.Value;
-                project.ContractValue = this.num_ContactValue.Value;
-                project.Currency = this.txt_Currency.Text;
-                project.OwnerName = this.txt_OwnerName.Text;
-                project.ConsultantName = this.txt_ConsltName.Text;
-                project.ContractorName = this.txt_ContrctName.Text;
-                project.ConsultantReviewTimeInDays = (int)this.num_ConsltReviewDays.Value;
+
 
                 if (!ValidateForm())
                 {
                     MessageBox.Show(errorMessage, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                //get the project object 
+                _project.Name = txt_PrjctName.Text;
+                _project.StartDate = datime_StartDate.Value;
+                _project.PlannedEndDate = datime_PEndDate.Value;
+                _project.ContractValue = num_ContactValue.Value;
+                _project.Currency = txt_Currency.Text;
+                _project.OwnerName = txt_OwnerName.Text;
+                _project.ConsultantName = txt_ConsltName.Text;
+                _project.ContractorName = txt_ContrctName.Text;
+                _project.ConsultantReviewTimeInDays = (int)num_ConsltReviewDays.Value;
+
+                //save changes in database
                 using (var context = new AppDBContext())
                 {
-                    context.Projects.Add(project);
-                    context.SaveChanges();
+                    var projectToUpdate = context.Projects.FirstOrDefault(p => ((p.ProjectId == _project.ProjectId)));
+                    if (projectToUpdate != null)
+                    {
+                        projectToUpdate.Name = _project.Name;
+                        projectToUpdate.StartDate = _project.StartDate;
+                        projectToUpdate.PlannedEndDate = _project.PlannedEndDate;
+                        projectToUpdate.ContractValue = _project.ContractValue;
+                        projectToUpdate.Currency = _project.Currency;
+                        projectToUpdate.OwnerName = _project.OwnerName;
+                        projectToUpdate.ConsultantName = _project.ConsultantName;
+                        projectToUpdate.ContractorName = _project.ContractorName;
+                        projectToUpdate.ConsultantReviewTimeInDays = _project.ConsultantReviewTimeInDays;
+
+
+                        context.SaveChanges();
+                    }
                 }
-                // Navigate to Project Documents Screen.
-                this.Hide();
             }
             catch (Exception ex)
             {
@@ -55,19 +85,18 @@ namespace ClsOutDocDeliveryCtrl
                 }
                 MessageBox.Show($"Error Creating a new project, Check Database Existence"
                     , Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-        }
-        private void btn_Back_Click(object sender, EventArgs e)
-        {
-            // Close it
+            MessageBox.Show("Project details updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 
-        #region PrepareForm
+
+        #region Prepare Form
         private void ClearForm()
         {
             // Clear all input fields
-            errorProvider_NewProject.Clear();
+            errorProvider_EditProject.Clear();
             txt_PrjctName.Text = string.Empty;
             datime_StartDate.Value = DateTime.Now;
             datime_PEndDate.Value = DateTime.Now;
@@ -90,9 +119,8 @@ namespace ClsOutDocDeliveryCtrl
             customErrorMessages.Add(txt_OwnerName, "Owner name is required.");
             customErrorMessages.Add(txt_ConsltName, "Consultant name is required.");
             customErrorMessages.Add(txt_ContrctName, "Contractor name is required.");
-        } 
+        }
         #endregion
-
         #region Validation
         private bool ValidateForm()
         {
@@ -107,13 +135,13 @@ namespace ClsOutDocDeliveryCtrl
             // Validate that datime_PEndDate is after datime_StartDate
             if (datime_PEndDate.Value.Date <= datime_StartDate.Value.Date)
             {
-                errorProvider_NewProject.SetError(datime_PEndDate, "Planned End Date must be after the Start Date.");
+                errorProvider_EditProject.SetError(datime_PEndDate, "Planned End Date must be after the Start Date.");
                 errorMessage = "Planned End Date must be after the Start Date.. \n";
                 return false;
             }
             else
             {
-                errorProvider_NewProject.SetError(datime_PEndDate, ""); // Clear the error message
+                errorProvider_EditProject.SetError(datime_PEndDate, ""); // Clear the error message
             }
             return true;
         }
@@ -122,11 +150,11 @@ namespace ClsOutDocDeliveryCtrl
             // Validate that num_ContactValue is a valid decimal and greater than 100
             if (num_ContactValue.Value <= 100)
             {
-                errorProvider_NewProject.SetError(num_ContactValue, "Contract value must be greater than 100.");
+                errorProvider_EditProject.SetError(num_ContactValue, "Contract value must be greater than 100.");
                 errorMessage = "Contract value must be greater than 100. \n";
                 return false;
             }
-            errorProvider_NewProject.SetError(num_ContactValue, ""); // Clear the error message
+            errorProvider_EditProject.SetError(num_ContactValue, ""); // Clear the error message
             return true;
         }
         private bool IsValidTextBox()
@@ -138,18 +166,24 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     if (string.IsNullOrWhiteSpace(textBox.Text))
                     {
-                        errorProvider_NewProject.SetError(control, customErrorMessages[control]);
+                        errorProvider_EditProject.SetError(control, customErrorMessages[control]);
                         errorMessage = customErrorMessages[control] + "\n";
                         return false;
                     }
                     else
                     {
-                        errorProvider_NewProject.SetError(control, ""); // Clear the error message
+                        errorProvider_EditProject.SetError(control, ""); // Clear the error message
                     }
                 }
             }
             return true;
         }
         #endregion
+
+        private void btn_Back_Click(object sender, EventArgs e)
+        {
+            // Close it
+            this.Close();
+        }
     }
 }
