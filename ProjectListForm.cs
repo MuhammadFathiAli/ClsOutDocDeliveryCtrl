@@ -130,9 +130,8 @@ namespace ClsOutDocDeliveryCtrl
                     MessageBoxIcon.Error);
                 return;
             }
-
-            var project = (count == 1) ? "project" : "projects";
-            var confirmationMessage = $"Are you sure you want to delete {count} {project}?";
+            var projectName = gridView_ProjectList.SelectedRows[0].Cells[1].Value.ToString() ?? string.Empty;
+            var confirmationMessage = $"Are you sure you want to delete project [{projectName}]?";
             var confirmationResult = MessageBox.Show(confirmationMessage, "Warning", MessageBoxButtons.YesNo,
                                                     MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
 
@@ -152,6 +151,8 @@ namespace ClsOutDocDeliveryCtrl
                         }
                     }
                 }
+                MessageBox.Show("Project Deleted Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 LoadAllProjects();
             }
         }
@@ -185,6 +186,11 @@ namespace ClsOutDocDeliveryCtrl
                 var projects = context.Projects.ToList();
                 this.gridView_ProjectList.DataSource = projects;
             }
+        }
+
+        private void lbl_ProjectSearch_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

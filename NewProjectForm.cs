@@ -42,7 +42,10 @@ namespace ClsOutDocDeliveryCtrl
                     context.SaveChanges();
                 }
                 // Navigate to Project Documents Screen.
+                frm_ProjectDocumentInterface projectDocumentInterfaceForm = new frm_ProjectDocumentInterface(project);
                 this.Hide();
+                projectDocumentInterfaceForm.ShowDialog();
+                this.Show();
             }
             catch (Exception ex)
             {

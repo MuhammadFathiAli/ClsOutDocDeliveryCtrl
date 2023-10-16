@@ -70,6 +70,7 @@
             this.lbl_ProjectSearch.Size = new System.Drawing.Size(131, 15);
             this.lbl_ProjectSearch.TabIndex = 2;
             this.lbl_ProjectSearch.Text = "Search by project name";
+            this.lbl_ProjectSearch.Click += new System.EventHandler(this.lbl_ProjectSearch_Click);
             // 
             // gridView_ProjectList
             // 
