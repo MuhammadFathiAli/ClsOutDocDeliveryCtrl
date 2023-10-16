@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lbl_InsertNewDoc = new System.Windows.Forms.Label();
             this.lbl_DocName = new System.Windows.Forms.Label();
             this.lbl_DocDescription = new System.Windows.Forms.Label();
@@ -35,6 +36,8 @@
             this.rtxt_DocDescription = new System.Windows.Forms.RichTextBox();
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
+            this.errorProvider_NewDoc = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider_NewDoc)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl_InsertNewDoc
@@ -88,6 +91,7 @@
             this.btn_Cancel.TabIndex = 5;
             this.btn_Cancel.Text = "Cancel";
             this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
             // btn_Save
             // 
@@ -97,6 +101,11 @@
             this.btn_Save.TabIndex = 6;
             this.btn_Save.Text = "Save";
             this.btn_Save.UseVisualStyleBackColor = true;
+            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
+            // 
+            // errorProvider_NewDoc
+            // 
+            this.errorProvider_NewDoc.ContainerControl = this;
             // 
             // frm_NewDocument
             // 
@@ -112,6 +121,7 @@
             this.Controls.Add(this.lbl_InsertNewDoc);
             this.Name = "frm_NewDocument";
             this.Text = "New Document";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider_NewDoc)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -126,5 +136,6 @@
         private RichTextBox rtxt_DocDescription;
         private Button btn_Cancel;
         private Button btn_Save;
+        private ErrorProvider errorProvider_NewDoc;
     }
 }

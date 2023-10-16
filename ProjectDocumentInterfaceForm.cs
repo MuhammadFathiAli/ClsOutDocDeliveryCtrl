@@ -15,8 +15,15 @@ namespace ClsOutDocDeliveryCtrl
         private void frm_ProjectDocumentInterface_Load(object sender, EventArgs e)
         {
             InitializeDataGridView();
+            List<Document> docs = LoadDocuments();
             DisplayDocuments();
         }
+
+        private List<Document> LoadDocuments()
+        {
+            throw new NotImplementedException();
+        }
+
         private void InitializeDataGridView()
         {
             gridView_ProjectDocsList.ColumnCount = 3;
@@ -50,10 +57,11 @@ namespace ClsOutDocDeliveryCtrl
 
         private void btn_AddDoc_Click(object sender, EventArgs e)
         {
-            frm_NewDocument frm_NewDocument = new frm_NewDocument();
+            frm_NewDocument frm_NewDocument = new frm_NewDocument(_project);
             this.Hide();
             frm_NewDocument.ShowDialog();
             this.Show();
+            this.Refresh();
         }
     }
 }
