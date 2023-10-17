@@ -41,11 +41,11 @@ namespace ClsOutDocDeliveryCtrl
                     context.Projects.Add(project);
                     context.SaveChanges();
                 }
+                MessageBox.Show("Project created successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // Navigate to Project Documents Screen.
                 frm_ProjectDocumentInterface projectDocumentInterfaceForm = new frm_ProjectDocumentInterface(project);
-                this.Hide();
+                this.Close(); 
                 projectDocumentInterfaceForm.ShowDialog();
-                this.Show();
             }
             catch (Exception ex)
             {

@@ -19,22 +19,39 @@ namespace ClsOutDocDeliveryCtrl
 
         private void btn_Save_Click(object sender, EventArgs e)
         {
-            if (!IsValidDocument())
+            try
             {
-                return;
-            }
-            using (var context = new AppDBContext())
-            {
-                Document newDocument = new Document
+                if (!IsValidDocument())
                 {
-                    Name = txt_DocName.Text,
-                    Description = rtxt_DocDescription.Text,
-                    ProjectId = _project.ProjectId
-                };
-                context.Documents.Add(newDocument);
-                context.SaveChanges();
-                MessageBox.Show("Document added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                    return;
+                }
+                using (var context = new AppDBContext())
+                {
+                    Document newDocument = new Document
+                    {
+                        Name = txt_DocName.Text,
+                        Description = rtxt_DocDescription.Text,
+                        ProjectId = _project.ProjectId
+                    };
+                    context.Documents.Add(newDocument);
+                    context.SaveChanges();
+                    MessageBox.Show("Document added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                if (ex.InnerException?.Message.Contains("duplicate") ?? false)
+                {
+                    MessageBox.Show($"Error Adding a new document :" +
+                        $" document [{this.txt_DocName.Text}] aleardy exists in this project",
+                        Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+
+                }
+                MessageBox.Show($"Error Adding a new document, Check Database Existence"
+                    , Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
