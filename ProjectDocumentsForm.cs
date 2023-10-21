@@ -4,6 +4,12 @@ using System.Data;
 
 namespace ClsOutDocDeliveryCtrl
 {
+    public enum SubmitalPhase
+    {
+        first,
+        second,
+        third
+    }
     public partial class ProjectDocumentsForm : Form
     {
         int _projectID;
@@ -36,6 +42,7 @@ namespace ClsOutDocDeliveryCtrl
             SetUpColumns();
             AddComboBoxColumns();
             SetColumnVisibility();
+            SetSubmitStatusColumn(SubmitalPhase.first);
         }
         private void GridView_ProjectDocs_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -95,7 +102,37 @@ namespace ClsOutDocDeliveryCtrl
             {
                 SetSecondColumnVisibilty();
             }
+            if (columnName == thirdStatusCol.Name)
+            {
+                handleMaxSubmitTrails(sender, e);
+            }
+            if (columnName == "ActFirstCTRSubmitDeadline" || columnName == "ActFirstCTRSubmitDeliveryDate")
+            {
+                SetSubmitStatusColumn(SubmitalPhase.first);
+            }
+            if (columnName == "ActSecondCTRSubmitDeadline" || columnName == "ActSecondCTRSubmitDeliveryDate")
+            {
+                SetSubmitStatusColumn(SubmitalPhase.second);
+            }
+            if (columnName == "ActThirdCTRSubmitDeadline" || columnName == "ActThirdCTRSubmitDeliveryDate")
+            {
+                SetSubmitStatusColumn(SubmitalPhase.third);
+            }
         }
+
+        private void handleMaxSubmitTrails(object? sender, DataGridViewCellEventArgs e)
+        {
+            var columnName = gridView_ProjectDocs.Columns[e.ColumnIndex].Name;
+            var cell = gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            if (cell.Value != null && columnName == thirdStatusCol.Name
+               && (ResponseCode)cell.Value == ResponseCode.ResubmitAsPerNoted)
+            {
+                MessageBox.Show("Error: ResubmitAsPerNoted is not allowed in the third submit," +
+                    " Max trails of document submit is [Three times].", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cell.Value = ResponseCode.ApprovedAsSubmitted;
+            }
+        }
+
         private void GridView_ProjectDocs_Scroll(object? sender, ScrollEventArgs e)
         {
             _dtp.Visible = false;
@@ -220,8 +257,11 @@ namespace ClsOutDocDeliveryCtrl
                 col.ValueMember = "Value";
             }
             firstStatusCol.DataPropertyName = "ConsultFirstRspCode";
+            firstStatusCol.Name = "ConsultFirstRspCode";
             secondStatusCol.DataPropertyName = "ConsultSecondRspCode";
+            secondStatusCol.Name = "ConsultSecondRspCode";
             thirdStatusCol.DataPropertyName = "ConsultThirdRspCode";
+            thirdStatusCol.Name = "ConsultThirdRspCode";
         }
         private void SetColumnVisibility()
         {
@@ -245,7 +285,7 @@ namespace ClsOutDocDeliveryCtrl
                 .Any(row => (row.Cells[secondStatusCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.ResubmitAsPerNoted.ToString());
             if (isResubmitAsPerNotedPresent)
             {
-                HideThirdSubmits(false);          
+                HideThirdSubmits(false);
             }
             else
             {
@@ -359,6 +399,65 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["ReceivedBy"].HeaderText = "Received By";
             gridView_ProjectDocs.Columns["Retention"].HeaderText = "Retention";
             gridView_ProjectDocs.Columns["Deduction"].HeaderText = "Deduction";
+        }
+        private void SetSubmitStatusColumn(SubmitalPhase submitalPhase)
+        {
+            var deadLineColName = string.Empty;
+            var deliveryColName = string.Empty;
+            var statusColName = string.Empty;
+            switch (submitalPhase)
+            {
+                case SubmitalPhase.first:
+                    deadLineColName = "ActFirstCTRSubmitDeadline";
+                    deliveryColName = "ActFirstCTRSubmitDeliveryDate";
+                    statusColName = "FirstCTRSubmitStatus";
+                    break;
+                case SubmitalPhase.second:
+                    deadLineColName = "ActSecondCTRSubmitDeadline";
+                    deliveryColName = "ActSecondCTRSubmitDeliveryDate";
+                    statusColName = "SecondCTRSubmitStatus";
+                    break;
+                case SubmitalPhase.third:
+                    deadLineColName = "ActThirdCTRSubmitDeadline";
+                    deliveryColName = "ActThirdCTRSubmitDeliveryDate";
+                    statusColName = "ThirdCTRSubmitStatus";
+                    break;
+                default:
+                    break;
+            }
+            foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+            {
+                var deadlineCellValue = row.Cells[deadLineColName].Value;
+                var deliveryDateCellValue = row.Cells[deliveryColName].Value;
+
+                if (deadlineCellValue is null)
+                {
+                    row.Cells[statusColName].Value = DeliveryStatus.NotSet;
+                }
+                else
+                {
+                    if (deliveryDateCellValue == null)
+                    {
+                        if ((DateTime)deadlineCellValue >= DateTime.Today)
+                        {
+                            row.Cells[statusColName].Value = DeliveryStatus.Pending;
+                        }
+                        else
+                        {
+                            row.Cells[statusColName].Value = DeliveryStatus.Late;
+                        }
+                    }
+
+                    else if ((DateTime)deadlineCellValue >= (DateTime)deliveryDateCellValue)
+                    {
+                        row.Cells[statusColName].Value = DeliveryStatus.DeliveredOnTime;
+                    }
+                    else if ((DateTime)deadlineCellValue < (DateTime)deliveryDateCellValue)
+                    {
+                        row.Cells[statusColName].Value = DeliveryStatus.DeliveredLate;
+                    }
+                }
+            }
         }
 
 
