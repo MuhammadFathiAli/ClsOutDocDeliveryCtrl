@@ -9,46 +9,100 @@ namespace ClsOutDocDeliveryCtrl
         int _projectID;
         private DataGridViewCell _clickedCell;
         private DateTimePicker _dtp;
+        private DataGridViewComboBoxColumn firstStatusCol;
+        private DataGridViewComboBoxColumn secondStatusCol;
+        private DataGridViewComboBoxColumn thirdStatusCol;
 
         public ProjectDocumentsForm(int projectID)
         {
             _projectID = projectID;
             InitializeComponent();
-            _dtp = new DateTimePicker();
-            this.gridView_ProjectDocs.Controls.Add(_dtp);
-            _dtp.Visible = false;
-            _dtp.Format = DateTimePickerFormat.Short;
+            _dtp = new DateTimePicker { Visible = false, Format = DateTimePickerFormat.Short };
+            gridView_ProjectDocs.Controls.Add(_dtp);
             _dtp.TextChanged += _dtp_TextChanged;
-            this.gridView_ProjectDocs.CellClick += GridView_ProjectDocs_CellClick;
-            this.gridView_ProjectDocs.Scroll += GridView_ProjectDocs_Scroll;
+            gridView_ProjectDocs.CellClick += GridView_ProjectDocs_CellClick;
+            gridView_ProjectDocs.Scroll += GridView_ProjectDocs_Scroll;
+            gridView_ProjectDocs.CellValueChanged += GridView_ProjectDocs_CellValueChanged;
+            gridView_ProjectDocs.EditingControlShowing += GridView_ProjectDocs_EditingControlShowing;
+            gridView_ProjectDocs.CellFormatting += GridView_ProjectDocs_CellFormatting;
+            firstStatusCol = new DataGridViewComboBoxColumn();
+            secondStatusCol = new DataGridViewComboBoxColumn();
+            thirdStatusCol = new DataGridViewComboBoxColumn();
         }
 
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        private void ProjectDocumentsForm_Load(object sender, EventArgs e)
         {
-            if (keyData == Keys.Escape)
-            {
-                _dtp.Visible = false;
-                return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
+            LoadData();
+            SetUpColumns();
+            AddComboBoxColumns();
+            SetColumnVisibility();
         }
+        private void GridView_ProjectDocs_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
 
+            var columnName = gridView_ProjectDocs.Columns[e.ColumnIndex].Name;
+            if (columnName == "RcmdDeadlineAfterHandover" || columnName == "RcmdDeadlineBeforeHandover")
+            {
+                if (e.Value == null)
+                {
+                    e.CellStyle.BackColor = Color.DarkGray;
+                }
+            }
+            if (e.ColumnIndex >= 8 && e.ColumnIndex <= 30 && e.Value is ResponseStatus)
+            {
+                var value = (ResponseStatus)e.Value;
+                e.Value = value.ToString();
+            }
+        }
+        private void GridView_ProjectDocs_EditingControlShowing(object? sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= new KeyPressEventHandler(NumKeyPress);
+            if (gridView_ProjectDocs.CurrentCell.ColumnIndex == gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"].Index
+                || gridView_ProjectDocs.CurrentCell.ColumnIndex == gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].Index)
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += new KeyPressEventHandler(NumKeyPress);
+                }
+            }
+            if (gridView_ProjectDocs.CurrentCell is DataGridViewComboBoxCell)
+            {
+                var comboBox = e.Control as ComboBox;
+                comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+                comboBox.FlatStyle = FlatStyle.Flat;
 
+            }
+        }
+        private void GridView_ProjectDocs_CellValueChanged(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
+
+            var columnName = gridView_ProjectDocs.Columns[e.ColumnIndex].Name;
+            if (columnName == "RcmdDeadlineAfterHandover" || columnName == "RcmdDeadlineBeforeHandover")
+            {
+                if (int.TryParse(gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString(), out int result))
+                {
+                    ToggleColumnsEnableState(sender, e);
+                }
+            }
+            if (columnName == firstStatusCol.Name)
+            {
+                SetColumnVisibility();
+            }
+            if (columnName == secondStatusCol.Name)
+            {
+                SetSecondColumnVisibilty();
+            }
+        }
         private void GridView_ProjectDocs_Scroll(object? sender, ScrollEventArgs e)
         {
             _dtp.Visible = false;
         }
-
-        private void _dtp_TextChanged(object? sender, EventArgs e)
-        {
-            this.gridView_ProjectDocs.CurrentCell.Value = _dtp.Value;
-        }
-
         private void GridView_ProjectDocs_CellClick(object? sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex < 0)
-                return;
+            if (e.ColumnIndex < 0) return;
             var colIndex = gridView_ProjectDocs.Columns[e.ColumnIndex];
             try
             {
@@ -60,56 +114,188 @@ namespace ClsOutDocDeliveryCtrl
             }
             catch (Exception)
             {
+                // Handle any specific exception here
             }
+        }
+
+
+        private void ToggleColumnsEnableState(object? sender, DataGridViewCellEventArgs e)
+        {
+            var afterHandoverColumn = gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"];
+            var beforeHandoverColumn = gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"];
+
+            if (e.ColumnIndex != afterHandoverColumn.Index && e.ColumnIndex != beforeHandoverColumn.Index) return;
+
+            var row = gridView_ProjectDocs.Rows[e.RowIndex];
+            var afterHandoverCell = row.Cells[afterHandoverColumn.Index];
+            var beforeHandoverCell = row.Cells[beforeHandoverColumn.Index];
+
+            var isAfterHandoverColumn = e.ColumnIndex == afterHandoverColumn.Index;
+            var isBeforeHandoverColumn = e.ColumnIndex == beforeHandoverColumn.Index;
+
+            if (!string.IsNullOrEmpty(afterHandoverCell.EditedFormattedValue?.ToString()) ||
+                !string.IsNullOrEmpty(beforeHandoverCell.EditedFormattedValue?.ToString()))
+            {
+                if (isAfterHandoverColumn)
+                {
+                    afterHandoverCell.Style.BackColor = gridView_ProjectDocs.DefaultCellStyle.BackColor;
+                    beforeHandoverCell.Value = null;
+                    beforeHandoverCell.Style.BackColor = Color.DarkGray;
+                }
+                else if (isBeforeHandoverColumn)
+                {
+                    beforeHandoverCell.Style.BackColor = gridView_ProjectDocs.DefaultCellStyle.BackColor;
+                    afterHandoverCell.Value = null;
+                    afterHandoverCell.Style.BackColor = Color.DarkGray;
+                }
+            }
+        }
+        private void _dtp_TextChanged(object? sender, EventArgs e)
+        {
+            this.gridView_ProjectDocs.CurrentCell.Value = _dtp.Value;
+        }
+        private void NumKeyPress(object? sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void HideThirdSubmits(bool hide)
+        {
+
+
+            gridView_ProjectDocs.Columns["ActThirdCTRSubmitDeadline"].Visible = !hide;
+            gridView_ProjectDocs.Columns["ActThirdCTRSubmitDeliveryDate"].Visible = !hide;
+            gridView_ProjectDocs.Columns["ThirdCTRSubmitStatus"].Visible = !hide;
+            gridView_ProjectDocs.Columns["ExpThirdConsultRspDate"].Visible = !hide;
+            gridView_ProjectDocs.Columns["ActThirdConsultRspDate"].Visible = !hide;
+            //gridView_ProjectDocs.Columns["ConsultThirdRspCode"].Visible = !hide;
+            gridView_ProjectDocs.Columns["ConsultThirdRspStatus"].Visible = !hide;
+            thirdStatusCol.Visible = !hide;
+        }
+        private void HideSecondSubmits(bool hide)
+        {
+            gridView_ProjectDocs.Columns["ActSecondCTRSubmitDeadline"].Visible = !hide;
+            gridView_ProjectDocs.Columns["ActSecondCTRSubmitDeliveryDate"].Visible = !hide;
+            gridView_ProjectDocs.Columns["SecondCTRSubmitStatus"].Visible = !hide;
+            gridView_ProjectDocs.Columns["ExpSecondConsultRspDate"].Visible = !hide;
+            gridView_ProjectDocs.Columns["ActSecondConsultRspDate"].Visible = !hide;
+            //gridView_ProjectDocs.Columns["ConsultSecondRspCode"].Visible = !hide;
+            gridView_ProjectDocs.Columns["ConsultSecondRspStatus"].Visible = !hide;
+            secondStatusCol.Visible = !hide;
+        }
+        private void AddComboBoxColumns()
+        {
+
+            var subCodeList = Enum.GetValues(typeof(ResponseCode)).Cast<ResponseCode>().ToList();
+
+            firstStatusCol.HeaderText = "First Consultant Response Code";
+            gridView_ProjectDocs.Columns.Insert(gridView_ProjectDocs.Columns["ConsultFirstRspCode"].Index, firstStatusCol);
+
+
+
+            secondStatusCol.HeaderText = "Second Consultant Response Code";
+            gridView_ProjectDocs.Columns.Insert(gridView_ProjectDocs.Columns["ConsultSecondRspCode"].Index, secondStatusCol);
+
+
+
+            thirdStatusCol.HeaderText = "Third Consultant Response Code";
+            gridView_ProjectDocs.Columns.Insert(gridView_ProjectDocs.Columns["ConsultThirdRspCode"].Index, thirdStatusCol);
+
+
+
+            var comboBoxColumns = new List<DataGridViewComboBoxColumn> { firstStatusCol, secondStatusCol, thirdStatusCol };
+
+            foreach (var col in comboBoxColumns)
+            {
+                col.ValueType = typeof(ResponseCode);
+                col.DataSource = subCodeList.
+                    Select(s => new
+                    {
+                        Display = s.ToDescriptionString(),
+                        Value = s
+                    }).ToList();
+                col.DisplayMember = "Display";
+                col.ValueMember = "Value";
+            }
+            firstStatusCol.DataPropertyName = "ConsultFirstRspCode";
+            secondStatusCol.DataPropertyName = "ConsultSecondRspCode";
+            thirdStatusCol.DataPropertyName = "ConsultThirdRspCode";
+        }
+        private void SetColumnVisibility()
+        {
+            bool isResubmitAsPerNotedPresent = gridView_ProjectDocs.Rows.Cast<DataGridViewRow>()
+                .Any(row => (row.Cells[firstStatusCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.ResubmitAsPerNoted.ToString());
+
+            if (isResubmitAsPerNotedPresent)
+            {
+                HideSecondSubmits(false);
+                SetSecondColumnVisibilty();
+            }
+            else
+            {
+                HideSecondSubmits(true);
+                HideThirdSubmits(true);
+            }
+        }
+        private void SetSecondColumnVisibilty()
+        {
+            bool isResubmitAsPerNotedPresent = gridView_ProjectDocs.Rows.Cast<DataGridViewRow>()
+                .Any(row => (row.Cells[secondStatusCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.ResubmitAsPerNoted.ToString());
+            if (isResubmitAsPerNotedPresent)
+            {
+                HideThirdSubmits(false);          
+            }
+            else
+            {
+                HideThirdSubmits(true);
+            }
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                _dtp.Visible = false;
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
         private void ShowDateTimePicker(DataGridViewCell cell)
         {
-            Rectangle cellRectangle = gridView_ProjectDocs.
+            var cellRectangle = gridView_ProjectDocs.
                 GetCellDisplayRectangle(cell.ColumnIndex, cell.RowIndex, true);
-            _dtp.Size = new System.Drawing.Size(cellRectangle.Width, cellRectangle.Height);
-            _dtp.Location = new System.Drawing.Point(cellRectangle.X, cellRectangle.Y);
+            _dtp.Size = new Size(cellRectangle.Width, cellRectangle.Height);
+            _dtp.Location = new Point(cellRectangle.X, cellRectangle.Y);
             _dtp.Visible = true;
         }
-
-        private void ProjectDocumentsForm_Load(object sender, EventArgs e)
+        private void LoadData()
         {
             using (var context = new AppDBContext())
             {
-                List<Document> documents = new List<Document>();
-                documents = context.Documents.Where(d => d.ProjectId == _projectID).ToList();
-                this.gridView_ProjectDocs.DataSource = documents;
-
-
-                SetUpColumns();
-
-
-                foreach (DataGridViewColumn column in gridView_ProjectDocs.Columns)
-                {
-                    if (column.ValueType == typeof(DateTime?))
-                    {
-                        column.DefaultCellStyle.NullValue = "Click to insert";
-                    }
-                }
-
-
-
+                var documents = context.Documents.Where(d => d.ProjectId == _projectID).ToList();
+                gridView_ProjectDocs.DataSource = documents;
             }
-
-
         }
-
         private void SetUpColumns()
         {
+
+            foreach (DataGridViewColumn column in gridView_ProjectDocs.Columns)
+            {
+                if (column.ValueType == typeof(DateTime?))
+                {
+                    column.DefaultCellStyle.NullValue = "Click to insert";
+                    column.DefaultCellStyle.Format = "d";
+                }
+            }
+
             gridView_ProjectDocs.Columns["DocumentId"].Visible = false;
             gridView_ProjectDocs.Columns["Description"].Visible = false;
             gridView_ProjectDocs.Columns["Project"].Visible = false;
             gridView_ProjectDocs.Columns["ProjectId"].Visible = false;
-
-
-            gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].ReadOnly = true;
-            gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].DefaultCellStyle.BackColor = Color.DarkGray;
-            gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"].ReadOnly = true;
-            gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"].DefaultCellStyle.BackColor = Color.DarkGray;
+            gridView_ProjectDocs.Columns["ConsultFirstRspCode"].Visible = false;
+            gridView_ProjectDocs.Columns["ConsultSecondRspCode"].Visible = false;
+            gridView_ProjectDocs.Columns["ConsultThirdRspCode"].Visible = false;
 
             gridView_ProjectDocs.Columns["FirstCTRSubmitStatus"].ReadOnly = true;
             gridView_ProjectDocs.Columns["FirstCTRSubmitStatus"].DefaultCellStyle.BackColor = Color.DarkGray;
@@ -135,7 +321,6 @@ namespace ClsOutDocDeliveryCtrl
 
             renameCoumns();
         }
-
         private void renameCoumns()
         {
             gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].HeaderText = "Recomended DeadLine Before Handover";
@@ -145,7 +330,7 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["FirstCTRSubmitStatus"].HeaderText = "First Contractor Submittal Status";
             gridView_ProjectDocs.Columns["ExpFirstConsultRspDate"].HeaderText = "Expected First Consultant Response Date";
             gridView_ProjectDocs.Columns["ActFirstConsultRspDate"].HeaderText = "Actual First Consultant Response Date";
-            gridView_ProjectDocs.Columns["ConsultFirstRspCode"].HeaderText = "First Consultant Response Code";
+            //gridView_ProjectDocs.Columns["ConsultFirstRspCode"].HeaderText = "First Consultant Response Code";
             gridView_ProjectDocs.Columns["ConsultFirstRspStatus"].HeaderText = "First Consultant Response Status";
 
 
@@ -154,7 +339,7 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["SecondCTRSubmitStatus"].HeaderText = "Second Contractor Submittal Status";
             gridView_ProjectDocs.Columns["ExpSecondConsultRspDate"].HeaderText = "Expected Second Consultant Response Date";
             gridView_ProjectDocs.Columns["ActSecondConsultRspDate"].HeaderText = "Actual Second Consultant Response Date";
-            gridView_ProjectDocs.Columns["ConsultSecondRspCode"].HeaderText = "Second Consultant Response Code";
+            //gridView_ProjectDocs.Columns["ConsultSecondRspCode"].HeaderText = "Second Consultant Response Code";
             gridView_ProjectDocs.Columns["ConsultSecondRspStatus"].HeaderText = "Second Consultant Response Status";
 
 
@@ -163,7 +348,7 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["ThirdCTRSubmitStatus"].HeaderText = "Third Contractor Submittal Status";
             gridView_ProjectDocs.Columns["ExpThirdConsultRspDate"].HeaderText = "Expected Third Consultant Response Date";
             gridView_ProjectDocs.Columns["ActThirdConsultRspDate"].HeaderText = "Actual Third Consultant Response Date";
-            gridView_ProjectDocs.Columns["ConsultThirdRspCode"].HeaderText = "Third Consultant Response Code";
+            //gridView_ProjectDocs.Columns["ConsultThirdRspCode"].HeaderText = "Third Consultant Response Code";
             gridView_ProjectDocs.Columns["ConsultThirdRspStatus"].HeaderText = "Third Consultant Response Status";
 
 

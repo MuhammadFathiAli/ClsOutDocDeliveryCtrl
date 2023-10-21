@@ -15,26 +15,26 @@ public class Document
     public DateTime? ActFirstCTRSubmitDeadline { get; set; }
     public DateTime? ActFirstCTRSubmitDeliveryDate { get; set; }
     [MaxLength(50)]
-    public DeliveryStatus FirstCTRSubmitStatus { get; set; } = DeliveryStatus.Pending;
+    public DeliveryStatus FirstCTRSubmitStatus { get; set; } = DeliveryStatus.NotSet;
     public DateTime? ExpFirstConsultRspDate { get; set; }
     public DateTime? ActFirstConsultRspDate { get; set; }
     [MaxLength(50)]
-    public SubmittalCode? ConsultFirstRspCode { get; set; }
+    public ResponseCode? ConsultFirstRspCode { get; set; } = ResponseCode.NotSet;
     [MaxLength(50)]
-    public ResponseStatus ConsultFirstRspStatus { get; set; } = ResponseStatus.Pending;
+    public ResponseStatus ConsultFirstRspStatus { get; set; } = ResponseStatus.NotSet;
 
 
 
     public DateTime? ActSecondCTRSubmitDeadline { get; set; }
     public DateTime? ActSecondCTRSubmitDeliveryDate { get; set; }
     [MaxLength(50)]
-    public DeliveryStatus SecondCTRSubmitStatus { get; set; } = DeliveryStatus.Pending;
+    public DeliveryStatus SecondCTRSubmitStatus { get; set; } = DeliveryStatus.NotSet;
     public DateTime? ExpSecondConsultRspDate { get; set; }
     public DateTime? ActSecondConsultRspDate { get; set; }
     [MaxLength(50)]
-    public SubmittalCode? ConsultSecondRspCode { get; set; }
+    public ResponseCode? ConsultSecondRspCode { get; set; } = ResponseCode.NotSet;
     [MaxLength(50)]
-    public ResponseStatus ConsultSecondRspStatus { get; set; } = ResponseStatus.Pending;
+    public ResponseStatus ConsultSecondRspStatus { get; set; } = ResponseStatus.NotSet;
 
 
 
@@ -42,20 +42,20 @@ public class Document
     public DateTime? ActThirdCTRSubmitDeadline { get; set; }
     public DateTime? ActThirdCTRSubmitDeliveryDate { get; set; }
     [MaxLength(50)]
-    public DeliveryStatus ThirdCTRSubmitStatus { get; set; } = DeliveryStatus.Pending;
+    public DeliveryStatus ThirdCTRSubmitStatus { get; set; } = DeliveryStatus.NotSet;
     public DateTime? ExpThirdConsultRspDate { get; set; }
     public DateTime? ActThirdConsultRspDate { get; set; }
     [MaxLength(50)]
-    public SubmittalCode? ConsultThirdRspCode { get; set; }
+    public ResponseCode? ConsultThirdRspCode { get; set; } = ResponseCode.NotSet;
     [MaxLength(50)]
-    public ResponseStatus ConsultThirdRspStatus { get; set; } = ResponseStatus.Pending;
+    public ResponseStatus ConsultThirdRspStatus { get; set; } = ResponseStatus.NotSet;
 
 
 
 
     public DateTime? ActOwnerSubmitDate { get; set; }
     [MaxLength(50)]
-    public DeliveryStatus OwnerSubmitStatus { get; set; } = DeliveryStatus.Pending;
+    public DeliveryStatus OwnerSubmitStatus { get; set; } = DeliveryStatus.NotSet;
     [MaxLength(100)]
     public string? OwnerSubmitFormat { get; set; }
     [MaxLength(500)]

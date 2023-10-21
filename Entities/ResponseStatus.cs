@@ -2,6 +2,7 @@
 {
     public enum ResponseStatus
     {
+        NotSet,
         Late,
         Pending,
         RespondedOnTime,
@@ -13,6 +14,8 @@
         {
             switch (status)
             {
+                case ResponseStatus.NotSet:
+                    return "Not Set";
                 case ResponseStatus.Late:
                     return "Late";
                 case ResponseStatus.Pending:

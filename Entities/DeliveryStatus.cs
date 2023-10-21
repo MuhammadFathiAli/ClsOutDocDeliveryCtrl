@@ -2,6 +2,7 @@
 {
     public enum DeliveryStatus
     {
+        NotSet,
         Late,
         Pending,
         DeliveredOnTime,
@@ -13,6 +14,8 @@
         {
             switch (status)
             {
+                case DeliveryStatus.NotSet:
+                    return "Not Set";
                 case DeliveryStatus.Late:
                     return "Late";
                 case DeliveryStatus.Pending:

@@ -152,7 +152,7 @@ namespace ClsOutDocDeliveryCtrl.Migrations
                     b.HasIndex("Name", "ProjectId")
                         .IsUnique();
 
-                    b.ToTable("Documents");
+                    b.ToTable("Documents", (string)null);
                 });
 
             modelBuilder.Entity("ClsOutDocDeliveryCtrl.Entities.Project", b =>
@@ -205,7 +205,7 @@ namespace ClsOutDocDeliveryCtrl.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("ClsOutDocDeliveryCtrl.Entities.Document", b =>
