@@ -39,9 +39,9 @@
             this.btn_DeleteDoc = new System.Windows.Forms.Button();
             this.img_deleteDoc = new System.Windows.Forms.ImageList(this.components);
             this.btn_EditDoc = new System.Windows.Forms.Button();
+            this.img_EditDoc = new System.Windows.Forms.ImageList(this.components);
             this.lbl_DocSearch = new System.Windows.Forms.Label();
             this.txt_DocSearch = new System.Windows.Forms.TextBox();
-            this.img_EditDoc = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gridView_ProjectDocsList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,6 +65,7 @@
             this.gridView_ProjectDocsList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridView_ProjectDocsList.Location = new System.Drawing.Point(1, 89);
             this.gridView_ProjectDocsList.Name = "gridView_ProjectDocsList";
+            this.gridView_ProjectDocsList.ReadOnly = true;
             this.gridView_ProjectDocsList.RowTemplate.Height = 25;
             this.gridView_ProjectDocsList.Size = new System.Drawing.Size(689, 279);
             this.gridView_ProjectDocsList.TabIndex = 1;
@@ -78,6 +79,7 @@
             this.btn_Back.TabIndex = 2;
             this.btn_Back.Text = "Back";
             this.btn_Back.UseVisualStyleBackColor = true;
+            this.btn_Back.Click += new System.EventHandler(this.btn_Back_Click);
             // 
             // btn_Finish
             // 
@@ -88,6 +90,7 @@
             this.btn_Finish.TabIndex = 3;
             this.btn_Finish.Text = "Finish";
             this.btn_Finish.UseVisualStyleBackColor = true;
+            this.btn_Finish.Click += new System.EventHandler(this.btn_Finish_Click);
             // 
             // btn_AddDoc
             // 
@@ -122,6 +125,7 @@
             this.btn_DeleteDoc.Text = "Delete";
             this.btn_DeleteDoc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btn_DeleteDoc.UseVisualStyleBackColor = true;
+            this.btn_DeleteDoc.Click += new System.EventHandler(this.btn_DeleteDoc_Click);
             // 
             // img_deleteDoc
             // 
@@ -142,6 +146,14 @@
             this.btn_EditDoc.Text = "Edit";
             this.btn_EditDoc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btn_EditDoc.UseVisualStyleBackColor = true;
+            this.btn_EditDoc.Click += new System.EventHandler(this.btn_EditDoc_Click);
+            // 
+            // img_EditDoc
+            // 
+            this.img_EditDoc.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.img_EditDoc.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("img_EditDoc.ImageStream")));
+            this.img_EditDoc.TransparentColor = System.Drawing.Color.Transparent;
+            this.img_EditDoc.Images.SetKeyName(0, "1160515.png");
             // 
             // lbl_DocSearch
             // 
@@ -159,13 +171,6 @@
             this.txt_DocSearch.Size = new System.Drawing.Size(456, 23);
             this.txt_DocSearch.TabIndex = 7;
             this.txt_DocSearch.TextChanged += new System.EventHandler(this.txt_DocSearch_TextChanged);
-            // 
-            // img_EditDoc
-            // 
-            this.img_EditDoc.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.img_EditDoc.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("img_EditDoc.ImageStream")));
-            this.img_EditDoc.TransparentColor = System.Drawing.Color.Transparent;
-            this.img_EditDoc.Images.SetKeyName(0, "1160515.png");
             // 
             // frm_ProjectDocumentInterface
             // 

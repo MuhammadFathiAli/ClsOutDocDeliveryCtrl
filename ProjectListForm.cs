@@ -79,9 +79,13 @@ namespace ClsOutDocDeliveryCtrl
         private void btn_Open_Click(object sender, EventArgs e)
         {
             var x = gridView_ProjectList.SelectedRows[0];
+            int projectID = (int)x.Cells[0].Value;
             if (x is not null)
             {
-                MessageBox.Show($"{x.Cells[1].Value.ToString()}");
+                ProjectDocumentsForm projectDocumentsForm = new(projectID);
+                this.Hide();
+                projectDocumentsForm.ShowDialog();
+                this.Show();
             }
             else
                 MessageBox.Show($"Select a prject whole row");

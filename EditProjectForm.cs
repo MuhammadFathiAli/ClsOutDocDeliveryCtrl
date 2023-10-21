@@ -35,8 +35,6 @@ namespace ClsOutDocDeliveryCtrl
         {
             try
             {
-
-
                 if (!ValidateForm())
                 {
                     MessageBox.Show(errorMessage, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -78,12 +76,12 @@ namespace ClsOutDocDeliveryCtrl
             {
                 if (ex.InnerException?.Message.Contains("duplicate") ?? false)
                 {
-                    MessageBox.Show($"Error Creating a new project: Project [{this.txt_PrjctName.Text}] aleardy exists",
+                    MessageBox.Show($"Error Editing the project: Project [{this.txt_PrjctName.Text}] aleardy exists",
                         Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
 
                 }
-                MessageBox.Show($"Error Creating a new project, Check Database Existence"
+                MessageBox.Show($"Error Editing the project, Check Database Existence"
                     , Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }

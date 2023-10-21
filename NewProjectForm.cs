@@ -44,7 +44,7 @@ namespace ClsOutDocDeliveryCtrl
                 MessageBox.Show("Project created successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // Navigate to Project Documents Screen.
                 frm_ProjectDocumentInterface projectDocumentInterfaceForm = new frm_ProjectDocumentInterface(project);
-                this.Close(); 
+                this.Close();
                 projectDocumentInterfaceForm.ShowDialog();
             }
             catch (Exception ex)

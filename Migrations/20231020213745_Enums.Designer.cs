@@ -4,6 +4,7 @@ using ClsOutDocDeliveryCtrl.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClsOutDocDeliveryCtrl.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20231020213745_Enums")]
+    partial class Enums
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,9 +87,6 @@ namespace ClsOutDocDeliveryCtrl.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("Deduction")
-                        .HasColumnType("decimal(5, 4)");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -130,9 +130,6 @@ namespace ClsOutDocDeliveryCtrl.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<decimal?>("Retention")
-                        .HasColumnType("decimal(5, 4)");
-
                     b.Property<int>("SecondCTRSubmitStatus")
                         .HasMaxLength(50)
                         .HasColumnType("int");
@@ -144,6 +141,12 @@ namespace ClsOutDocDeliveryCtrl.Migrations
                     b.Property<int>("ThirdCTRSubmitStatus")
                         .HasMaxLength(50)
                         .HasColumnType("int");
+
+                    b.Property<decimal?>("TotalDeduction")
+                        .HasColumnType("decimal(5, 4)");
+
+                    b.Property<decimal?>("TotalRetention")
+                        .HasColumnType("decimal(5, 4)");
 
                     b.HasKey("DocumentId");
 

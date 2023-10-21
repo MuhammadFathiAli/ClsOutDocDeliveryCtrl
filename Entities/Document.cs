@@ -12,31 +12,29 @@ public class Document
     public string Description { get; set; }
     public int? RcmdDeadlineBeforeHandover { get; set; }
     public int? RcmdDeadlineAfterHandover { get; set; }
-
-
     public DateTime? ActFirstCTRSubmitDeadline { get; set; }
     public DateTime? ActFirstCTRSubmitDeliveryDate { get; set; }
     [MaxLength(50)]
-    public string? FirstCTRSubmitStatus { get; set; }
+    public DeliveryStatus FirstCTRSubmitStatus { get; set; } = DeliveryStatus.Pending;
     public DateTime? ExpFirstConsultRspDate { get; set; }
     public DateTime? ActFirstConsultRspDate { get; set; }
     [MaxLength(50)]
-    public string? ConsultFirstRspCode { get; set; }
+    public SubmittalCode? ConsultFirstRspCode { get; set; }
     [MaxLength(50)]
-    public string? ConsultFirstRspStatus { get; set; }
+    public ResponseStatus ConsultFirstRspStatus { get; set; } = ResponseStatus.Pending;
 
 
 
     public DateTime? ActSecondCTRSubmitDeadline { get; set; }
     public DateTime? ActSecondCTRSubmitDeliveryDate { get; set; }
     [MaxLength(50)]
-    public string? SecondCTRSubmitStatus { get; set; }
+    public DeliveryStatus SecondCTRSubmitStatus { get; set; } = DeliveryStatus.Pending;
     public DateTime? ExpSecondConsultRspDate { get; set; }
     public DateTime? ActSecondConsultRspDate { get; set; }
     [MaxLength(50)]
-    public string? ConsultSecondRspCode { get; set; }
+    public SubmittalCode? ConsultSecondRspCode { get; set; }
     [MaxLength(50)]
-    public string? ConsultSecondRspStatus { get; set; }
+    public ResponseStatus ConsultSecondRspStatus { get; set; } = ResponseStatus.Pending;
 
 
 
@@ -44,20 +42,20 @@ public class Document
     public DateTime? ActThirdCTRSubmitDeadline { get; set; }
     public DateTime? ActThirdCTRSubmitDeliveryDate { get; set; }
     [MaxLength(50)]
-    public string? ThirdCTRSubmitStatus { get; set; }
+    public DeliveryStatus ThirdCTRSubmitStatus { get; set; } = DeliveryStatus.Pending;
     public DateTime? ExpThirdConsultRspDate { get; set; }
     public DateTime? ActThirdConsultRspDate { get; set; }
     [MaxLength(50)]
-    public string? ConsultThirdRspCode { get; set; }
+    public SubmittalCode? ConsultThirdRspCode { get; set; }
     [MaxLength(50)]
-    public string? ConsultThirdRspStatus { get; set; }
+    public ResponseStatus ConsultThirdRspStatus { get; set; } = ResponseStatus.Pending;
 
 
 
 
     public DateTime? ActOwnerSubmitDate { get; set; }
     [MaxLength(50)]
-    public string? OwnerSubmitStatus { get; set; }
+    public DeliveryStatus OwnerSubmitStatus { get; set; } = DeliveryStatus.Pending;
     [MaxLength(100)]
     public string? OwnerSubmitFormat { get; set; }
     [MaxLength(500)]
@@ -65,10 +63,12 @@ public class Document
     [MaxLength(100)]
     public string? ReceivedBy { get; set; }
     [Column(TypeName = "decimal(5, 4)")]
-    public decimal? TotalRetention { get; set; }
+    public decimal? Retention { get; set; }
     [Column(TypeName = "decimal(5, 4)")]
-    public decimal? TotalDeduction { get; set; }
+    public decimal? Deduction { get; set; }
     public int ProjectId { get; set; }
     public Project Project { get; set; }
 
 }
+
+
