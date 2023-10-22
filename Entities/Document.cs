@@ -57,7 +57,7 @@ public class Document
     [MaxLength(50)]
     public DeliveryStatus OwnerSubmitStatus { get; set; } = DeliveryStatus.NotSet;
     [MaxLength(100)]
-    public string? OwnerSubmitFormat { get; set; }
+    public SubmitalFormat OwnerSubmitFormat { get; set; } = SubmitalFormat.NotSet;
     [MaxLength(500)]
     public string? StoragePlace { get; set; }
     [MaxLength(100)]

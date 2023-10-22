@@ -21,6 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="SepNewDocumentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="App.config">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>

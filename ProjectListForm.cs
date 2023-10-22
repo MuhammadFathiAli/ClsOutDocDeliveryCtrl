@@ -80,12 +80,21 @@ namespace ClsOutDocDeliveryCtrl
         {
             var x = gridView_ProjectList.SelectedRows[0];
             int projectID = (int)x.Cells[0].Value;
+            Project? project;
+
             if (x is not null)
             {
-                ProjectDocumentsForm projectDocumentsForm = new(projectID);
-                this.Hide();
-                projectDocumentsForm.ShowDialog();
-                this.Show();
+                using (var context = new AppDBContext())
+                {
+                    project = context.Projects.FirstOrDefault(p => p.ProjectId == projectID);
+                }
+                if (project is not null)
+                {
+                    ProjectDocumentsForm projectDocumentsForm = new(project);
+                    this.Hide();
+                    projectDocumentsForm.ShowDialog();
+                    this.Show();
+                }
             }
             else
                 MessageBox.Show($"Select a prject whole row");

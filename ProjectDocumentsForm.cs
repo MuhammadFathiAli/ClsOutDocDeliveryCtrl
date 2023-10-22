@@ -12,16 +12,17 @@ namespace ClsOutDocDeliveryCtrl
     }
     public partial class ProjectDocumentsForm : Form
     {
-        int _projectID;
+        private Project _project;
         private DataGridViewCell _clickedCell;
         private DateTimePicker _dtp;
         private DataGridViewComboBoxColumn firstStatusCol;
         private DataGridViewComboBoxColumn secondStatusCol;
         private DataGridViewComboBoxColumn thirdStatusCol;
+        private DataGridViewComboBoxColumn submitalFormatCol;
 
-        public ProjectDocumentsForm(int projectID)
+        public ProjectDocumentsForm(Project project)
         {
-            _projectID = projectID;
+            _project = project;
             InitializeComponent();
             _dtp = new DateTimePicker { Visible = false, Format = DateTimePickerFormat.Short };
             gridView_ProjectDocs.Controls.Add(_dtp);
@@ -34,6 +35,7 @@ namespace ClsOutDocDeliveryCtrl
             firstStatusCol = new DataGridViewComboBoxColumn();
             secondStatusCol = new DataGridViewComboBoxColumn();
             thirdStatusCol = new DataGridViewComboBoxColumn();
+            submitalFormatCol = new DataGridViewComboBoxColumn();
         }
 
         private void ProjectDocumentsForm_Load(object sender, EventArgs e)
@@ -43,7 +45,12 @@ namespace ClsOutDocDeliveryCtrl
             AddComboBoxColumns();
             SetColumnVisibility();
             SetSubmitStatusColumn(SubmitalPhase.first);
+            SetResponseStatusColumn(SubmitalPhase.first);
+            SPlitColumns();
         }
+
+
+
         private void GridView_ProjectDocs_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
@@ -117,6 +124,39 @@ namespace ClsOutDocDeliveryCtrl
             if (columnName == "ActThirdCTRSubmitDeadline" || columnName == "ActThirdCTRSubmitDeliveryDate")
             {
                 SetSubmitStatusColumn(SubmitalPhase.third);
+            }
+            if (columnName == "ActFirstConsultRspDate" || columnName == "ExpFirstConsultRspDate")
+            {
+                SetResponseStatusColumn(SubmitalPhase.first);
+            }
+            if (columnName == "ActSecondConsultRspDate" || columnName == "ExpSecondConsultRspDate")
+            {
+                SetResponseStatusColumn(SubmitalPhase.second);
+            }
+            if (columnName == "ActThirdConsultRspDate" || columnName == "ExpThirdConsultRspDate")
+            {
+                SetResponseStatusColumn(SubmitalPhase.third);
+            }
+            if (columnName == "ActOwnerSubmitDate")
+            {
+                SetSbmitToOwnerStatus(sender, e);
+            }
+        }
+
+        private void SetSbmitToOwnerStatus(object? sender, DataGridViewCellEventArgs e)
+        {
+            var columnName = gridView_ProjectDocs.Columns[e.ColumnIndex].Name;
+            var cell = gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            if (cell.Value != null && columnName == "ActOwnerSubmitDate")
+            {
+                if ((DateTime)cell.Value > _project.PlannedEndDate)
+                {
+                    gridView_ProjectDocs.Rows[cell.RowIndex].Cells["OwnerSubmitStatus"].Value = DeliveryStatus.DeliveredLate;
+                }
+                else if ((DateTime)cell.Value <= _project.PlannedEndDate)
+                {
+                    gridView_ProjectDocs.Rows[cell.RowIndex].Cells["OwnerSubmitStatus"].Value = DeliveryStatus.DeliveredOnTime;
+                }
             }
         }
 
@@ -262,6 +302,20 @@ namespace ClsOutDocDeliveryCtrl
             secondStatusCol.Name = "ConsultSecondRspCode";
             thirdStatusCol.DataPropertyName = "ConsultThirdRspCode";
             thirdStatusCol.Name = "ConsultThirdRspCode";
+
+            submitalFormatCol.HeaderText = "Owner Submittal Format";
+            gridView_ProjectDocs.Columns.Insert(gridView_ProjectDocs.Columns["OwnerSubmitFormat"].Index, submitalFormatCol);
+            submitalFormatCol.ValueType = typeof(SubmitalFormat);
+            var subFormatList = Enum.GetValues(typeof(SubmitalFormat)).Cast<SubmitalFormat>().ToList();
+            submitalFormatCol.DataSource = subFormatList.Select(s => new
+            {
+                Display = s.ToDescriptionString(),
+                Value = s
+            }).ToList();
+            submitalFormatCol.DisplayMember = "Display";
+            submitalFormatCol.ValueMember = "Value";
+            submitalFormatCol.DataPropertyName = "OwnerSubmitFormat";
+            submitalFormatCol.Name = "OwnerSubmitFormat";
         }
         private void SetColumnVisibility()
         {
@@ -313,10 +367,12 @@ namespace ClsOutDocDeliveryCtrl
         {
             using (var context = new AppDBContext())
             {
-                var documents = context.Documents.Where(d => d.ProjectId == _projectID).ToList();
+                var documents = context.Documents.Where(d => d.ProjectId == _project.ProjectId).ToList();
                 gridView_ProjectDocs.DataSource = documents;
             }
         }
+
+
         private void SetUpColumns()
         {
 
@@ -336,6 +392,8 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["ConsultFirstRspCode"].Visible = false;
             gridView_ProjectDocs.Columns["ConsultSecondRspCode"].Visible = false;
             gridView_ProjectDocs.Columns["ConsultThirdRspCode"].Visible = false;
+            gridView_ProjectDocs.Columns["OwnerSubmitFormat"].Visible = false;
+
 
             gridView_ProjectDocs.Columns["FirstCTRSubmitStatus"].ReadOnly = true;
             gridView_ProjectDocs.Columns["FirstCTRSubmitStatus"].DefaultCellStyle.BackColor = Color.DarkGray;
@@ -360,6 +418,13 @@ namespace ClsOutDocDeliveryCtrl
 
 
             renameCoumns();
+        }
+
+        private void SPlitColumns()
+        {
+            this.tabPage_basicInfo.Controls.Add(this.gridView_ProjectDocs);
+            this.tabPage_firstCtrConsltSubmittal.Controls.Add(this.gridView_ProjectDocs);
+
         }
         private void renameCoumns()
         {
@@ -459,8 +524,64 @@ namespace ClsOutDocDeliveryCtrl
                 }
             }
         }
+        private void SetResponseStatusColumn(SubmitalPhase submitalPhase)
+        {
+            var expectedColName = string.Empty;
+            var actualColName = string.Empty;
+            var statusColName = string.Empty;
+            switch (submitalPhase)
+            {
+                case SubmitalPhase.first:
+                    expectedColName = "ExpFirstConsultRspDate";
+                    actualColName = "ActFirstConsultRspDate";
+                    statusColName = "ConsultFirstRspStatus";
+                    break;
+                case SubmitalPhase.second:
+                    expectedColName = "ExpSecondConsultRspDate";
+                    actualColName = "ActSecondConsultRspDate";
+                    statusColName = "ConsultSecondRspStatus";
+                    break;
+                case SubmitalPhase.third:
+                    expectedColName = "ExpThirdConsultRspDate";
+                    actualColName = "ActThirdConsultRspDate";
+                    statusColName = "ConsultThirdRspStatus";
+                    break;
+                default:
+                    break;
+            }
+            foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+            {
+                var expectedCellValue = row.Cells[expectedColName].Value;
+                var actualCellValue = row.Cells[actualColName].Value;
 
+                if (expectedCellValue is null)
+                {
+                    row.Cells[statusColName].Value = ResponseStatus.NotSet;
+                }
+                else
+                {
+                    if (actualCellValue == null)
+                    {
+                        if ((DateTime)expectedCellValue >= DateTime.Today)
+                        {
+                            row.Cells[statusColName].Value = ResponseStatus.Pending;
+                        }
+                        else
+                        {
+                            row.Cells[statusColName].Value = ResponseStatus.Late;
+                        }
+                    }
 
-
+                    else if ((DateTime)expectedCellValue >= (DateTime)actualCellValue)
+                    {
+                        row.Cells[statusColName].Value = ResponseStatus.RespondedOnTime;
+                    }
+                    else if ((DateTime)expectedCellValue < (DateTime)actualCellValue)
+                    {
+                        row.Cells[statusColName].Value = ResponseStatus.RespondedLate;
+                    }
+                }
+            }
+        }
     }
 }
