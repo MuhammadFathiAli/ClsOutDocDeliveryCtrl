@@ -1,5 +1,6 @@
 ﻿using ClsOutDocDeliveryCtrl.Context;
 using ClsOutDocDeliveryCtrl.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace ClsOutDocDeliveryCtrl
@@ -15,12 +16,15 @@ namespace ClsOutDocDeliveryCtrl
         private bool ShowSecondSubmital;
         private bool ShowThirdSubmital;
 
+        private bool ISShownSecondSubmital;
+        private bool ISShownThirdSubmital;
+
         private Project _project;
         private DataGridViewCell _clickedCell;
         private DateTimePicker _dtp;
-        private DataGridViewComboBoxColumn firstStatusCol;
-        private DataGridViewComboBoxColumn secondStatusCol;
-        private DataGridViewComboBoxColumn thirdStatusCol;
+        private DataGridViewComboBoxColumn firstRspCodeCombBoxCol;
+        private DataGridViewComboBoxColumn secondRspCodeCombBoxCol;
+        private DataGridViewComboBoxColumn thirdRspCodeCombBoxCol;
         private DataGridViewComboBoxColumn submitalFormatCol;
         public frm_ProjectDosc(Project project)
         {
@@ -34,13 +38,19 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.CellValueChanged += GridView_ProjectDocs_CellValueChanged;
             gridView_ProjectDocs.EditingControlShowing += GridView_ProjectDocs_EditingControlShowing;
             gridView_ProjectDocs.CellFormatting += GridView_ProjectDocs_CellFormatting;
+            gridView_ProjectDocs.CellLeave += GridView_ProjectDocs_CellEndEdit;
             tabControl1.Selected += TabControl1_Selected;
             FormClosing += ProjectDocumentsForm_FormClosing;
             gridView_ProjectDocs.Visible = true;
-            firstStatusCol = new DataGridViewComboBoxColumn();
-            secondStatusCol = new DataGridViewComboBoxColumn();
-            thirdStatusCol = new DataGridViewComboBoxColumn();
+            firstRspCodeCombBoxCol = new DataGridViewComboBoxColumn();
+            secondRspCodeCombBoxCol = new DataGridViewComboBoxColumn();
+            thirdRspCodeCombBoxCol = new DataGridViewComboBoxColumn();
             submitalFormatCol = new DataGridViewComboBoxColumn();
+        }
+
+        private void GridView_ProjectDocs_CellEndEdit(object? sender, DataGridViewCellEventArgs e)
+        {
+            _dtp.Visible = false;
         }
 
         private void ProjectDocumentsForm_FormClosing(object? sender, FormClosingEventArgs e)
@@ -55,31 +65,32 @@ namespace ClsOutDocDeliveryCtrl
             LoadData();
             SetUpColumns();
             AddComboBoxColumns();
-            SetSubmitColsVisibility();
             SetSubmitStatusColumn(SubmitalPhase.first);
             SetResponseStatusColumn(SubmitalPhase.first);
-            RemoveSecondSubmitTrailsScreen();
-            RemoveThirdSubmitTrailsScreen();
+            RemoveSecondSubmitTrailsScreen(true);
+            RemoveThirdSubmitTrailsScreen(true);
+            SetSubmitColsVisibility();
             FirstSubmitView();
         }
 
-        private void RemoveExtraSubmitTrailsPages()
+        private void RemoveThirdSubmitTrailsScreen(bool firstTime = false)
         {
-        RemoveSecondSubmitTrailsScreen();
-        RemoveThirdSubmitTrailsScreen();
-
+            if (ISShownThirdSubmital || firstTime)
+            {
+                this.tabControl1.TabPages.Remove(this.tabPage_ThirdCTRSubmit);
+                this.tabControl1.TabPages.Remove(this.tabPage_ConsultThirdResponse);
+                ISShownThirdSubmital = false;
+            }
         }
 
-        private void RemoveThirdSubmitTrailsScreen()
+        private void RemoveSecondSubmitTrailsScreen(bool firstTime = false)
         {
-            this.tabControl1.TabPages.Remove(this.tabPage_ThirdCTRSubmit);
-            this.tabControl1.TabPages.Remove(this.tabPage_ConsultThirdResponse);
-        }
-
-        private void RemoveSecondSubmitTrailsScreen()
-        {
-            this.tabControl1.TabPages.Remove(this.tabPage_SecondCTRSubmit);
-            this.tabControl1.TabPages.Remove(this.tabPage_ConsultSecondResponse);
+            if (ISShownSecondSubmital || firstTime)
+            {
+                this.tabControl1.TabPages.Remove(this.tabPage_SecondCTRSubmit);
+                this.tabControl1.TabPages.Remove(this.tabPage_ConsultSecondResponse);
+                ISShownSecondSubmital = false;
+            }
         }
 
         private void LoadData()
@@ -97,6 +108,7 @@ namespace ClsOutDocDeliveryCtrl
             //HidePermenantCols();
             //HideSecondSubmits(true);
             //HideThirdSubmits(true);
+
             renameCols();
         }
         private void SetDateFormat()
@@ -132,43 +144,10 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["OwnerSubmitStatus"].ReadOnly = true;
             gridView_ProjectDocs.Columns["OwnerSubmitStatus"].DefaultCellStyle.BackColor = Color.DarkGray;
         }
-        private void HidePermenantCols()
-        {
-            gridView_ProjectDocs.Columns["DocumentId"].Visible = false;
-            gridView_ProjectDocs.Columns["Description"].Visible = false;
-            gridView_ProjectDocs.Columns["Project"].Visible = false;
-            gridView_ProjectDocs.Columns["ProjectId"].Visible = false;
-            gridView_ProjectDocs.Columns["ConsultFirstRspCode"].Visible = false;
-            gridView_ProjectDocs.Columns["ConsultSecondRspCode"].Visible = false;
-            gridView_ProjectDocs.Columns["ConsultThirdRspCode"].Visible = false;
-            gridView_ProjectDocs.Columns["OwnerSubmitFormat"].Visible = false;
-        }
-        private void HideSecondSubmits(bool hide)
-        {
-            gridView_ProjectDocs.Columns["ActSecondCTRSubmitDeadline"].Visible = !hide;
-            gridView_ProjectDocs.Columns["ActSecondCTRSubmitDeliveryDate"].Visible = !hide;
-            gridView_ProjectDocs.Columns["SecondCTRSubmitStatus"].Visible = !hide;
-            gridView_ProjectDocs.Columns["ExpSecondConsultRspDate"].Visible = !hide;
-            gridView_ProjectDocs.Columns["ActSecondConsultRspDate"].Visible = !hide;
-            gridView_ProjectDocs.Columns["ConsultSecondRspCode"].Visible = !hide;
-            gridView_ProjectDocs.Columns["ConsultSecondRspStatus"].Visible = !hide;
-            secondStatusCol.Visible = !hide;
-        }
-        private void HideThirdSubmits(bool hide)
-        {
-            gridView_ProjectDocs.Columns["ActThirdCTRSubmitDeadline"].Visible = !hide;
-            gridView_ProjectDocs.Columns["ActThirdCTRSubmitDeliveryDate"].Visible = !hide;
-            gridView_ProjectDocs.Columns["ThirdCTRSubmitStatus"].Visible = !hide;
-            gridView_ProjectDocs.Columns["ExpThirdConsultRspDate"].Visible = !hide;
-            gridView_ProjectDocs.Columns["ActThirdConsultRspDate"].Visible = !hide;
-            gridView_ProjectDocs.Columns["ConsultThirdRspCode"].Visible = !hide;
-            gridView_ProjectDocs.Columns["ConsultThirdRspStatus"].Visible = !hide;
-            thirdStatusCol.Visible = !hide;
-        }
         private void renameCols()
         {
-            gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].HeaderText = "Recomended DeadLine Before Handover";
-            gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"].HeaderText = "Recomended DeadLine After Handover";
+            gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].HeaderText = "Recomended DeadLine Before Handover (Weeks)";
+            gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"].HeaderText = "Recomended DeadLine After Handover (Weeks)";
             gridView_ProjectDocs.Columns["ActFirstCTRSubmitDeadline"].HeaderText = "Actual First Contractor Submittal Deadline";
             gridView_ProjectDocs.Columns["ActFirstCTRSubmitDeliveryDate"].HeaderText = "Actual First Contractor Submittal Delivery Date";
             gridView_ProjectDocs.Columns["FirstCTRSubmitStatus"].HeaderText = "First Contractor Submittal Status";
@@ -199,32 +178,32 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["ActOwnerSubmitDate"].HeaderText = "Actual Owner Submittal Date";
             gridView_ProjectDocs.Columns["OwnerSubmitStatus"].HeaderText = "Owner Submittal Status";
             gridView_ProjectDocs.Columns["OwnerSubmitFormat"].HeaderText = "Owner Submittal Format";
-            gridView_ProjectDocs.Columns["StoragePlace"].HeaderText = "Storage Place";
+            gridView_ProjectDocs.Columns["StoragePlace"].HeaderText = "Physical Storage Place";
             gridView_ProjectDocs.Columns["ReceivedBy"].HeaderText = "Received By";
-            gridView_ProjectDocs.Columns["Retention"].HeaderText = "Retention";
-            gridView_ProjectDocs.Columns["Deduction"].HeaderText = "Deduction";
+            gridView_ProjectDocs.Columns["Retention"].HeaderText = "Retention (from total project value)";
+            gridView_ProjectDocs.Columns["Deduction"].HeaderText = "Deduction (from total project value)";
         }
         private void AddComboBoxColumns()
         {
 
             var subCodeList = Enum.GetValues(typeof(ResponseCode)).Cast<ResponseCode>().ToList();
 
-            firstStatusCol.HeaderText = "First Consultant Response Code";
-            gridView_ProjectDocs.Columns.Insert(gridView_ProjectDocs.Columns["ConsultFirstRspCode"].Index, firstStatusCol);
+            firstRspCodeCombBoxCol.HeaderText = "First Consultant Response Code";
+            gridView_ProjectDocs.Columns.Insert(gridView_ProjectDocs.Columns["ConsultFirstRspCode"].Index, firstRspCodeCombBoxCol);
 
 
 
-            secondStatusCol.HeaderText = "Second Consultant Response Code";
-            gridView_ProjectDocs.Columns.Insert(gridView_ProjectDocs.Columns["ConsultSecondRspCode"].Index, secondStatusCol);
+            secondRspCodeCombBoxCol.HeaderText = "Second Consultant Response Code";
+            gridView_ProjectDocs.Columns.Insert(gridView_ProjectDocs.Columns["ConsultSecondRspCode"].Index, secondRspCodeCombBoxCol);
 
 
 
-            thirdStatusCol.HeaderText = "Third Consultant Response Code";
-            gridView_ProjectDocs.Columns.Insert(gridView_ProjectDocs.Columns["ConsultThirdRspCode"].Index, thirdStatusCol);
+            thirdRspCodeCombBoxCol.HeaderText = "Third Consultant Response Code";
+            gridView_ProjectDocs.Columns.Insert(gridView_ProjectDocs.Columns["ConsultThirdRspCode"].Index, thirdRspCodeCombBoxCol);
 
 
 
-            var comboBoxColumns = new List<DataGridViewComboBoxColumn> { firstStatusCol, secondStatusCol, thirdStatusCol };
+            var comboBoxColumns = new List<DataGridViewComboBoxColumn> { firstRspCodeCombBoxCol, secondRspCodeCombBoxCol, thirdRspCodeCombBoxCol };
 
             foreach (var col in comboBoxColumns)
             {
@@ -238,12 +217,12 @@ namespace ClsOutDocDeliveryCtrl
                 col.DisplayMember = "Display";
                 col.ValueMember = "Value";
             }
-            firstStatusCol.DataPropertyName = "ConsultFirstRspCode";
-            firstStatusCol.Name = "ConsultFirstRspCode";
-            secondStatusCol.DataPropertyName = "ConsultSecondRspCode";
-            secondStatusCol.Name = "ConsultSecondRspCode";
-            thirdStatusCol.DataPropertyName = "ConsultThirdRspCode";
-            thirdStatusCol.Name = "ConsultThirdRspCode";
+            firstRspCodeCombBoxCol.DataPropertyName = "ConsultFirstRspCode";
+            firstRspCodeCombBoxCol.Name = "ConsultFirstRspCode";
+            secondRspCodeCombBoxCol.DataPropertyName = "ConsultSecondRspCode";
+            secondRspCodeCombBoxCol.Name = "ConsultSecondRspCode";
+            thirdRspCodeCombBoxCol.DataPropertyName = "ConsultThirdRspCode";
+            thirdRspCodeCombBoxCol.Name = "ConsultThirdRspCode";
 
             submitalFormatCol.HeaderText = "Owner Submittal Format";
             gridView_ProjectDocs.Columns.Insert(gridView_ProjectDocs.Columns["OwnerSubmitFormat"].Index, submitalFormatCol);
@@ -262,7 +241,8 @@ namespace ClsOutDocDeliveryCtrl
         private void SetSubmitColsVisibility()
         {
             bool isResubmitAsPerNotedPresent = gridView_ProjectDocs.Rows.Cast<DataGridViewRow>()
-                .Any(row => (row.Cells[firstStatusCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.ResubmitAsPerNoted.ToString());
+                .Any(row => (row.Cells[firstRspCodeCombBoxCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.ResubmitAsPerNoted.ToString());
+
 
             if (isResubmitAsPerNotedPresent)
             {
@@ -277,14 +257,28 @@ namespace ClsOutDocDeliveryCtrl
                 ShowThirdSubmital = false;
                 RemoveSecondSubmitTrailsScreen();
                 RemoveThirdSubmitTrailsScreen();
+                //ChangeSecondTrailtoNull();
+                //ChangeThirdTrailtoNull();
                 //HideSecondSubmits(true);
                 //HideThirdSubmits(true);
+            }
+
+            var firstRowList = gridView_ProjectDocs.Rows.Cast<DataGridViewRow>()?.ToList();
+            if (firstRowList is not null)
+            {
+                foreach (DataGridViewRow row in firstRowList)
+                {
+                    var e = new DataGridViewCellEventArgs(firstRspCodeCombBoxCol.Index, row.Index);
+                    SetSubmitColsValues(new object(), e, false);
+                    var x = new DataGridViewCellEventArgs(secondRspCodeCombBoxCol.Index, row.Index);
+                    SetSubmitColsValues(new object(), x, true);
+                }
             }
         }
         private void SetSecondSubmitColVisibilty()
         {
             bool isResubmitAsPerNotedPresent = gridView_ProjectDocs.Rows.Cast<DataGridViewRow>()
-                .Any(row => (row.Cells[secondStatusCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.ResubmitAsPerNoted.ToString());
+                .Any(row => (row.Cells[secondRspCodeCombBoxCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.ResubmitAsPerNoted.ToString());
             if (isResubmitAsPerNotedPresent)
             {
                 ShowThirdSubmital = true;
@@ -295,8 +289,92 @@ namespace ClsOutDocDeliveryCtrl
             else
             {
                 RemoveThirdSubmitTrailsScreen();
+                //ChangeThirdTrailtoNull();
                 ShowThirdSubmital = false;
                 //HideThirdSubmits(true);
+            }
+        }
+
+        private void SetSubmitColsValues(object? sender, DataGridViewCellEventArgs e, bool thirdOnly)
+        {
+            var defColor = gridView_ProjectDocs.Rows[e.RowIndex].Cells["Name"].Style.BackColor;
+            var cellValue = gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            bool isResubmitAsPerNoted = (cellValue?.ToString() ?? String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString();
+            var secondTrailcells = new List<DataGridViewCell>()
+                    {
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondCTRSubmitDeadline"],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondCTRSubmitDeliveryDate"],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["SecondCTRSubmitStatus"],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ExpSecondConsultRspDate"],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondConsultRspDate"],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ConsultSecondRspCode"],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells[secondRspCodeCombBoxCol.Index],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ConsultSecondRspStatus"]
+                    };
+            var thirdTrailcells = new List<DataGridViewCell>()
+                    {
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActThirdCTRSubmitDeadline"],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActThirdCTRSubmitDeliveryDate"],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ThirdCTRSubmitStatus"],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ExpThirdConsultRspDate"],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActThirdConsultRspDate"],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ConsultThirdRspCode"],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells[thirdRspCodeCombBoxCol.Index],
+                        gridView_ProjectDocs.Rows[e.RowIndex].Cells["ConsultThirdRspStatus"]
+                    };
+            if (!isResubmitAsPerNoted)
+            {
+
+                if (thirdOnly == false) // work on second too
+                {
+                    foreach (var cell in secondTrailcells)
+                    {
+                        cell.ReadOnly = true;
+                        cell.Style.BackColor = Color.DarkGray;
+                    }
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondCTRSubmitDeadline"].Value = null;
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondCTRSubmitDeliveryDate"].Value = null;
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["SecondCTRSubmitStatus"].Value = DeliveryStatus.NotSet;
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["ExpSecondConsultRspDate"].Value = null;
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondConsultRspDate"].Value = null;
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["ConsultSecondRspCode"].Value = ResponseCode.NotSet;
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells[secondRspCodeCombBoxCol.Index].Value = ResponseCode.NotSet;
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["ConsultSecondRspStatus"].Value = ResponseStatus.NotSet;
+
+                }
+                // work on third
+                foreach (var cell in thirdTrailcells)
+                {
+                    cell.ReadOnly = true;
+                    cell.Style.BackColor = Color.DarkGray;
+                }
+                gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActThirdCTRSubmitDeadline"].Value = null;
+                gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActThirdCTRSubmitDeliveryDate"].Value = null;
+                gridView_ProjectDocs.Rows[e.RowIndex].Cells["ThirdCTRSubmitStatus"].Value = DeliveryStatus.NotSet;
+                gridView_ProjectDocs.Rows[e.RowIndex].Cells["ExpThirdConsultRspDate"].Value = null;
+                gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActThirdConsultRspDate"].Value = null;
+                gridView_ProjectDocs.Rows[e.RowIndex].Cells["ConsultThirdRspCode"].Value = ResponseCode.NotSet;
+                gridView_ProjectDocs.Rows[e.RowIndex].Cells[thirdRspCodeCombBoxCol.Index].Value = ResponseCode.NotSet;
+                gridView_ProjectDocs.Rows[e.RowIndex].Cells["ConsultThirdRspStatus"].Value = ResponseStatus.NotSet;
+
+            }
+            if (isResubmitAsPerNoted)
+            {
+
+                if (thirdOnly == false) // work on second too
+                {
+                    foreach (var cell in secondTrailcells)
+                    {
+                        cell.ReadOnly = false;
+                        cell.Style.BackColor = defColor;
+                    }
+                }
+                // work on third
+                foreach (var cell in thirdTrailcells)
+                {
+                    cell.ReadOnly = false;
+                    cell.Style.BackColor = defColor;
+                }
             }
         }
         private void SetSubmitStatusColumn(SubmitalPhase submitalPhase)
@@ -460,7 +538,6 @@ namespace ClsOutDocDeliveryCtrl
         private void GridView_ProjectDocs_CellValueChanged(object? sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex < 0 || e.RowIndex < 0) return;
-
             var columnName = gridView_ProjectDocs.Columns[e.ColumnIndex].Name;
             if (columnName == "RcmdDeadlineAfterHandover" || columnName == "RcmdDeadlineBeforeHandover")
             {
@@ -469,17 +546,27 @@ namespace ClsOutDocDeliveryCtrl
                     ToggleColumnsEnableState(sender, e);
                 }
             }
-            if (columnName == firstStatusCol.Name)
+            if (columnName == firstRspCodeCombBoxCol.Name)
             {
                 SetSubmitColsVisibility();
+                SetSubmitColsValues(sender, e, thirdOnly: false);
             }
-            if (columnName == secondStatusCol.Name)
+            if (columnName == secondRspCodeCombBoxCol.Name)
             {
                 SetSecondSubmitColVisibilty();
+                SetSubmitColsValues(sender, e, thirdOnly: true);
             }
-            if (columnName == thirdStatusCol.Name)
+            if (columnName == thirdRspCodeCombBoxCol.Name)
             {
                 handleMaxSubmitTrails(sender, e);
+            }
+            if (columnName == "RcmdDeadlineBeforeHandover")
+            {
+                SetActualFirstSubmitDeadline(e, before: true);
+            }
+            if (columnName == "RcmdDeadlineAfterHandover")
+            {
+                SetActualFirstSubmitDeadline(e, before : false);
             }
             if (columnName == "ActFirstCTRSubmitDeadline" || columnName == "ActFirstCTRSubmitDeliveryDate")
             {
@@ -511,6 +598,29 @@ namespace ClsOutDocDeliveryCtrl
             }
         }
 
+        private void SetActualFirstSubmitDeadline(DataGridViewCellEventArgs e, bool before)
+        {
+            var deadLine = gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActFirstCTRSubmitDeadline"].Value;
+            if (before)
+            {
+                var timeBefore = gridView_ProjectDocs.Rows[e.RowIndex].Cells["RcmdDeadlineBeforeHandover"].Value;
+                if (timeBefore != null && timeBefore is int weeks)
+                {
+                    deadLine = _project.PlannedEndDate.AddDays(-weeks * 7);
+                }
+            }
+            else
+            {
+                var timeAfter = gridView_ProjectDocs.Rows[e.RowIndex].Cells["RcmdDeadlineAfterHandover"].Value;
+                if (timeAfter != null && timeAfter is int weeks)
+                {
+                    deadLine = _project.PlannedEndDate.AddDays(weeks * 7);
+                }
+            }
+            gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActFirstCTRSubmitDeadline"].Value = deadLine;
+
+        }
+
         private void SetSbmitToOwnerStatus(object? sender, DataGridViewCellEventArgs e)
         {
             var columnName = gridView_ProjectDocs.Columns[e.ColumnIndex].Name;
@@ -532,7 +642,7 @@ namespace ClsOutDocDeliveryCtrl
         {
             var columnName = gridView_ProjectDocs.Columns[e.ColumnIndex].Name;
             var cell = gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            if (cell.Value != null && columnName == thirdStatusCol.Name
+            if (cell.Value != null && columnName == thirdRspCodeCombBoxCol.Name
                && (ResponseCode)cell.Value == ResponseCode.ResubmitAsPerNoted)
             {
                 MessageBox.Show("Error: ResubmitAsPerNoted is not allowed in the third submit," +
@@ -605,6 +715,8 @@ namespace ClsOutDocDeliveryCtrl
                 e.Handled = true;
             }
         }
+
+        //don't delete
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Escape)
@@ -616,14 +728,15 @@ namespace ClsOutDocDeliveryCtrl
         }
         private void ShowDateTimePicker(DataGridViewCell cell)
         {
-            var cellRectangle = gridView_ProjectDocs.
-                GetCellDisplayRectangle(cell.ColumnIndex, cell.RowIndex, true);
-            _dtp.Size = new Size(cellRectangle.Width, cellRectangle.Height);
-            _dtp.Location = new Point(cellRectangle.X, cellRectangle.Y);
-            _dtp.Visible = true;
+            if (!cell.ReadOnly)
+            {
+                var cellRectangle = gridView_ProjectDocs.
+                    GetCellDisplayRectangle(cell.ColumnIndex, cell.RowIndex, true);
+                _dtp.Size = new Size(cellRectangle.Width, cellRectangle.Height);
+                _dtp.Location = new Point(cellRectangle.X, cellRectangle.Y);
+                _dtp.Visible = true;
+            }
         }
-
-
 
         private void TabControl1_Selected(object? sender, TabControlEventArgs e)
         {
@@ -647,9 +760,21 @@ namespace ClsOutDocDeliveryCtrl
             {
                 ThirdSubmitView();
             }
+            else if (e.TabPage == tabPage_ConsultThirdResponse)
+            {
+                ThirdResponseView();
+            }
+            else if (e.TabPage == tabPage_SubmitToOwner)
+            {
+                OwnerSubmitView();
+            }
+            else if (e.TabPage == tabPage_Retentions)
+            {
+                RetentionsDeductionsView();
+            }
         }
 
-    //Views
+        //Views
 
         private void HideAllColumns()
         {
@@ -689,7 +814,7 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["Name"].Visible = true;
             gridView_ProjectDocs.Columns["ExpFirstConsultRspDate"].Visible = show;
             gridView_ProjectDocs.Columns["ActFirstConsultRspDate"].Visible = show;
-            firstStatusCol.Visible = show;
+            firstRspCodeCombBoxCol.Visible = show;
             gridView_ProjectDocs.Columns["ConsultFirstRspStatus"].Visible = show;
         }
 
@@ -708,7 +833,7 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["SecondCTRSubmitStatus"].Visible = show;
 
         }
-        
+
         //Second Response
         private void SecondResponseView()
         {
@@ -721,7 +846,7 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["Name"].Visible = true;
             gridView_ProjectDocs.Columns["ExpSecondConsultRspDate"].Visible = show;
             gridView_ProjectDocs.Columns["ActSecondConsultRspDate"].Visible = show;
-            secondStatusCol.Visible = show;
+            secondRspCodeCombBoxCol.Visible = show;
             gridView_ProjectDocs.Columns["ConsultSecondRspStatus"].Visible = show;
         }
 
@@ -740,7 +865,57 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["ThirdCTRSubmitStatus"].Visible = show;
         }
 
+        //Third Response
+        private void ThirdResponseView()
+        {
+            HideAllColumns();
+            ShowThirdResponseContent(true);
+        }
+        private void ShowThirdResponseContent(bool show)
+        {
+            tabControl1.SelectTab("tabPage_ConsultThirdResponse");
+            gridView_ProjectDocs.Columns["Name"].Visible = true;
+            gridView_ProjectDocs.Columns["ExpThirdConsultRspDate"].Visible = show;
+            gridView_ProjectDocs.Columns["ActThirdConsultRspDate"].Visible = show;
+            thirdRspCodeCombBoxCol.Visible = show;
+            gridView_ProjectDocs.Columns["ConsultThirdRspStatus"].Visible = show;
+        }
+
+        //Owner Submit
+        private void OwnerSubmitView()
+        {
+            HideAllColumns();
+            ShowOwnerContent(true);
+        }
+        private void ShowOwnerContent(bool show)
+        {
+            tabControl1.SelectTab("tabPage_SubmitToOwner");
+            gridView_ProjectDocs.Columns["Name"].Visible = true;
+            gridView_ProjectDocs.Columns["ActOwnerSubmitDate"].Visible = show;
+            gridView_ProjectDocs.Columns["OwnerSubmitStatus"].Visible = show;
+            submitalFormatCol.Visible = show;
+            gridView_ProjectDocs.Columns["StoragePlace"].Visible = show;
+            gridView_ProjectDocs.Columns["ReceivedBy"].Visible = show;
+        }
+
+        //Retentions-Deductions View
+        private void RetentionsDeductionsView()
+        {
+            HideAllColumns();
+            ShowRetentionsDeductionsContent(true);
+        }
+
+        private void ShowRetentionsDeductionsContent(bool show)
+        {
+            tabControl1.SelectTab("tabPage_Retentions");
+            gridView_ProjectDocs.Columns["Name"].Visible = true;
+            gridView_ProjectDocs.Columns["Retention"].Visible = show;
+            gridView_ProjectDocs.Columns["Deduction"].Visible = show;
+        }
+
+
         //Events
+
         //First Submit
         private void btn_FirstCTRCancel_Click(object sender, EventArgs e)
         {
@@ -750,7 +925,7 @@ namespace ClsOutDocDeliveryCtrl
         {
             FirstResponseView();
         }
-        
+
         //First Response
         private void btn_FirstResponseBack_Click(object sender, EventArgs e)
         {
@@ -766,11 +941,11 @@ namespace ClsOutDocDeliveryCtrl
             }
             else
             {
-                //show to owner
+                OwnerSubmitView();
             }
 
         }
-        
+
         //Second Submit
         private void btn_SecondCTRBack_Click(object sender, EventArgs e)
         {
@@ -784,7 +959,7 @@ namespace ClsOutDocDeliveryCtrl
         //Second Response
         private void btn_SecondResponseBack_Click(object sender, EventArgs e)
         {
-            FirstResponseView();
+            SecondSubmitView();
         }
         private void btn_SecondResponseNext_Click(object sender, EventArgs e)
         {
@@ -796,22 +971,103 @@ namespace ClsOutDocDeliveryCtrl
             }
             else
             {
-                //show to owner
+                OwnerSubmitView();
             }
         }
 
+        //Third Submit
+        private void btn_ThirdCTRBack_Click(object sender, EventArgs e)
+        {
+            SecondResponseView();
+        }
+        private void btn_ThirdCTRSubmit_Click(object sender, EventArgs e)
+        {
+            ThirdResponseView();
+        }
+
+        //Third Response
+        private void btn_ThirdResponseBack_Click(object sender, EventArgs e)
+        {
+            ThirdSubmitView();
+        }
+        private void btn_ThirdResponseNext_Click(object sender, EventArgs e)
+        {
+            OwnerSubmitView();
+        }
+
+        //Owner Submit
+        private void btn_OwnerSubmitBack_Click(object sender, EventArgs e)
+        {
+            if (ISShownThirdSubmital)
+            {
+                ThirdResponseView();
+            }
+            else
+            {
+                FirstResponseView();
+            }
+
+        }
+        private void btn_OwnerSubmitNext_Click(object sender, EventArgs e)
+        {
+            RetentionsDeductionsView();
+        }
+
+        //Retentions Submit
+        private void btn_RetDedBack_Click(object sender, EventArgs e)
+        {
+            OwnerSubmitView();
+        }
+
+        private void btn_Save_Click(object sender, EventArgs e)
+        {
+            //Save To DB
+            using (var context = new AppDBContext())
+            {
+                try
+                {
+                    // Attach the modified entities to the context
+                    foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+                    {
+                        if (row.DataBoundItem is Document document)
+                        {
+                            context.Documents.Attach(document);
+                            context.Entry(document).State = EntityState.Modified;
+                        }
+                    }
+
+                    // Save the changes to the database
+                    context.SaveChanges();
+
+                    // Optionally, display a success message
+                    MessageBox.Show("Data saved successfully to the database.");
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions that may occur during the database operation
+                    MessageBox.Show($"An error occurred: {ex.InnerException.Message}");
+                }
+            }
+        }
 
         //Helpers
         private void InsertSecondSubmitTrailScreen()
         {
-            this.tabControl1.TabPages.Insert(2, this.tabPage_SecondCTRSubmit);
-            this.tabControl1.TabPages.Insert(3, this.tabPage_ConsultSecondResponse);
+            if (!ISShownSecondSubmital)
+            {
+                this.tabControl1.TabPages.Insert(2, this.tabPage_SecondCTRSubmit);
+                this.tabControl1.TabPages.Insert(3, this.tabPage_ConsultSecondResponse);
+                ISShownSecondSubmital = true;
+            }
         }
         private void InsertThirdSubmitTrailScreen()
         {
-            this.tabControl1.TabPages.Insert(4, this.tabPage_ThirdCTRSubmit);
-            this.tabControl1.TabPages.Insert(5, this.tabPage_ConsultThirdResponse);
+            if (!ISShownThirdSubmital)
+            {
+                this.tabControl1.TabPages.Insert(4, this.tabPage_ThirdCTRSubmit);
+                this.tabControl1.TabPages.Insert(5, this.tabPage_ConsultThirdResponse);
+                ISShownThirdSubmital = true;
+            }
         }
-
     }
 }

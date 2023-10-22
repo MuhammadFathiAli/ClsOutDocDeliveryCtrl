@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gridView_ProjectDocs = new System.Windows.Forms.DataGridView();
             this.tabPage_Retentions = new System.Windows.Forms.TabPage();
             this.btn_RetDedBack = new System.Windows.Forms.Button();
@@ -56,6 +56,8 @@
             this.btn_SecondResponseBack = new System.Windows.Forms.Button();
             this.btn_SecondResponseNext = new System.Windows.Forms.Button();
             this.tabPage_ConsultThirdResponse = new System.Windows.Forms.TabPage();
+            this.btn_ThirdResponseBack = new System.Windows.Forms.Button();
+            this.btn_ThirdResponseNext = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridView_ProjectDocs)).BeginInit();
             this.tabPage_Retentions.SuspendLayout();
             this.tabPage_SubmitToOwner.SuspendLayout();
@@ -65,6 +67,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage_FirstCTRSubmit.SuspendLayout();
             this.tabPage_ConsultSecondResponse.SuspendLayout();
+            this.tabPage_ConsultThirdResponse.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridView_ProjectDocs
@@ -76,37 +79,37 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridView_ProjectDocs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.gridView_ProjectDocs.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridView_ProjectDocs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridView_ProjectDocs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gridView_ProjectDocs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.NullValue = null;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridView_ProjectDocs.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridView_ProjectDocs.DefaultCellStyle = dataGridViewCellStyle2;
             this.gridView_ProjectDocs.GridColor = System.Drawing.SystemColors.Control;
             this.gridView_ProjectDocs.Location = new System.Drawing.Point(21, 60);
             this.gridView_ProjectDocs.Name = "gridView_ProjectDocs";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridView_ProjectDocs.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.gridView_ProjectDocs.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridView_ProjectDocs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.gridView_ProjectDocs.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.gridView_ProjectDocs.Size = new System.Drawing.Size(1235, 350);
             this.gridView_ProjectDocs.TabIndex = 46;
             // 
@@ -131,6 +134,7 @@
             this.btn_RetDedBack.TabIndex = 11;
             this.btn_RetDedBack.Text = "Back";
             this.btn_RetDedBack.UseVisualStyleBackColor = true;
+            this.btn_RetDedBack.Click += new System.EventHandler(this.btn_RetDedBack_Click);
             // 
             // btn_Save
             // 
@@ -141,6 +145,7 @@
             this.btn_Save.TabIndex = 10;
             this.btn_Save.Text = "Save";
             this.btn_Save.UseVisualStyleBackColor = true;
+            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
             // tabPage_SubmitToOwner
             // 
@@ -163,6 +168,7 @@
             this.btn_OwnerSubmitBack.TabIndex = 9;
             this.btn_OwnerSubmitBack.Text = "Back";
             this.btn_OwnerSubmitBack.UseVisualStyleBackColor = true;
+            this.btn_OwnerSubmitBack.Click += new System.EventHandler(this.btn_OwnerSubmitBack_Click);
             // 
             // btn_OwnerSubmitNext
             // 
@@ -173,6 +179,7 @@
             this.btn_OwnerSubmitNext.TabIndex = 8;
             this.btn_OwnerSubmitNext.Text = "Next";
             this.btn_OwnerSubmitNext.UseVisualStyleBackColor = true;
+            this.btn_OwnerSubmitNext.Click += new System.EventHandler(this.btn_OwnerSubmitNext_Click);
             // 
             // tabPage_ThirdCTRSubmit
             // 
@@ -195,6 +202,7 @@
             this.btn_ThirdCTRBack.TabIndex = 1;
             this.btn_ThirdCTRBack.Text = "Back";
             this.btn_ThirdCTRBack.UseVisualStyleBackColor = true;
+            this.btn_ThirdCTRBack.Click += new System.EventHandler(this.btn_ThirdCTRBack_Click);
             // 
             // btn_ThirdCTRSubmit
             // 
@@ -205,6 +213,7 @@
             this.btn_ThirdCTRSubmit.TabIndex = 0;
             this.btn_ThirdCTRSubmit.Text = "Next";
             this.btn_ThirdCTRSubmit.UseVisualStyleBackColor = true;
+            this.btn_ThirdCTRSubmit.Click += new System.EventHandler(this.btn_ThirdCTRSubmit_Click);
             // 
             // tabPage_SecondCTRSubmit
             // 
@@ -363,11 +372,35 @@
             // tabPage_ConsultThirdResponse
             // 
             this.tabPage_ConsultThirdResponse.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_ConsultThirdResponse.Controls.Add(this.btn_ThirdResponseBack);
+            this.tabPage_ConsultThirdResponse.Controls.Add(this.btn_ThirdResponseNext);
             this.tabPage_ConsultThirdResponse.Location = new System.Drawing.Point(4, 24);
             this.tabPage_ConsultThirdResponse.Name = "tabPage_ConsultThirdResponse";
             this.tabPage_ConsultThirdResponse.Size = new System.Drawing.Size(1269, 425);
             this.tabPage_ConsultThirdResponse.TabIndex = 7;
             this.tabPage_ConsultThirdResponse.Text = "Consultant 3rd response";
+            // 
+            // btn_ThirdResponseBack
+            // 
+            this.btn_ThirdResponseBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_ThirdResponseBack.Location = new System.Drawing.Point(7, 394);
+            this.btn_ThirdResponseBack.Name = "btn_ThirdResponseBack";
+            this.btn_ThirdResponseBack.Size = new System.Drawing.Size(75, 23);
+            this.btn_ThirdResponseBack.TabIndex = 9;
+            this.btn_ThirdResponseBack.Text = "Back";
+            this.btn_ThirdResponseBack.UseVisualStyleBackColor = true;
+            this.btn_ThirdResponseBack.Click += new System.EventHandler(this.btn_ThirdResponseBack_Click);
+            // 
+            // btn_ThirdResponseNext
+            // 
+            this.btn_ThirdResponseNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_ThirdResponseNext.Location = new System.Drawing.Point(1187, 392);
+            this.btn_ThirdResponseNext.Name = "btn_ThirdResponseNext";
+            this.btn_ThirdResponseNext.Size = new System.Drawing.Size(75, 23);
+            this.btn_ThirdResponseNext.TabIndex = 8;
+            this.btn_ThirdResponseNext.Text = "Next";
+            this.btn_ThirdResponseNext.UseVisualStyleBackColor = true;
+            this.btn_ThirdResponseNext.Click += new System.EventHandler(this.btn_ThirdResponseNext_Click);
             // 
             // frm_ProjectDosc
             // 
@@ -388,6 +421,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage_FirstCTRSubmit.ResumeLayout(false);
             this.tabPage_ConsultSecondResponse.ResumeLayout(false);
+            this.tabPage_ConsultThirdResponse.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -417,5 +451,7 @@
         private TabPage tabPage_ConsultThirdResponse;
         private Button btn_SecondCTRBack;
         private Button btn_SecondCTRNext;
+        private Button btn_ThirdResponseBack;
+        private Button btn_ThirdResponseNext;
     }
 }
