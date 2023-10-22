@@ -639,7 +639,18 @@ namespace ClsOutDocDeliveryCtrl
             {
                 SecondSubmitView();
             }
+            else if (e.TabPage == tabPage_ConsultSecondResponse)
+            {
+                SecondResponseView();
+            }
+            else if (e.TabPage == tabPage_ThirdCTRSubmit)
+            {
+                ThirdSubmitView();
+            }
         }
+
+    //Views
+
         private void HideAllColumns()
         {
             foreach (DataGridViewColumn col in gridView_ProjectDocs.Columns)
@@ -649,6 +660,7 @@ namespace ClsOutDocDeliveryCtrl
             _dtp.Visible = false;
         }
 
+        //First Submit 
         private void FirstSubmitView()
         {
             HideAllColumns();
@@ -664,6 +676,8 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["ActFirstCTRSubmitDeliveryDate"].Visible = show;
             gridView_ProjectDocs.Columns["FirstCTRSubmitStatus"].Visible = show;
         }
+
+        //First Response
         private void FirstResponseView()
         {
             HideAllColumns();
@@ -679,6 +693,7 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["ConsultFirstRspStatus"].Visible = show;
         }
 
+        //Second Submit
         private void SecondSubmitView()
         {
             HideAllColumns();
@@ -691,11 +706,42 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["ActSecondCTRSubmitDeadline"].Visible = show;
             gridView_ProjectDocs.Columns["ActSecondCTRSubmitDeliveryDate"].Visible = show;
             gridView_ProjectDocs.Columns["SecondCTRSubmitStatus"].Visible = show;
-            //gridView_ProjectDocs.Columns["ExpSecondConsultRspDate"].HeaderText = "Expected Second Consultant Response Date";
-            //gridView_ProjectDocs.Columns["ActSecondConsultRspDate"].HeaderText = "Actual Second Consultant Response Date";
-            ////gridView_ProjectDocs.Columns["ConsultSecondRspCode"].HeaderText = "Second Consultant Response Code";
-            //gridView_ProjectDocs.Columns["ConsultSecondRspStatus"].HeaderText = "Second Consultant Response Status";
+
         }
+        
+        //Second Response
+        private void SecondResponseView()
+        {
+            HideAllColumns();
+            ShowSecondResponseContent(true);
+        }
+        private void ShowSecondResponseContent(bool show)
+        {
+            tabControl1.SelectTab("tabPage_ConsultSecondResponse");
+            gridView_ProjectDocs.Columns["Name"].Visible = true;
+            gridView_ProjectDocs.Columns["ExpSecondConsultRspDate"].Visible = show;
+            gridView_ProjectDocs.Columns["ActSecondConsultRspDate"].Visible = show;
+            secondStatusCol.Visible = show;
+            gridView_ProjectDocs.Columns["ConsultSecondRspStatus"].Visible = show;
+        }
+
+        //Third Submit
+        private void ThirdSubmitView()
+        {
+            HideAllColumns();
+            ShowThirdSubmitContent(true);
+        }
+        private void ShowThirdSubmitContent(bool show)
+        {
+            tabControl1.SelectTab("tabPage_ThirdCTRSubmit");
+            gridView_ProjectDocs.Columns["Name"].Visible = show;
+            gridView_ProjectDocs.Columns["ActThirdCTRSubmitDeadline"].Visible = show;
+            gridView_ProjectDocs.Columns["ActThirdCTRSubmitDeliveryDate"].Visible = show;
+            gridView_ProjectDocs.Columns["ThirdCTRSubmitStatus"].Visible = show;
+        }
+
+        //Events
+        //First Submit
         private void btn_FirstCTRCancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -704,11 +750,12 @@ namespace ClsOutDocDeliveryCtrl
         {
             FirstResponseView();
         }
+        
+        //First Response
         private void btn_FirstResponseBack_Click(object sender, EventArgs e)
         {
             FirstSubmitView();
         }
-
         private void btn_FirstResponseNext_Click(object sender, EventArgs e)
         {
             if (ShowSecondSubmital)
@@ -723,7 +770,38 @@ namespace ClsOutDocDeliveryCtrl
             }
 
         }
+        
+        //Second Submit
+        private void btn_SecondCTRBack_Click(object sender, EventArgs e)
+        {
+            FirstResponseView();
+        }
+        private void btn_SecondCTRNext_Click(object sender, EventArgs e)
+        {
+            SecondResponseView();
+        }
 
+        //Second Response
+        private void btn_SecondResponseBack_Click(object sender, EventArgs e)
+        {
+            FirstResponseView();
+        }
+        private void btn_SecondResponseNext_Click(object sender, EventArgs e)
+        {
+            if (ShowThirdSubmital)
+            {
+                InsertThirdSubmitTrailScreen();
+
+                ThirdSubmitView();
+            }
+            else
+            {
+                //show to owner
+            }
+        }
+
+
+        //Helpers
         private void InsertSecondSubmitTrailScreen()
         {
             this.tabControl1.TabPages.Insert(2, this.tabPage_SecondCTRSubmit);
@@ -734,5 +812,6 @@ namespace ClsOutDocDeliveryCtrl
             this.tabControl1.TabPages.Insert(4, this.tabPage_ThirdCTRSubmit);
             this.tabControl1.TabPages.Insert(5, this.tabPage_ConsultThirdResponse);
         }
+
     }
 }
