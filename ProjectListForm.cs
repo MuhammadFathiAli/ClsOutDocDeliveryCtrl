@@ -90,7 +90,7 @@ namespace ClsOutDocDeliveryCtrl
                 }
                 if (project is not null)
                 {
-                    ProjectDocumentsForm projectDocumentsForm = new(project);
+                    frm_ProjectDosc projectDocumentsForm = new(project);
                     this.Hide();
                     projectDocumentsForm.ShowDialog();
                     this.Show();

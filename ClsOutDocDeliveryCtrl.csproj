@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="SepNewDocumentForm.cs">
+    <Compile Update="CopyProjectDocumentsForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
