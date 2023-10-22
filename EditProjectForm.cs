@@ -67,7 +67,28 @@ namespace ClsOutDocDeliveryCtrl
                         projectToUpdate.ContractorName = _project.ContractorName;
                         projectToUpdate.ConsultantReviewTimeInDays = _project.ConsultantReviewTimeInDays;
 
-
+                        var documentsToEdit = context.Documents.Where(d => d.ProjectId == _project.ProjectId);
+                        foreach (var document in documentsToEdit)
+                        {
+                            var x = document.RcmdDeadlineBeforeHandover;
+                            var y = document.RcmdDeadlineAfterHandover;
+                            if (x.HasValue && x is not null && x is int beforeWeeks)
+                            {
+                                document.ActFirstCTRSubmitDeadline = projectToUpdate.PlannedEndDate.AddDays(-(beforeWeeks*7));
+                            }
+                            else if (y.HasValue && y is not null && y is int afterWeeks)
+                            {
+                                document.ActFirstCTRSubmitDeadline = projectToUpdate.PlannedEndDate.AddDays(afterWeeks* 7);
+                            }
+                            if (projectToUpdate.PlannedEndDate < DateTime.Today)
+                            {
+                                document.OwnerSubmitStatus = DeliveryStatus.Late;
+                            }
+                            else
+                            {
+                                document.OwnerSubmitStatus = DeliveryStatus.NotSet;
+                            }
+                        }
                         context.SaveChanges();
                     }
                 }

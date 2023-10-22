@@ -102,7 +102,26 @@ namespace ClsOutDocDeliveryCtrl
 
         private void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var x = gridView_ProjectList.SelectedRows[0];
+            int projectID = (int)x.Cells[0].Value;
+            Project? project;
 
+            if (x is not null)
+            {
+                using (var context = new AppDBContext())
+                {
+                    project = context.Projects.FirstOrDefault(p => p.ProjectId == projectID);
+                }
+                if (project is not null)
+                {
+                    frm_ProjectDosc projectDocumentsForm = new(project);
+                    this.Hide();
+                    projectDocumentsForm.ShowDialog();
+                    this.Show();
+                }
+            }
+            else
+                MessageBox.Show($"Select a prject whole row");
         }
 
         private void editProjectToolStripMenuItem_Click(object sender, EventArgs e)

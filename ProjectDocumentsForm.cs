@@ -368,6 +368,9 @@ namespace ClsOutDocDeliveryCtrl
                         cell.ReadOnly = false;
                         cell.Style.BackColor = defColor;
                     }
+
+                    //Second Dates
+                    SetActualExtraSubmitDeadline(e, second: true);
                 }
                 // work on third
                 foreach (var cell in thirdTrailcells)
@@ -375,6 +378,8 @@ namespace ClsOutDocDeliveryCtrl
                     cell.ReadOnly = false;
                     cell.Style.BackColor = defColor;
                 }
+                //ThirdDate
+                SetActualExtraSubmitDeadline(e, second: false);
             }
         }
         private void SetSubmitStatusColumn(SubmitalPhase submitalPhase)
@@ -433,6 +438,15 @@ namespace ClsOutDocDeliveryCtrl
                     {
                         row.Cells[statusColName].Value = DeliveryStatus.DeliveredLate;
                     }
+                }
+
+                if (_project.PlannedEndDate < DateTime.Today)
+                {
+                    row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.Late;
+                }
+                else
+                {
+                    row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.NotSet;
                 }
             }
         }
@@ -550,11 +564,13 @@ namespace ClsOutDocDeliveryCtrl
             {
                 SetSubmitColsVisibility();
                 SetSubmitColsValues(sender, e, thirdOnly: false);
+
             }
             if (columnName == secondRspCodeCombBoxCol.Name)
             {
                 SetSecondSubmitColVisibilty();
                 SetSubmitColsValues(sender, e, thirdOnly: true);
+
             }
             if (columnName == thirdRspCodeCombBoxCol.Name)
             {
@@ -566,7 +582,7 @@ namespace ClsOutDocDeliveryCtrl
             }
             if (columnName == "RcmdDeadlineAfterHandover")
             {
-                SetActualFirstSubmitDeadline(e, before : false);
+                SetActualFirstSubmitDeadline(e, before: false);
             }
             if (columnName == "ActFirstCTRSubmitDeadline" || columnName == "ActFirstCTRSubmitDeliveryDate")
             {
@@ -583,10 +599,20 @@ namespace ClsOutDocDeliveryCtrl
             if (columnName == "ActFirstConsultRspDate" || columnName == "ExpFirstConsultRspDate")
             {
                 SetResponseStatusColumn(SubmitalPhase.first);
+                bool isResubmit = (gridView_ProjectDocs.Rows[e.RowIndex].Cells[firstRspCodeCombBoxCol.Index].Value?.ToString()??String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString();
+                if (columnName == "ActFirstConsultRspDate" && isResubmit)
+                {
+                    SetActualExtraSubmitDeadline(e, second: true);
+                }
             }
             if (columnName == "ActSecondConsultRspDate" || columnName == "ExpSecondConsultRspDate")
             {
                 SetResponseStatusColumn(SubmitalPhase.second);
+                bool isResubmit = (gridView_ProjectDocs.Rows[e.RowIndex].Cells[secondRspCodeCombBoxCol.Index].Value?.ToString() ?? String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString();
+                if (columnName == "ActFirstConsultRspDate" && isResubmit)
+                {
+                    SetActualExtraSubmitDeadline(e, second: false);
+                }
             }
             if (columnName == "ActThirdConsultRspDate" || columnName == "ExpThirdConsultRspDate")
             {
@@ -595,6 +621,28 @@ namespace ClsOutDocDeliveryCtrl
             if (columnName == "ActOwnerSubmitDate")
             {
                 SetSbmitToOwnerStatus(sender, e);
+            }
+        }
+
+        private void SetActualExtraSubmitDeadline(DataGridViewCellEventArgs e, bool second)
+        {
+            if (second)
+            {
+                var firstConsultResponse = gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActFirstConsultRspDate"].Value;
+                if (firstConsultResponse is not null && firstConsultResponse is DateTime rspDate)
+                {
+                    var secondDeadLine = rspDate.AddDays(7);
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondCTRSubmitDeadline"].Value = secondDeadLine;
+                }
+            }
+            else
+            {
+                var secondConsultResponse = gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondConsultRspDate"].Value;
+                if (secondConsultResponse is not null && secondConsultResponse is DateTime rspDate)
+                {
+                    var thirdDeadLine = rspDate.AddDays(7);
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActThirdCTRSubmitDeadline"].Value = thirdDeadLine;
+                }
             }
         }
 
@@ -1001,6 +1049,10 @@ namespace ClsOutDocDeliveryCtrl
             if (ISShownThirdSubmital)
             {
                 ThirdResponseView();
+            }
+            else if (ISShownSecondSubmital)
+            {
+                SecondResponseView();
             }
             else
             {
