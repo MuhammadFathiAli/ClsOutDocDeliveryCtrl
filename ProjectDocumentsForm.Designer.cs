@@ -34,6 +34,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gridView_ProjectDocs = new System.Windows.Forms.DataGridView();
             this.tabPage_Retentions = new System.Windows.Forms.TabPage();
+            this.lbl_DescRet = new System.Windows.Forms.Label();
+            this.lbl_TotalDedName = new System.Windows.Forms.Label();
+            this.lbl_TotalRetName = new System.Windows.Forms.Label();
+            this.lbl_DedPercentage = new System.Windows.Forms.Label();
+            this.lbl_RetPercentage = new System.Windows.Forms.Label();
+            this.lbl_TotalDeductions = new System.Windows.Forms.Label();
             this.lbl_TotalRetentions = new System.Windows.Forms.Label();
             this.btn_RetDedBack = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
@@ -117,6 +123,12 @@
             // tabPage_Retentions
             // 
             this.tabPage_Retentions.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_Retentions.Controls.Add(this.lbl_DescRet);
+            this.tabPage_Retentions.Controls.Add(this.lbl_TotalDedName);
+            this.tabPage_Retentions.Controls.Add(this.lbl_TotalRetName);
+            this.tabPage_Retentions.Controls.Add(this.lbl_DedPercentage);
+            this.tabPage_Retentions.Controls.Add(this.lbl_RetPercentage);
+            this.tabPage_Retentions.Controls.Add(this.lbl_TotalDeductions);
             this.tabPage_Retentions.Controls.Add(this.lbl_TotalRetentions);
             this.tabPage_Retentions.Controls.Add(this.btn_RetDedBack);
             this.tabPage_Retentions.Controls.Add(this.btn_Save);
@@ -127,12 +139,73 @@
             this.tabPage_Retentions.TabIndex = 5;
             this.tabPage_Retentions.Text = "Retention - Deduction";
             // 
+            // lbl_DescRet
+            // 
+            this.lbl_DescRet.AutoSize = true;
+            this.lbl_DescRet.Location = new System.Drawing.Point(1017, 132);
+            this.lbl_DescRet.Name = "lbl_DescRet";
+            this.lbl_DescRet.Size = new System.Drawing.Size(220, 15);
+            this.lbl_DescRet.TabIndex = 18;
+            this.lbl_DescRet.Text = "(as percentage of the total project value)";
+            // 
+            // lbl_TotalDedName
+            // 
+            this.lbl_TotalDedName.AutoSize = true;
+            this.lbl_TotalDedName.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl_TotalDedName.Location = new System.Drawing.Point(915, 94);
+            this.lbl_TotalDedName.Name = "lbl_TotalDedName";
+            this.lbl_TotalDedName.Size = new System.Drawing.Size(164, 22);
+            this.lbl_TotalDedName.TabIndex = 17;
+            this.lbl_TotalDedName.Text = "Total Deductions";
+            // 
+            // lbl_TotalRetName
+            // 
+            this.lbl_TotalRetName.AutoSize = true;
+            this.lbl_TotalRetName.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl_TotalRetName.Location = new System.Drawing.Point(915, 33);
+            this.lbl_TotalRetName.MaximumSize = new System.Drawing.Size(300, 300);
+            this.lbl_TotalRetName.Name = "lbl_TotalRetName";
+            this.lbl_TotalRetName.Size = new System.Drawing.Size(159, 22);
+            this.lbl_TotalRetName.TabIndex = 16;
+            this.lbl_TotalRetName.Text = "Total Retentions";
+            // 
+            // lbl_DedPercentage
+            // 
+            this.lbl_DedPercentage.AutoSize = true;
+            this.lbl_DedPercentage.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lbl_DedPercentage.Location = new System.Drawing.Point(1189, 91);
+            this.lbl_DedPercentage.Name = "lbl_DedPercentage";
+            this.lbl_DedPercentage.Size = new System.Drawing.Size(28, 25);
+            this.lbl_DedPercentage.TabIndex = 15;
+            this.lbl_DedPercentage.Text = "%";
+            // 
+            // lbl_RetPercentage
+            // 
+            this.lbl_RetPercentage.AutoSize = true;
+            this.lbl_RetPercentage.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lbl_RetPercentage.Location = new System.Drawing.Point(1189, 30);
+            this.lbl_RetPercentage.Name = "lbl_RetPercentage";
+            this.lbl_RetPercentage.Size = new System.Drawing.Size(28, 25);
+            this.lbl_RetPercentage.TabIndex = 14;
+            this.lbl_RetPercentage.Text = "%";
+            // 
+            // lbl_TotalDeductions
+            // 
+            this.lbl_TotalDeductions.AutoSize = true;
+            this.lbl_TotalDeductions.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lbl_TotalDeductions.Location = new System.Drawing.Point(1113, 91);
+            this.lbl_TotalDeductions.Name = "lbl_TotalDeductions";
+            this.lbl_TotalDeductions.Size = new System.Drawing.Size(61, 25);
+            this.lbl_TotalDeductions.TabIndex = 13;
+            this.lbl_TotalDeductions.Text = "label1";
+            // 
             // lbl_TotalRetentions
             // 
             this.lbl_TotalRetentions.AutoSize = true;
-            this.lbl_TotalRetentions.Location = new System.Drawing.Point(1068, 15);
+            this.lbl_TotalRetentions.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lbl_TotalRetentions.Location = new System.Drawing.Point(1113, 30);
             this.lbl_TotalRetentions.Name = "lbl_TotalRetentions";
-            this.lbl_TotalRetentions.Size = new System.Drawing.Size(38, 15);
+            this.lbl_TotalRetentions.Size = new System.Drawing.Size(61, 25);
             this.lbl_TotalRetentions.TabIndex = 12;
             this.lbl_TotalRetentions.Text = "label1";
             // 
@@ -466,5 +539,11 @@
         private Button btn_ThirdResponseBack;
         private Button btn_ThirdResponseNext;
         private Label lbl_TotalRetentions;
+        private Label lbl_DedPercentage;
+        private Label lbl_RetPercentage;
+        private Label lbl_TotalDeductions;
+        private Label lbl_TotalDedName;
+        private Label lbl_TotalRetName;
+        private Label lbl_DescRet;
     }
 }

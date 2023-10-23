@@ -70,7 +70,48 @@ namespace ClsOutDocDeliveryCtrl
             RemoveSecondSubmitTrailsScreen(true);
             RemoveThirdSubmitTrailsScreen(true);
             SetSubmitColsVisibility();
+            SetExpectedConsultResponse();
+            SetOwnerSubmitStatus();
             FirstSubmitView();
+        }
+
+        private void SetExpectedConsultResponse()
+        {
+            foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+            {
+                DataGridViewCellEventArgs e = new(0, row.Index);
+                setExpectedConsultRspDate(e, SubmitalPhase.first);
+                setExpectedConsultRspDate(e, SubmitalPhase.second);
+                setExpectedConsultRspDate(e, SubmitalPhase.third);
+            }
+        }
+
+        private void SetOwnerSubmitStatus()
+        {
+            foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+            {
+                var datetime = row.Cells["ActOwnerSubmitDate"].Value;
+                if (datetime is DateTime date)
+                {
+
+                    if (date.Date > _project.PlannedEndDate.Date)
+                    {
+                        row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.DeliveredLate;
+                    }
+                    else if (date.Date <= _project.PlannedEndDate.Date)
+                    {
+                        row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.DeliveredOnTime;
+                    }
+                }
+                else if (_project.PlannedEndDate.Date < DateTime.Today)
+                {
+                    row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.Late;
+                }
+                else if (_project.PlannedEndDate.Date >= DateTime.Today)
+                {
+                    row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.NotSet;
+                }
+            }
         }
 
         private void RemoveThirdSubmitTrailsScreen(bool firstTime = false)
@@ -442,15 +483,6 @@ namespace ClsOutDocDeliveryCtrl
                         row.Cells[statusColName].Value = DeliveryStatus.DeliveredLate;
                     }
                 }
-
-                if (_project.PlannedEndDate < DateTime.Today)
-                {
-                    row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.Late;
-                }
-                else
-                {
-                    row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.NotSet;
-                }
             }
         }
         private void SetResponseStatusColumn(SubmitalPhase submitalPhase)
@@ -616,14 +648,26 @@ namespace ClsOutDocDeliveryCtrl
             if (columnName == "ActFirstCTRSubmitDeadline" || columnName == "ActFirstCTRSubmitDeliveryDate")
             {
                 SetSubmitStatusColumn(SubmitalPhase.first);
+                if (columnName == "ActFirstCTRSubmitDeliveryDate")
+                {
+                    setExpectedConsultRspDate(e, SubmitalPhase.first);
+                }
             }
             if (columnName == "ActSecondCTRSubmitDeadline" || columnName == "ActSecondCTRSubmitDeliveryDate")
             {
                 SetSubmitStatusColumn(SubmitalPhase.second);
+                if (columnName == "ActSecondCTRSubmitDeliveryDate")
+                {
+                    setExpectedConsultRspDate(e, SubmitalPhase.second);
+                }
             }
             if (columnName == "ActThirdCTRSubmitDeadline" || columnName == "ActThirdCTRSubmitDeliveryDate")
             {
                 SetSubmitStatusColumn(SubmitalPhase.third);
+                if (columnName == "ActThirdCTRSubmitDeliveryDate")
+                {
+                    setExpectedConsultRspDate(e, SubmitalPhase.third);
+                }
             }
             if (columnName == "ActFirstConsultRspDate" || columnName == "ExpFirstConsultRspDate")
             {
@@ -651,17 +695,46 @@ namespace ClsOutDocDeliveryCtrl
             {
                 SetSbmitToOwnerStatus(sender, e);
             }
-            if (columnName == "ActOwnerSubmitDate")
-            {
-                SetSbmitToOwnerStatus(sender, e);
-            }
             if (columnName == "Retention")
             {
                 CalculateTotalRetention();
             }
+            if (columnName == "Deduction")
+            {
+                CalculateTotalDeductions();
+            }
         }
 
-
+        private void setExpectedConsultRspDate(DataGridViewCellEventArgs e, SubmitalPhase phase)
+        {
+            if (phase == SubmitalPhase.first)
+            {
+                var firstCTRDeliveryDate = gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActFirstCTRSubmitDeliveryDate"].Value;
+                if (firstCTRDeliveryDate is DateTime deliveryDate)
+                {
+                    var expectedFirstRspDate = deliveryDate.AddDays(_project.ConsultantReviewTimeInDays);
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["ExpFirstConsultRspDate"].Value = expectedFirstRspDate;
+                }
+            }
+            else if (phase == SubmitalPhase.second)
+            {
+                var secondCTRDeliveryDate = gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondCTRSubmitDeliveryDate"].Value;
+                if (secondCTRDeliveryDate is DateTime deliveryDate)
+                {
+                    var expectedSecondRspDate = deliveryDate.AddDays(_project.ConsultantReviewTimeInDays);
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["ExpSecondConsultRspDate"].Value = expectedSecondRspDate;
+                }
+            }
+            else if (phase == SubmitalPhase.third)
+            {
+                var thirdCTRDeliveryDate = gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActThirdCTRSubmitDeliveryDate"].Value;
+                if (thirdCTRDeliveryDate is DateTime deliveryDate)
+                {
+                    var expectedThirdRspDate = deliveryDate.AddDays(_project.ConsultantReviewTimeInDays);
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["ExpThirdConsultRspDate"].Value = expectedThirdRspDate;
+                }
+            }
+        }
 
         private void SetActualExtraSubmitDeadline(DataGridViewCellEventArgs e, bool second)
         {
@@ -722,6 +795,11 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     gridView_ProjectDocs.Rows[cell.RowIndex].Cells["OwnerSubmitStatus"].Value = DeliveryStatus.DeliveredOnTime;
                 }
+            }
+            else if (cell.Value == null)
+            {
+                gridView_ProjectDocs.Rows[cell.RowIndex].Cells["OwnerSubmitStatus"].Value = DeliveryStatus.NotSet;
+                SetOwnerSubmitStatus();
             }
         }
 
@@ -999,9 +1077,8 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["Name"].Visible = true;
             gridView_ProjectDocs.Columns["Retention"].Visible = show;
             gridView_ProjectDocs.Columns["Deduction"].Visible = show;
-            lbl_TotalRetentions.Visible = show;
-            lbl_TotalRetentions.BringToFront();
             CalculateTotalRetention();
+            CalculateTotalDeductions();
         }
 
 
@@ -1174,8 +1251,34 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     totalRetention += retentionValue;
                 }
+                if (totalRetention >= 1)
+                {
+                    MessageBox.Show("Retention value can't be more than Project value", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    lbl_TotalRetentions.Text = "N.A";
+                    return;
+                }
             }
             lbl_TotalRetentions.Text = totalRetention.ToString();
         }
+        private void CalculateTotalDeductions()
+        {
+            decimal totalDeduction = 0;
+            foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+            {
+                var deduction = row.Cells["Deduction"].Value;
+                if (deduction is not null && deduction is decimal deductionValue)
+                {
+                    totalDeduction += deductionValue;
+                }
+                if (totalDeduction >= 1)
+                {
+                    MessageBox.Show("Deduction value can't be more than Project value", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    lbl_TotalDeductions.Text = "N.A";
+                    return;
+                }
+            }
+            lbl_TotalDeductions.Text = totalDeduction.ToString();
+        }
+
     }
 }
