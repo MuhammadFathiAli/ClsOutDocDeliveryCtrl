@@ -35,7 +35,6 @@
             this.gridView_ProjectDocs = new System.Windows.Forms.DataGridView();
             this.tabPage_Retentions = new System.Windows.Forms.TabPage();
             this.lbl_TotalRetentions = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.btn_RetDedBack = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
             this.tabPage_SubmitToOwner = new System.Windows.Forms.TabPage();
@@ -100,7 +99,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.gridView_ProjectDocs.DefaultCellStyle = dataGridViewCellStyle2;
             this.gridView_ProjectDocs.GridColor = System.Drawing.SystemColors.Control;
-            this.gridView_ProjectDocs.Location = new System.Drawing.Point(21, 131);
+            this.gridView_ProjectDocs.Location = new System.Drawing.Point(4, 180);
             this.gridView_ProjectDocs.Name = "gridView_ProjectDocs";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
@@ -112,45 +111,35 @@
             this.gridView_ProjectDocs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.gridView_ProjectDocs.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.gridView_ProjectDocs.Size = new System.Drawing.Size(1244, 394);
+            this.gridView_ProjectDocs.Size = new System.Drawing.Size(1271, 450);
             this.gridView_ProjectDocs.TabIndex = 46;
             // 
             // tabPage_Retentions
             // 
             this.tabPage_Retentions.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage_Retentions.Controls.Add(this.lbl_TotalRetentions);
-            this.tabPage_Retentions.Controls.Add(this.label1);
             this.tabPage_Retentions.Controls.Add(this.btn_RetDedBack);
             this.tabPage_Retentions.Controls.Add(this.btn_Save);
             this.tabPage_Retentions.Location = new System.Drawing.Point(4, 24);
             this.tabPage_Retentions.Name = "tabPage_Retentions";
             this.tabPage_Retentions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Retentions.Size = new System.Drawing.Size(1269, 540);
+            this.tabPage_Retentions.Size = new System.Drawing.Size(1271, 654);
             this.tabPage_Retentions.TabIndex = 5;
             this.tabPage_Retentions.Text = "Retention - Deduction";
             // 
             // lbl_TotalRetentions
             // 
             this.lbl_TotalRetentions.AutoSize = true;
-            this.lbl_TotalRetentions.Location = new System.Drawing.Point(1187, 39);
+            this.lbl_TotalRetentions.Location = new System.Drawing.Point(1068, 15);
             this.lbl_TotalRetentions.Name = "lbl_TotalRetentions";
-            this.lbl_TotalRetentions.Size = new System.Drawing.Size(32, 15);
-            this.lbl_TotalRetentions.TabIndex = 13;
-            this.lbl_TotalRetentions.Text = "0.0%";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1187, 84);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "label1";
+            this.lbl_TotalRetentions.Size = new System.Drawing.Size(38, 15);
+            this.lbl_TotalRetentions.TabIndex = 12;
+            this.lbl_TotalRetentions.Text = "label1";
             // 
             // btn_RetDedBack
             // 
             this.btn_RetDedBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_RetDedBack.Location = new System.Drawing.Point(7, 511);
+            this.btn_RetDedBack.Location = new System.Drawing.Point(7, 623);
             this.btn_RetDedBack.Name = "btn_RetDedBack";
             this.btn_RetDedBack.Size = new System.Drawing.Size(75, 23);
             this.btn_RetDedBack.TabIndex = 11;
@@ -161,7 +150,7 @@
             // btn_Save
             // 
             this.btn_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Save.Location = new System.Drawing.Point(1187, 509);
+            this.btn_Save.Location = new System.Drawing.Point(1189, 623);
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(75, 23);
             this.btn_Save.TabIndex = 10;
@@ -177,14 +166,14 @@
             this.tabPage_SubmitToOwner.Location = new System.Drawing.Point(4, 24);
             this.tabPage_SubmitToOwner.Name = "tabPage_SubmitToOwner";
             this.tabPage_SubmitToOwner.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_SubmitToOwner.Size = new System.Drawing.Size(1269, 425);
+            this.tabPage_SubmitToOwner.Size = new System.Drawing.Size(1271, 654);
             this.tabPage_SubmitToOwner.TabIndex = 4;
             this.tabPage_SubmitToOwner.Text = "Submittal to Owner";
             // 
             // btn_OwnerSubmitBack
             // 
             this.btn_OwnerSubmitBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_OwnerSubmitBack.Location = new System.Drawing.Point(7, 396);
+            this.btn_OwnerSubmitBack.Location = new System.Drawing.Point(7, 623);
             this.btn_OwnerSubmitBack.Name = "btn_OwnerSubmitBack";
             this.btn_OwnerSubmitBack.Size = new System.Drawing.Size(75, 23);
             this.btn_OwnerSubmitBack.TabIndex = 9;
@@ -195,7 +184,7 @@
             // btn_OwnerSubmitNext
             // 
             this.btn_OwnerSubmitNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_OwnerSubmitNext.Location = new System.Drawing.Point(1187, 394);
+            this.btn_OwnerSubmitNext.Location = new System.Drawing.Point(1189, 623);
             this.btn_OwnerSubmitNext.Name = "btn_OwnerSubmitNext";
             this.btn_OwnerSubmitNext.Size = new System.Drawing.Size(75, 23);
             this.btn_OwnerSubmitNext.TabIndex = 8;
@@ -211,14 +200,14 @@
             this.tabPage_ThirdCTRSubmit.Location = new System.Drawing.Point(4, 24);
             this.tabPage_ThirdCTRSubmit.Name = "tabPage_ThirdCTRSubmit";
             this.tabPage_ThirdCTRSubmit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_ThirdCTRSubmit.Size = new System.Drawing.Size(1269, 425);
+            this.tabPage_ThirdCTRSubmit.Size = new System.Drawing.Size(1271, 654);
             this.tabPage_ThirdCTRSubmit.TabIndex = 3;
             this.tabPage_ThirdCTRSubmit.Text = "Contractor 3rd  Submittal";
             // 
             // btn_ThirdCTRBack
             // 
             this.btn_ThirdCTRBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_ThirdCTRBack.Location = new System.Drawing.Point(6, 396);
+            this.btn_ThirdCTRBack.Location = new System.Drawing.Point(7, 623);
             this.btn_ThirdCTRBack.Name = "btn_ThirdCTRBack";
             this.btn_ThirdCTRBack.Size = new System.Drawing.Size(75, 23);
             this.btn_ThirdCTRBack.TabIndex = 1;
@@ -229,7 +218,7 @@
             // btn_ThirdCTRSubmit
             // 
             this.btn_ThirdCTRSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_ThirdCTRSubmit.Location = new System.Drawing.Point(1186, 394);
+            this.btn_ThirdCTRSubmit.Location = new System.Drawing.Point(1189, 623);
             this.btn_ThirdCTRSubmit.Name = "btn_ThirdCTRSubmit";
             this.btn_ThirdCTRSubmit.Size = new System.Drawing.Size(75, 23);
             this.btn_ThirdCTRSubmit.TabIndex = 0;
@@ -245,14 +234,14 @@
             this.tabPage_SecondCTRSubmit.Location = new System.Drawing.Point(4, 24);
             this.tabPage_SecondCTRSubmit.Name = "tabPage_SecondCTRSubmit";
             this.tabPage_SecondCTRSubmit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_SecondCTRSubmit.Size = new System.Drawing.Size(1269, 425);
+            this.tabPage_SecondCTRSubmit.Size = new System.Drawing.Size(1271, 654);
             this.tabPage_SecondCTRSubmit.TabIndex = 1;
             this.tabPage_SecondCTRSubmit.Text = "Contractor 2nd Submittal";
             // 
             // btn_SecondCTRBack
             // 
             this.btn_SecondCTRBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_SecondCTRBack.Location = new System.Drawing.Point(7, 394);
+            this.btn_SecondCTRBack.Location = new System.Drawing.Point(7, 623);
             this.btn_SecondCTRBack.Name = "btn_SecondCTRBack";
             this.btn_SecondCTRBack.Size = new System.Drawing.Size(75, 23);
             this.btn_SecondCTRBack.TabIndex = 7;
@@ -263,7 +252,7 @@
             // btn_SecondCTRNext
             // 
             this.btn_SecondCTRNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_SecondCTRNext.Location = new System.Drawing.Point(1187, 392);
+            this.btn_SecondCTRNext.Location = new System.Drawing.Point(1189, 623);
             this.btn_SecondCTRNext.Name = "btn_SecondCTRNext";
             this.btn_SecondCTRNext.Size = new System.Drawing.Size(75, 23);
             this.btn_SecondCTRNext.TabIndex = 6;
@@ -279,14 +268,14 @@
             this.tabPage_ConsultFirstResponse.Location = new System.Drawing.Point(4, 24);
             this.tabPage_ConsultFirstResponse.Name = "tabPage_ConsultFirstResponse";
             this.tabPage_ConsultFirstResponse.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_ConsultFirstResponse.Size = new System.Drawing.Size(1269, 425);
+            this.tabPage_ConsultFirstResponse.Size = new System.Drawing.Size(1271, 654);
             this.tabPage_ConsultFirstResponse.TabIndex = 6;
             this.tabPage_ConsultFirstResponse.Text = "Consultant 1st response";
             // 
             // btn_FirstResponseBack
             // 
             this.btn_FirstResponseBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_FirstResponseBack.Location = new System.Drawing.Point(7, 394);
+            this.btn_FirstResponseBack.Location = new System.Drawing.Point(7, 623);
             this.btn_FirstResponseBack.Name = "btn_FirstResponseBack";
             this.btn_FirstResponseBack.Size = new System.Drawing.Size(75, 23);
             this.btn_FirstResponseBack.TabIndex = 5;
@@ -297,7 +286,7 @@
             // btn_FirstResponseNext
             // 
             this.btn_FirstResponseNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_FirstResponseNext.Location = new System.Drawing.Point(1187, 392);
+            this.btn_FirstResponseNext.Location = new System.Drawing.Point(1189, 623);
             this.btn_FirstResponseNext.Name = "btn_FirstResponseNext";
             this.btn_FirstResponseNext.Size = new System.Drawing.Size(75, 23);
             this.btn_FirstResponseNext.TabIndex = 4;
@@ -320,7 +309,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1277, 568);
+            this.tabControl1.Size = new System.Drawing.Size(1279, 682);
             this.tabControl1.TabIndex = 28;
             // 
             // tabPage_FirstCTRSubmit
@@ -331,14 +320,14 @@
             this.tabPage_FirstCTRSubmit.Location = new System.Drawing.Point(4, 24);
             this.tabPage_FirstCTRSubmit.Name = "tabPage_FirstCTRSubmit";
             this.tabPage_FirstCTRSubmit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_FirstCTRSubmit.Size = new System.Drawing.Size(1269, 425);
+            this.tabPage_FirstCTRSubmit.Size = new System.Drawing.Size(1271, 654);
             this.tabPage_FirstCTRSubmit.TabIndex = 0;
             this.tabPage_FirstCTRSubmit.Text = "Contractor 1st Submittal";
             // 
             // btn_FirstCTRCancel
             // 
             this.btn_FirstCTRCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_FirstCTRCancel.Location = new System.Drawing.Point(7, 394);
+            this.btn_FirstCTRCancel.Location = new System.Drawing.Point(7, 623);
             this.btn_FirstCTRCancel.Name = "btn_FirstCTRCancel";
             this.btn_FirstCTRCancel.Size = new System.Drawing.Size(75, 23);
             this.btn_FirstCTRCancel.TabIndex = 3;
@@ -349,7 +338,7 @@
             // btn_FirstCTRNext
             // 
             this.btn_FirstCTRNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_FirstCTRNext.Location = new System.Drawing.Point(1187, 392);
+            this.btn_FirstCTRNext.Location = new System.Drawing.Point(1189, 623);
             this.btn_FirstCTRNext.Name = "btn_FirstCTRNext";
             this.btn_FirstCTRNext.Size = new System.Drawing.Size(75, 23);
             this.btn_FirstCTRNext.TabIndex = 2;
@@ -365,14 +354,14 @@
             this.tabPage_ConsultSecondResponse.Location = new System.Drawing.Point(4, 24);
             this.tabPage_ConsultSecondResponse.Name = "tabPage_ConsultSecondResponse";
             this.tabPage_ConsultSecondResponse.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_ConsultSecondResponse.Size = new System.Drawing.Size(1269, 425);
+            this.tabPage_ConsultSecondResponse.Size = new System.Drawing.Size(1271, 654);
             this.tabPage_ConsultSecondResponse.TabIndex = 2;
             this.tabPage_ConsultSecondResponse.Text = "Consultant 2nd response";
             // 
             // btn_SecondResponseBack
             // 
             this.btn_SecondResponseBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_SecondResponseBack.Location = new System.Drawing.Point(7, 394);
+            this.btn_SecondResponseBack.Location = new System.Drawing.Point(7, 623);
             this.btn_SecondResponseBack.Name = "btn_SecondResponseBack";
             this.btn_SecondResponseBack.Size = new System.Drawing.Size(75, 23);
             this.btn_SecondResponseBack.TabIndex = 7;
@@ -383,7 +372,7 @@
             // btn_SecondResponseNext
             // 
             this.btn_SecondResponseNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_SecondResponseNext.Location = new System.Drawing.Point(1187, 392);
+            this.btn_SecondResponseNext.Location = new System.Drawing.Point(1189, 623);
             this.btn_SecondResponseNext.Name = "btn_SecondResponseNext";
             this.btn_SecondResponseNext.Size = new System.Drawing.Size(75, 23);
             this.btn_SecondResponseNext.TabIndex = 6;
@@ -398,14 +387,14 @@
             this.tabPage_ConsultThirdResponse.Controls.Add(this.btn_ThirdResponseNext);
             this.tabPage_ConsultThirdResponse.Location = new System.Drawing.Point(4, 24);
             this.tabPage_ConsultThirdResponse.Name = "tabPage_ConsultThirdResponse";
-            this.tabPage_ConsultThirdResponse.Size = new System.Drawing.Size(1269, 425);
+            this.tabPage_ConsultThirdResponse.Size = new System.Drawing.Size(1271, 654);
             this.tabPage_ConsultThirdResponse.TabIndex = 7;
             this.tabPage_ConsultThirdResponse.Text = "Consultant 3rd response";
             // 
             // btn_ThirdResponseBack
             // 
             this.btn_ThirdResponseBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_ThirdResponseBack.Location = new System.Drawing.Point(7, 394);
+            this.btn_ThirdResponseBack.Location = new System.Drawing.Point(7, 623);
             this.btn_ThirdResponseBack.Name = "btn_ThirdResponseBack";
             this.btn_ThirdResponseBack.Size = new System.Drawing.Size(75, 23);
             this.btn_ThirdResponseBack.TabIndex = 9;
@@ -416,7 +405,7 @@
             // btn_ThirdResponseNext
             // 
             this.btn_ThirdResponseNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_ThirdResponseNext.Location = new System.Drawing.Point(1187, 392);
+            this.btn_ThirdResponseNext.Location = new System.Drawing.Point(1189, 623);
             this.btn_ThirdResponseNext.Name = "btn_ThirdResponseNext";
             this.btn_ThirdResponseNext.Size = new System.Drawing.Size(75, 23);
             this.btn_ThirdResponseNext.TabIndex = 8;
@@ -428,7 +417,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1277, 568);
+            this.ClientSize = new System.Drawing.Size(1279, 682);
             this.Controls.Add(this.gridView_ProjectDocs);
             this.Controls.Add(this.tabControl1);
             this.Name = "frm_ProjectDosc";
@@ -477,6 +466,5 @@
         private Button btn_ThirdResponseBack;
         private Button btn_ThirdResponseNext;
         private Label lbl_TotalRetentions;
-        private Label label1;
     }
 }
