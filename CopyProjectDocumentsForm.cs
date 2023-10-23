@@ -455,6 +455,7 @@ namespace CopyProjectDocumentsForm
             gridView_ProjectDocs.Columns["OwnerSubmitStatus"].HeaderText = "Owner Submittal Status";
             gridView_ProjectDocs.Columns["OwnerSubmitFormat"].HeaderText = "Owner Submittal Format";
             gridView_ProjectDocs.Columns["StoragePlace"].HeaderText = "Storage Place";
+            gridView_ProjectDocs.Columns["SoftCopyLink"].HeaderText = "Soft-Copy Link";
             gridView_ProjectDocs.Columns["ReceivedBy"].HeaderText = "Received By";
             gridView_ProjectDocs.Columns["Retention"].HeaderText = "Retention";
             gridView_ProjectDocs.Columns["Deduction"].HeaderText = "Deduction";

@@ -34,6 +34,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gridView_ProjectDocs = new System.Windows.Forms.DataGridView();
             this.tabPage_Retentions = new System.Windows.Forms.TabPage();
+            this.lbl_TotalRetentions = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btn_RetDedBack = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
             this.tabPage_SubmitToOwner = new System.Windows.Forms.TabPage();
@@ -98,7 +100,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.gridView_ProjectDocs.DefaultCellStyle = dataGridViewCellStyle2;
             this.gridView_ProjectDocs.GridColor = System.Drawing.SystemColors.Control;
-            this.gridView_ProjectDocs.Location = new System.Drawing.Point(21, 60);
+            this.gridView_ProjectDocs.Location = new System.Drawing.Point(21, 131);
             this.gridView_ProjectDocs.Name = "gridView_ProjectDocs";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
@@ -110,25 +112,45 @@
             this.gridView_ProjectDocs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.gridView_ProjectDocs.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.gridView_ProjectDocs.Size = new System.Drawing.Size(1235, 350);
+            this.gridView_ProjectDocs.Size = new System.Drawing.Size(1244, 394);
             this.gridView_ProjectDocs.TabIndex = 46;
             // 
             // tabPage_Retentions
             // 
             this.tabPage_Retentions.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_Retentions.Controls.Add(this.lbl_TotalRetentions);
+            this.tabPage_Retentions.Controls.Add(this.label1);
             this.tabPage_Retentions.Controls.Add(this.btn_RetDedBack);
             this.tabPage_Retentions.Controls.Add(this.btn_Save);
             this.tabPage_Retentions.Location = new System.Drawing.Point(4, 24);
             this.tabPage_Retentions.Name = "tabPage_Retentions";
             this.tabPage_Retentions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Retentions.Size = new System.Drawing.Size(1269, 425);
+            this.tabPage_Retentions.Size = new System.Drawing.Size(1269, 540);
             this.tabPage_Retentions.TabIndex = 5;
             this.tabPage_Retentions.Text = "Retention - Deduction";
+            // 
+            // lbl_TotalRetentions
+            // 
+            this.lbl_TotalRetentions.AutoSize = true;
+            this.lbl_TotalRetentions.Location = new System.Drawing.Point(1187, 39);
+            this.lbl_TotalRetentions.Name = "lbl_TotalRetentions";
+            this.lbl_TotalRetentions.Size = new System.Drawing.Size(32, 15);
+            this.lbl_TotalRetentions.TabIndex = 13;
+            this.lbl_TotalRetentions.Text = "0.0%";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1187, 84);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 15);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "label1";
             // 
             // btn_RetDedBack
             // 
             this.btn_RetDedBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_RetDedBack.Location = new System.Drawing.Point(7, 396);
+            this.btn_RetDedBack.Location = new System.Drawing.Point(7, 511);
             this.btn_RetDedBack.Name = "btn_RetDedBack";
             this.btn_RetDedBack.Size = new System.Drawing.Size(75, 23);
             this.btn_RetDedBack.TabIndex = 11;
@@ -139,7 +161,7 @@
             // btn_Save
             // 
             this.btn_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Save.Location = new System.Drawing.Point(1187, 394);
+            this.btn_Save.Location = new System.Drawing.Point(1187, 509);
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(75, 23);
             this.btn_Save.TabIndex = 10;
@@ -298,7 +320,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1277, 453);
+            this.tabControl1.Size = new System.Drawing.Size(1277, 568);
             this.tabControl1.TabIndex = 28;
             // 
             // tabPage_FirstCTRSubmit
@@ -406,7 +428,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1277, 453);
+            this.ClientSize = new System.Drawing.Size(1277, 568);
             this.Controls.Add(this.gridView_ProjectDocs);
             this.Controls.Add(this.tabControl1);
             this.Name = "frm_ProjectDosc";
@@ -414,6 +436,7 @@
             this.Load += new System.EventHandler(this.ProjectDocumentsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridView_ProjectDocs)).EndInit();
             this.tabPage_Retentions.ResumeLayout(false);
+            this.tabPage_Retentions.PerformLayout();
             this.tabPage_SubmitToOwner.ResumeLayout(false);
             this.tabPage_ThirdCTRSubmit.ResumeLayout(false);
             this.tabPage_SecondCTRSubmit.ResumeLayout(false);
@@ -453,5 +476,7 @@
         private Button btn_SecondCTRNext;
         private Button btn_ThirdResponseBack;
         private Button btn_ThirdResponseNext;
+        private Label lbl_TotalRetentions;
+        private Label label1;
     }
 }

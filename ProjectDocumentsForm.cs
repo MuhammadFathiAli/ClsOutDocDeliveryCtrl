@@ -98,6 +98,8 @@ namespace ClsOutDocDeliveryCtrl
             using (var context = new AppDBContext())
             {
                 var documents = context.Documents.Where(d => d.ProjectId == _project.ProjectId).ToList();
+                //documents.Add(new Document() { Name = "Total Deduction & Retention", Description = "Calculation of Total Deduction & Retention",
+                //    Deduction = documents.Sum(d => d.Deduction??0), Retention = documents.Sum(d=> d.Retention??0)});
                 gridView_ProjectDocs.DataSource = documents;
             }
         }
@@ -179,6 +181,7 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["OwnerSubmitStatus"].HeaderText = "Owner Submittal Status";
             gridView_ProjectDocs.Columns["OwnerSubmitFormat"].HeaderText = "Owner Submittal Format";
             gridView_ProjectDocs.Columns["StoragePlace"].HeaderText = "Physical Storage Place";
+            gridView_ProjectDocs.Columns["SoftCopyLink"].HeaderText = "Soft-Copy Link";
             gridView_ProjectDocs.Columns["ReceivedBy"].HeaderText = "Received By";
             gridView_ProjectDocs.Columns["Retention"].HeaderText = "Retention (from total project value)";
             gridView_ProjectDocs.Columns["Deduction"].HeaderText = "Deduction (from total project value)";
@@ -523,10 +526,36 @@ namespace ClsOutDocDeliveryCtrl
                     e.CellStyle.BackColor = Color.DarkGray;
                 }
             }
-            if (e.ColumnIndex >= 8 && e.ColumnIndex <= 30 && e.Value is ResponseStatus)
+            if (e.Value is ResponseStatus)
             {
                 var value = (ResponseStatus)e.Value;
-                e.Value = value.ToString();
+                var cell = gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                var backColor = value switch
+                {
+                    ResponseStatus.RespondedOnTime => Color.LightGreen,
+                    ResponseStatus.RespondedLate or ResponseStatus.Late => Color.OrangeRed,
+                    ResponseStatus.Pending => Color.LightYellow,
+                    _ => Color.DarkGray
+                };
+                cell.Style.BackColor = backColor;
+                e.Value = value.ToDescriptionString();
+            }
+            if (e.Value is DeliveryStatus)
+            {
+                var value = (DeliveryStatus)e.Value;
+                var cell = gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                var backColor = value switch
+                {
+                    DeliveryStatus.DeliveredOnTime => Color.LightGreen,
+                    DeliveryStatus.DeliveredLate or DeliveryStatus.Late => Color.OrangeRed,
+                    DeliveryStatus.Pending => Color.LightYellow,
+                    _ => Color.DarkGray
+                };
+
+                e.Value = value.ToDescriptionString();
+                cell.Style.BackColor = backColor;
             }
         }
         private void GridView_ProjectDocs_EditingControlShowing(object? sender, DataGridViewEditingControlShowingEventArgs e)
@@ -599,7 +628,7 @@ namespace ClsOutDocDeliveryCtrl
             if (columnName == "ActFirstConsultRspDate" || columnName == "ExpFirstConsultRspDate")
             {
                 SetResponseStatusColumn(SubmitalPhase.first);
-                bool isResubmit = (gridView_ProjectDocs.Rows[e.RowIndex].Cells[firstRspCodeCombBoxCol.Index].Value?.ToString()??String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString();
+                bool isResubmit = (gridView_ProjectDocs.Rows[e.RowIndex].Cells[firstRspCodeCombBoxCol.Index].Value?.ToString() ?? String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString();
                 if (columnName == "ActFirstConsultRspDate" && isResubmit)
                 {
                     SetActualExtraSubmitDeadline(e, second: true);
@@ -622,7 +651,17 @@ namespace ClsOutDocDeliveryCtrl
             {
                 SetSbmitToOwnerStatus(sender, e);
             }
+            if (columnName == "ActOwnerSubmitDate")
+            {
+                SetSbmitToOwnerStatus(sender, e);
+            }
+            if (columnName == "Retention")
+            {
+                CalculateTotalRetention();
+            }
         }
+
+
 
         private void SetActualExtraSubmitDeadline(DataGridViewCellEventArgs e, bool second)
         {
@@ -943,6 +982,7 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["OwnerSubmitStatus"].Visible = show;
             submitalFormatCol.Visible = show;
             gridView_ProjectDocs.Columns["StoragePlace"].Visible = show;
+            gridView_ProjectDocs.Columns["SoftCopyLink"].Visible = show;
             gridView_ProjectDocs.Columns["ReceivedBy"].Visible = show;
         }
 
@@ -959,6 +999,9 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["Name"].Visible = true;
             gridView_ProjectDocs.Columns["Retention"].Visible = show;
             gridView_ProjectDocs.Columns["Deduction"].Visible = show;
+            lbl_TotalRetentions.Visible = show;
+            lbl_TotalRetentions.BringToFront();
+            CalculateTotalRetention();
         }
 
 
@@ -1120,6 +1163,19 @@ namespace ClsOutDocDeliveryCtrl
                 this.tabControl1.TabPages.Insert(5, this.tabPage_ConsultThirdResponse);
                 ISShownThirdSubmital = true;
             }
+        }
+        private void CalculateTotalRetention()
+        {
+            decimal totalRetention = 0;
+            foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+            {
+                var retention = row.Cells["Retention"].Value;
+                if (retention is not null && retention is decimal retentionValue)
+                {
+                    totalRetention += retentionValue;
+                }
+            }
+            lbl_TotalRetentions.Text = totalRetention.ToString();
         }
     }
 }

@@ -60,6 +60,8 @@ public class Document
     public SubmitalFormat OwnerSubmitFormat { get; set; } = SubmitalFormat.NotSet;
     [MaxLength(500)]
     public string? StoragePlace { get; set; }
+    [MaxLength(500)]
+    public string? SoftCopyLink { get; set; }
     [MaxLength(100)]
     public string? ReceivedBy { get; set; }
     [Column(TypeName = "decimal(5, 4)")]
