@@ -39,6 +39,7 @@
             this.openProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridView_ProjectList)).BeginInit();
             this.contextMenuStrip_projects.SuspendLayout();
             this.SuspendLayout();
@@ -140,11 +141,22 @@
             this.deleteProjectToolStripMenuItem.Text = "Delete Project";
             this.deleteProjectToolStripMenuItem.Click += new System.EventHandler(this.deleteProjectToolStripMenuItem_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(514, 377);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frm_ProjectList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1111, 412);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_Back);
             this.Controls.Add(this.btn_Open);
             this.Controls.Add(this.gridView_ProjectList);
@@ -173,5 +185,6 @@
         private ToolStripMenuItem openProjectToolStripMenuItem;
         private ToolStripMenuItem editProjectToolStripMenuItem;
         private ToolStripMenuItem deleteProjectToolStripMenuItem;
+        private Button button1;
     }
 }

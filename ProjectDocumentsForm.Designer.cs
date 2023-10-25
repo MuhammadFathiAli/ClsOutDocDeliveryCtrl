@@ -105,7 +105,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.gridView_ProjectDocs.DefaultCellStyle = dataGridViewCellStyle2;
             this.gridView_ProjectDocs.GridColor = System.Drawing.SystemColors.Control;
-            this.gridView_ProjectDocs.Location = new System.Drawing.Point(4, 180);
+            this.gridView_ProjectDocs.Location = new System.Drawing.Point(4, 127);
             this.gridView_ProjectDocs.Name = "gridView_ProjectDocs";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
@@ -117,7 +117,7 @@
             this.gridView_ProjectDocs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.gridView_ProjectDocs.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.gridView_ProjectDocs.Size = new System.Drawing.Size(1271, 450);
+            this.gridView_ProjectDocs.Size = new System.Drawing.Size(1271, 503);
             this.gridView_ProjectDocs.TabIndex = 46;
             // 
             // tabPage_Retentions
@@ -152,7 +152,7 @@
             // 
             this.lbl_TotalDedName.AutoSize = true;
             this.lbl_TotalDedName.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl_TotalDedName.Location = new System.Drawing.Point(915, 94);
+            this.lbl_TotalDedName.Location = new System.Drawing.Point(915, 54);
             this.lbl_TotalDedName.Name = "lbl_TotalDedName";
             this.lbl_TotalDedName.Size = new System.Drawing.Size(164, 22);
             this.lbl_TotalDedName.TabIndex = 17;
@@ -162,7 +162,7 @@
             // 
             this.lbl_TotalRetName.AutoSize = true;
             this.lbl_TotalRetName.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl_TotalRetName.Location = new System.Drawing.Point(915, 33);
+            this.lbl_TotalRetName.Location = new System.Drawing.Point(915, 10);
             this.lbl_TotalRetName.MaximumSize = new System.Drawing.Size(300, 300);
             this.lbl_TotalRetName.Name = "lbl_TotalRetName";
             this.lbl_TotalRetName.Size = new System.Drawing.Size(159, 22);
@@ -173,7 +173,7 @@
             // 
             this.lbl_DedPercentage.AutoSize = true;
             this.lbl_DedPercentage.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_DedPercentage.Location = new System.Drawing.Point(1189, 91);
+            this.lbl_DedPercentage.Location = new System.Drawing.Point(1189, 51);
             this.lbl_DedPercentage.Name = "lbl_DedPercentage";
             this.lbl_DedPercentage.Size = new System.Drawing.Size(28, 25);
             this.lbl_DedPercentage.TabIndex = 15;
@@ -183,7 +183,7 @@
             // 
             this.lbl_RetPercentage.AutoSize = true;
             this.lbl_RetPercentage.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_RetPercentage.Location = new System.Drawing.Point(1189, 30);
+            this.lbl_RetPercentage.Location = new System.Drawing.Point(1189, 7);
             this.lbl_RetPercentage.Name = "lbl_RetPercentage";
             this.lbl_RetPercentage.Size = new System.Drawing.Size(28, 25);
             this.lbl_RetPercentage.TabIndex = 14;
@@ -193,7 +193,7 @@
             // 
             this.lbl_TotalDeductions.AutoSize = true;
             this.lbl_TotalDeductions.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_TotalDeductions.Location = new System.Drawing.Point(1113, 91);
+            this.lbl_TotalDeductions.Location = new System.Drawing.Point(1113, 51);
             this.lbl_TotalDeductions.Name = "lbl_TotalDeductions";
             this.lbl_TotalDeductions.Size = new System.Drawing.Size(61, 25);
             this.lbl_TotalDeductions.TabIndex = 13;
@@ -203,7 +203,7 @@
             // 
             this.lbl_TotalRetentions.AutoSize = true;
             this.lbl_TotalRetentions.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_TotalRetentions.Location = new System.Drawing.Point(1113, 30);
+            this.lbl_TotalRetentions.Location = new System.Drawing.Point(1113, 7);
             this.lbl_TotalRetentions.Name = "lbl_TotalRetentions";
             this.lbl_TotalRetentions.Size = new System.Drawing.Size(61, 25);
             this.lbl_TotalRetentions.TabIndex = 12;
