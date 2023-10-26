@@ -593,14 +593,24 @@ namespace ClsOutDocDeliveryCtrl
         private void GridView_ProjectDocs_EditingControlShowing(object? sender, DataGridViewEditingControlShowingEventArgs e)
         {
             e.Control.KeyPress -= new KeyPressEventHandler(NumKeyPress);
+            if (gridView_ProjectDocs.CurrentCell.ColumnIndex == gridView_ProjectDocs.Columns["Retention"].Index
+                || gridView_ProjectDocs.CurrentCell.ColumnIndex == gridView_ProjectDocs.Columns["Deduction"].Index)
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += new KeyPressEventHandler(WholeNumKeyPress);
+                }
+            }
             if (gridView_ProjectDocs.CurrentCell.ColumnIndex == gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"].Index
-                || gridView_ProjectDocs.CurrentCell.ColumnIndex == gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].Index)
+               || gridView_ProjectDocs.CurrentCell.ColumnIndex == gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].Index)
             {
                 TextBox tb = e.Control as TextBox;
                 if (tb != null)
                 {
                     tb.KeyPress += new KeyPressEventHandler(NumKeyPress);
                 }
+
             }
             if (gridView_ProjectDocs.CurrentCell is DataGridViewComboBoxCell)
             {
@@ -873,6 +883,19 @@ namespace ClsOutDocDeliveryCtrl
         {
             this.gridView_ProjectDocs.CurrentCell.Value = _dtp.Value;
         }
+        private void WholeNumKeyPress(object? sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if (e.KeyChar == '.' && (sender as TextBox)?.Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+        }
         private void NumKeyPress(object? sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -880,7 +903,6 @@ namespace ClsOutDocDeliveryCtrl
                 e.Handled = true;
             }
         }
-
         //don't delete
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
