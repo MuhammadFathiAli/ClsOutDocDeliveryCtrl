@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_ProjectDocumentInterface));
             this.lbl_AddDelete = new System.Windows.Forms.Label();
             this.gridView_ProjectDocsList = new System.Windows.Forms.DataGridView();
@@ -49,6 +51,7 @@
             // lbl_AddDelete
             // 
             this.lbl_AddDelete.AutoSize = true;
+            this.lbl_AddDelete.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_AddDelete.Location = new System.Drawing.Point(12, 54);
             this.lbl_AddDelete.Name = "lbl_AddDelete";
             this.lbl_AddDelete.Size = new System.Drawing.Size(346, 15);
@@ -63,18 +66,35 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridView_ProjectDocsList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.gridView_ProjectDocsList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridView_ProjectDocsList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gridView_ProjectDocsList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridView_ProjectDocsList.DefaultCellStyle = dataGridViewCellStyle2;
             this.gridView_ProjectDocsList.Location = new System.Drawing.Point(1, 89);
             this.gridView_ProjectDocsList.Name = "gridView_ProjectDocsList";
             this.gridView_ProjectDocsList.ReadOnly = true;
             this.gridView_ProjectDocsList.RowTemplate.Height = 25;
-            this.gridView_ProjectDocsList.Size = new System.Drawing.Size(689, 279);
+            this.gridView_ProjectDocsList.Size = new System.Drawing.Size(700, 265);
             this.gridView_ProjectDocsList.TabIndex = 1;
             // 
             // btn_Back
             // 
             this.btn_Back.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Back.Location = new System.Drawing.Point(12, 415);
+            this.btn_Back.Location = new System.Drawing.Point(12, 401);
             this.btn_Back.Name = "btn_Back";
             this.btn_Back.Size = new System.Drawing.Size(75, 23);
             this.btn_Back.TabIndex = 2;
@@ -85,7 +105,7 @@
             // btn_Finish
             // 
             this.btn_Finish.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Finish.Location = new System.Drawing.Point(604, 415);
+            this.btn_Finish.Location = new System.Drawing.Point(615, 401);
             this.btn_Finish.Name = "btn_Finish";
             this.btn_Finish.Size = new System.Drawing.Size(75, 23);
             this.btn_Finish.TabIndex = 3;
@@ -98,7 +118,7 @@
             this.btn_AddDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_AddDoc.ImageIndex = 0;
             this.btn_AddDoc.ImageList = this.img_AddDoc;
-            this.btn_AddDoc.Location = new System.Drawing.Point(12, 374);
+            this.btn_AddDoc.Location = new System.Drawing.Point(12, 360);
             this.btn_AddDoc.Name = "btn_AddDoc";
             this.btn_AddDoc.Size = new System.Drawing.Size(75, 23);
             this.btn_AddDoc.TabIndex = 4;
@@ -119,7 +139,7 @@
             this.btn_DeleteDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_DeleteDoc.ImageIndex = 0;
             this.btn_DeleteDoc.ImageList = this.img_deleteDoc;
-            this.btn_DeleteDoc.Location = new System.Drawing.Point(254, 374);
+            this.btn_DeleteDoc.Location = new System.Drawing.Point(254, 360);
             this.btn_DeleteDoc.Name = "btn_DeleteDoc";
             this.btn_DeleteDoc.Size = new System.Drawing.Size(75, 23);
             this.btn_DeleteDoc.TabIndex = 5;
@@ -140,7 +160,7 @@
             this.btn_EditDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_EditDoc.ImageIndex = 0;
             this.btn_EditDoc.ImageList = this.img_EditDoc;
-            this.btn_EditDoc.Location = new System.Drawing.Point(133, 374);
+            this.btn_EditDoc.Location = new System.Drawing.Point(133, 360);
             this.btn_EditDoc.Name = "btn_EditDoc";
             this.btn_EditDoc.Size = new System.Drawing.Size(75, 23);
             this.btn_EditDoc.TabIndex = 6;
@@ -159,15 +179,16 @@
             // lbl_DocSearch
             // 
             this.lbl_DocSearch.AutoSize = true;
+            this.lbl_DocSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_DocSearch.Location = new System.Drawing.Point(1, 18);
             this.lbl_DocSearch.Name = "lbl_DocSearch";
             this.lbl_DocSearch.Size = new System.Drawing.Size(150, 15);
             this.lbl_DocSearch.TabIndex = 8;
-            this.lbl_DocSearch.Text = "Search by Document name";
+            this.lbl_DocSearch.Text = "Search by document name";
             // 
             // txt_DocSearch
             // 
-            this.txt_DocSearch.Location = new System.Drawing.Point(157, 15);
+            this.txt_DocSearch.Location = new System.Drawing.Point(168, 15);
             this.txt_DocSearch.Name = "txt_DocSearch";
             this.txt_DocSearch.Size = new System.Drawing.Size(456, 23);
             this.txt_DocSearch.TabIndex = 7;
@@ -175,7 +196,8 @@
             // 
             // btn_Info
             // 
-            this.btn_Info.Location = new System.Drawing.Point(376, 374);
+            this.btn_Info.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_Info.Location = new System.Drawing.Point(376, 360);
             this.btn_Info.Name = "btn_Info";
             this.btn_Info.Size = new System.Drawing.Size(75, 23);
             this.btn_Info.TabIndex = 9;
@@ -187,7 +209,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(691, 451);
+            this.ClientSize = new System.Drawing.Size(702, 437);
             this.Controls.Add(this.btn_Info);
             this.Controls.Add(this.lbl_DocSearch);
             this.Controls.Add(this.txt_DocSearch);

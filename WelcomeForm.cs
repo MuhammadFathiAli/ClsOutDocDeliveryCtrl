@@ -26,7 +26,18 @@ namespace ClsOutDocDeliveryCtrl
 
         private void cmbox_Recents_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var projectID = cmbox_Recents.SelectedIndex;
+            //frm
+            Project? project;
+
+            //if (cmbox_Recents.SelectedItem is Project selectedProject)
+            //{
+            //        frm_ProjectDosc projectDocumentsForm = new(selectedProject);
+            //        this.Hide();
+            //        projectDocumentsForm.ShowDialog();
+            //        this.Show();
+            //}
+            //else
+            //    MessageBox.Show($"Project Not exists");
 
         }
 

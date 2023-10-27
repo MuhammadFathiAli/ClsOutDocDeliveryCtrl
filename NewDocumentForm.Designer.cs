@@ -43,15 +43,17 @@
             // lbl_InsertNewDoc
             // 
             this.lbl_InsertNewDoc.AutoSize = true;
+            this.lbl_InsertNewDoc.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_InsertNewDoc.Location = new System.Drawing.Point(39, 32);
             this.lbl_InsertNewDoc.Name = "lbl_InsertNewDoc";
-            this.lbl_InsertNewDoc.Size = new System.Drawing.Size(250, 15);
+            this.lbl_InsertNewDoc.Size = new System.Drawing.Size(352, 21);
             this.lbl_InsertNewDoc.TabIndex = 0;
-            this.lbl_InsertNewDoc.Text = "Pleas fill the following document information:";
+            this.lbl_InsertNewDoc.Text = "Please fill the following document information:";
             // 
             // lbl_DocName
             // 
             this.lbl_DocName.AutoSize = true;
+            this.lbl_DocName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_DocName.Location = new System.Drawing.Point(57, 113);
             this.lbl_DocName.Name = "lbl_DocName";
             this.lbl_DocName.Size = new System.Drawing.Size(39, 15);
@@ -61,9 +63,10 @@
             // lbl_DocDescription
             // 
             this.lbl_DocDescription.AutoSize = true;
+            this.lbl_DocDescription.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_DocDescription.Location = new System.Drawing.Point(57, 180);
             this.lbl_DocDescription.Name = "lbl_DocDescription";
-            this.lbl_DocDescription.Size = new System.Drawing.Size(71, 15);
+            this.lbl_DocDescription.Size = new System.Drawing.Size(72, 15);
             this.lbl_DocDescription.TabIndex = 2;
             this.lbl_DocDescription.Text = "Descriprtion";
             // 
@@ -119,6 +122,8 @@
             this.Controls.Add(this.lbl_DocDescription);
             this.Controls.Add(this.lbl_DocName);
             this.Controls.Add(this.lbl_InsertNewDoc);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "frm_NewDocument";
             this.Text = "New Document";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider_NewDoc)).EndInit();

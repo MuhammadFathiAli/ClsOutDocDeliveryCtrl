@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.brn_ProjectSearch = new System.Windows.Forms.Button();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txt_ProjectSearch = new System.Windows.Forms.TextBox();
             this.lbl_ProjectSearch = new System.Windows.Forms.Label();
             this.gridView_ProjectList = new System.Windows.Forms.DataGridView();
@@ -40,20 +41,10 @@
             this.editProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.brn_ProjectSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridView_ProjectList)).BeginInit();
             this.contextMenuStrip_projects.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // brn_ProjectSearch
-            // 
-            this.brn_ProjectSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.brn_ProjectSearch.Location = new System.Drawing.Point(1024, 25);
-            this.brn_ProjectSearch.Name = "brn_ProjectSearch";
-            this.brn_ProjectSearch.Size = new System.Drawing.Size(75, 23);
-            this.brn_ProjectSearch.TabIndex = 0;
-            this.brn_ProjectSearch.Text = "Search";
-            this.brn_ProjectSearch.UseVisualStyleBackColor = true;
-            this.brn_ProjectSearch.Click += new System.EventHandler(this.brn_ProjectSearch_Click);
             // 
             // txt_ProjectSearch
             // 
@@ -66,9 +57,10 @@
             // lbl_ProjectSearch
             // 
             this.lbl_ProjectSearch.AutoSize = true;
+            this.lbl_ProjectSearch.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_ProjectSearch.Location = new System.Drawing.Point(12, 28);
             this.lbl_ProjectSearch.Name = "lbl_ProjectSearch";
-            this.lbl_ProjectSearch.Size = new System.Drawing.Size(131, 15);
+            this.lbl_ProjectSearch.Size = new System.Drawing.Size(132, 15);
             this.lbl_ProjectSearch.TabIndex = 2;
             this.lbl_ProjectSearch.Text = "Search by project name";
             // 
@@ -80,18 +72,35 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridView_ProjectList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.gridView_ProjectList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridView_ProjectList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gridView_ProjectList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridView_ProjectList.DefaultCellStyle = dataGridViewCellStyle2;
             this.gridView_ProjectList.Location = new System.Drawing.Point(1, 64);
             this.gridView_ProjectList.Name = "gridView_ProjectList";
             this.gridView_ProjectList.ReadOnly = true;
             this.gridView_ProjectList.RowTemplate.Height = 25;
-            this.gridView_ProjectList.Size = new System.Drawing.Size(1087, 298);
+            this.gridView_ProjectList.Size = new System.Drawing.Size(1148, 298);
             this.gridView_ProjectList.TabIndex = 3;
             // 
             // btn_Open
             // 
             this.btn_Open.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Open.Location = new System.Drawing.Point(1024, 377);
+            this.btn_Open.Location = new System.Drawing.Point(1074, 377);
             this.btn_Open.Name = "btn_Open";
             this.btn_Open.Size = new System.Drawing.Size(75, 23);
             this.btn_Open.TabIndex = 4;
@@ -148,11 +157,22 @@
             this.exportToPDFToolStripMenuItem.Text = "Export to PDF";
             this.exportToPDFToolStripMenuItem.Click += new System.EventHandler(this.exportToPDFToolStripMenuItem_Click);
             // 
+            // brn_ProjectSearch
+            // 
+            this.brn_ProjectSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.brn_ProjectSearch.Location = new System.Drawing.Point(1074, 25);
+            this.brn_ProjectSearch.Name = "brn_ProjectSearch";
+            this.brn_ProjectSearch.Size = new System.Drawing.Size(75, 23);
+            this.brn_ProjectSearch.TabIndex = 0;
+            this.brn_ProjectSearch.Text = "Search";
+            this.brn_ProjectSearch.UseVisualStyleBackColor = true;
+            this.brn_ProjectSearch.Click += new System.EventHandler(this.brn_ProjectSearch_Click);
+            // 
             // frm_ProjectList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1111, 412);
+            this.ClientSize = new System.Drawing.Size(1161, 412);
             this.Controls.Add(this.btn_Back);
             this.Controls.Add(this.btn_Open);
             this.Controls.Add(this.gridView_ProjectList);
@@ -170,8 +190,6 @@
         }
 
         #endregion
-
-        private Button brn_ProjectSearch;
         private TextBox txt_ProjectSearch;
         private Label lbl_ProjectSearch;
         private DataGridView gridView_ProjectList;
@@ -182,5 +200,6 @@
         private ToolStripMenuItem editProjectToolStripMenuItem;
         private ToolStripMenuItem deleteProjectToolStripMenuItem;
         private ToolStripMenuItem exportToPDFToolStripMenuItem;
+        private Button brn_ProjectSearch;
     }
 }

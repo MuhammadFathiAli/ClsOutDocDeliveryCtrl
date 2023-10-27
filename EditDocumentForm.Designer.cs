@@ -42,7 +42,7 @@
             // 
             // btn_Save
             // 
-            this.btn_Save.Location = new System.Drawing.Point(713, 405);
+            this.btn_Save.Location = new System.Drawing.Point(713, 414);
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(75, 23);
             this.btn_Save.TabIndex = 13;
@@ -52,7 +52,7 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Location = new System.Drawing.Point(12, 405);
+            this.btn_Cancel.Location = new System.Drawing.Point(12, 414);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(75, 23);
             this.btn_Cancel.TabIndex = 12;
@@ -78,29 +78,32 @@
             // lbl_DocDescription
             // 
             this.lbl_DocDescription.AutoSize = true;
+            this.lbl_DocDescription.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_DocDescription.Location = new System.Drawing.Point(57, 170);
             this.lbl_DocDescription.Name = "lbl_DocDescription";
-            this.lbl_DocDescription.Size = new System.Drawing.Size(71, 15);
+            this.lbl_DocDescription.Size = new System.Drawing.Size(81, 17);
             this.lbl_DocDescription.TabIndex = 9;
             this.lbl_DocDescription.Text = "Descriprtion";
             // 
             // lbl_DocName
             // 
             this.lbl_DocName.AutoSize = true;
+            this.lbl_DocName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_DocName.Location = new System.Drawing.Point(57, 103);
             this.lbl_DocName.Name = "lbl_DocName";
-            this.lbl_DocName.Size = new System.Drawing.Size(39, 15);
+            this.lbl_DocName.Size = new System.Drawing.Size(44, 17);
             this.lbl_DocName.TabIndex = 8;
             this.lbl_DocName.Text = "Name";
             // 
             // lbl_EditDoc
             // 
             this.lbl_EditDoc.AutoSize = true;
+            this.lbl_EditDoc.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_EditDoc.Location = new System.Drawing.Point(39, 22);
             this.lbl_EditDoc.Name = "lbl_EditDoc";
-            this.lbl_EditDoc.Size = new System.Drawing.Size(250, 15);
+            this.lbl_EditDoc.Size = new System.Drawing.Size(352, 21);
             this.lbl_EditDoc.TabIndex = 7;
-            this.lbl_EditDoc.Text = "Pleas fill the following document information:";
+            this.lbl_EditDoc.Text = "Please fill the following document information:";
             // 
             // errorProvider_EditDoc
             // 
@@ -118,6 +121,8 @@
             this.Controls.Add(this.lbl_DocDescription);
             this.Controls.Add(this.lbl_DocName);
             this.Controls.Add(this.lbl_EditDoc);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "frm_EditDocument";
             this.Text = "Edit Document";
             this.Load += new System.EventHandler(this.frm_EditDocument_Load);

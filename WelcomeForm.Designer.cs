@@ -38,12 +38,12 @@
             // lbl_PrjName
             // 
             this.lbl_PrjName.AutoSize = true;
-            this.lbl_PrjName.BackColor = System.Drawing.SystemColors.Control;
+            this.lbl_PrjName.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.lbl_PrjName.Location = new System.Drawing.Point(97, 34);
             this.lbl_PrjName.Name = "lbl_PrjName";
-            this.lbl_PrjName.Size = new System.Drawing.Size(567, 32);
+            this.lbl_PrjName.Size = new System.Drawing.Size(581, 32);
             this.lbl_PrjName.TabIndex = 2;
-            this.lbl_PrjName.Text = "Closeout Documents Delivery Control APP";
+            this.lbl_PrjName.Text = "Close-Out Documents Delivery Control APP";
             // 
             // btn_NewPrjct
             // 
@@ -70,7 +70,7 @@
             // cmbox_Recents
             // 
             this.cmbox_Recents.FormattingEnabled = true;
-            this.cmbox_Recents.Location = new System.Drawing.Point(342, 242);
+            this.cmbox_Recents.Location = new System.Drawing.Point(315, 250);
             this.cmbox_Recents.Name = "cmbox_Recents";
             this.cmbox_Recents.Size = new System.Drawing.Size(207, 40);
             this.cmbox_Recents.TabIndex = 6;
@@ -80,7 +80,7 @@
             // lbl_Recents
             // 
             this.lbl_Recents.AutoSize = true;
-            this.lbl_Recents.Location = new System.Drawing.Point(131, 250);
+            this.lbl_Recents.Location = new System.Drawing.Point(107, 250);
             this.lbl_Recents.Name = "lbl_Recents";
             this.lbl_Recents.Size = new System.Drawing.Size(122, 32);
             this.lbl_Recents.TabIndex = 7;
@@ -91,15 +91,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(744, 457);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lbl_Recents);
             this.Controls.Add(this.cmbox_Recents);
             this.Controls.Add(this.btn_ProjectSearch);
             this.Controls.Add(this.btn_NewPrjct);
             this.Controls.Add(this.lbl_PrjName);
             this.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Location = new System.Drawing.Point(109, 31);
             this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.MaximizeBox = false;
             this.Name = "frm_welcome";
             this.Text = "Welcome";
             this.Load += new System.EventHandler(this.frm_welcome_Load);

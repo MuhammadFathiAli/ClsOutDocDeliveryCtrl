@@ -204,12 +204,15 @@ namespace ClsOutDocDeliveryCtrl
             // Change column names to user-friendly names
             gridView_ProjectList.Columns["Name"].HeaderText = "Project Name";
             gridView_ProjectList.Columns["StartDate"].HeaderText = "Start Date";
+            gridView_ProjectList.Columns["StartDate"].DefaultCellStyle.Format = "d";
             gridView_ProjectList.Columns["PlannedEndDate"].HeaderText = "Planned End Date";
+            gridView_ProjectList.Columns["PlannedEndDate"].DefaultCellStyle.Format = "d";
             gridView_ProjectList.Columns["ContractValue"].HeaderText = "Contract Value (Price)";
             gridView_ProjectList.Columns["OwnerName"].HeaderText = "Owner Name";
             gridView_ProjectList.Columns["ConsultantName"].HeaderText = "Consultant Name";
             gridView_ProjectList.Columns["ContractorName"].HeaderText = "Contractor Name";
             gridView_ProjectList.Columns["ConsultantReviewTimeInDays"].HeaderText = "Consultant review time/document (Days)";
+            gridView_ProjectList.Columns["ConsultantReviewTimeInDays"].HeaderCell.Style.WrapMode  = DataGridViewTriState.True;
         }
 
         private void LoadAllProjects()

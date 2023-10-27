@@ -59,9 +59,10 @@
             // lbl_instructions
             // 
             this.lbl_instructions.AutoSize = true;
+            this.lbl_instructions.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_instructions.Location = new System.Drawing.Point(54, 33);
             this.lbl_instructions.Name = "lbl_instructions";
-            this.lbl_instructions.Size = new System.Drawing.Size(231, 15);
+            this.lbl_instructions.Size = new System.Drawing.Size(318, 21);
             this.lbl_instructions.TabIndex = 0;
             this.lbl_instructions.Text = "Please fill down the following information:";
             // 
@@ -69,6 +70,7 @@
             // 
             this.lbl_PrjName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_PrjName.AutoSize = true;
+            this.lbl_PrjName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_PrjName.Location = new System.Drawing.Point(54, 86);
             this.lbl_PrjName.Name = "lbl_PrjName";
             this.lbl_PrjName.Size = new System.Drawing.Size(79, 15);
@@ -79,9 +81,10 @@
             // 
             this.lbl_StartDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_StartDate.AutoSize = true;
+            this.lbl_StartDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_StartDate.Location = new System.Drawing.Point(54, 121);
             this.lbl_StartDate.Name = "lbl_StartDate";
-            this.lbl_StartDate.Size = new System.Drawing.Size(58, 15);
+            this.lbl_StartDate.Size = new System.Drawing.Size(60, 15);
             this.lbl_StartDate.TabIndex = 2;
             this.lbl_StartDate.Text = "Start Date";
             // 
@@ -89,9 +92,10 @@
             // 
             this.lbl_EndDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_EndDate.AutoSize = true;
+            this.lbl_EndDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_EndDate.Location = new System.Drawing.Point(54, 156);
             this.lbl_EndDate.Name = "lbl_EndDate";
-            this.lbl_EndDate.Size = new System.Drawing.Size(100, 15);
+            this.lbl_EndDate.Size = new System.Drawing.Size(101, 15);
             this.lbl_EndDate.TabIndex = 3;
             this.lbl_EndDate.Text = "Planned End Date";
             // 
@@ -99,6 +103,7 @@
             // 
             this.lbl_CtrctValue.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_CtrctValue.AutoSize = true;
+            this.lbl_CtrctValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_CtrctValue.Location = new System.Drawing.Point(54, 191);
             this.lbl_CtrctValue.Name = "lbl_CtrctValue";
             this.lbl_CtrctValue.Size = new System.Drawing.Size(121, 15);
@@ -109,9 +114,10 @@
             // 
             this.lbl_Currency.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_Currency.AutoSize = true;
+            this.lbl_Currency.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_Currency.Location = new System.Drawing.Point(54, 226);
             this.lbl_Currency.Name = "lbl_Currency";
-            this.lbl_Currency.Size = new System.Drawing.Size(55, 15);
+            this.lbl_Currency.Size = new System.Drawing.Size(54, 15);
             this.lbl_Currency.TabIndex = 5;
             this.lbl_Currency.Text = "Currency";
             // 
@@ -119,6 +125,7 @@
             // 
             this.lbl_OwnerName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_OwnerName.AutoSize = true;
+            this.lbl_OwnerName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_OwnerName.Location = new System.Drawing.Point(54, 261);
             this.lbl_OwnerName.Name = "lbl_OwnerName";
             this.lbl_OwnerName.Size = new System.Drawing.Size(77, 15);
@@ -129,9 +136,10 @@
             // 
             this.lbl_ConsltName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_ConsltName.AutoSize = true;
+            this.lbl_ConsltName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_ConsltName.Location = new System.Drawing.Point(54, 296);
             this.lbl_ConsltName.Name = "lbl_ConsltName";
-            this.lbl_ConsltName.Size = new System.Drawing.Size(100, 15);
+            this.lbl_ConsltName.Size = new System.Drawing.Size(99, 15);
             this.lbl_ConsltName.TabIndex = 7;
             this.lbl_ConsltName.Text = "Consultant Name";
             // 
@@ -139,9 +147,10 @@
             // 
             this.lbl_CtrctName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_CtrctName.AutoSize = true;
+            this.lbl_CtrctName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_CtrctName.Location = new System.Drawing.Point(54, 331);
             this.lbl_CtrctName.Name = "lbl_CtrctName";
-            this.lbl_CtrctName.Size = new System.Drawing.Size(99, 15);
+            this.lbl_CtrctName.Size = new System.Drawing.Size(98, 15);
             this.lbl_CtrctName.TabIndex = 8;
             this.lbl_CtrctName.Text = "Contractor Name";
             // 
@@ -149,18 +158,19 @@
             // 
             this.lbl_ConsultRvwTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_ConsultRvwTime.AutoSize = true;
+            this.lbl_ConsultRvwTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_ConsultRvwTime.Location = new System.Drawing.Point(54, 358);
             this.lbl_ConsultRvwTime.MaximumSize = new System.Drawing.Size(200, 0);
             this.lbl_ConsultRvwTime.Name = "lbl_ConsultRvwTime";
-            this.lbl_ConsultRvwTime.Size = new System.Drawing.Size(190, 30);
+            this.lbl_ConsultRvwTime.Size = new System.Drawing.Size(200, 30);
             this.lbl_ConsultRvwTime.TabIndex = 9;
             this.lbl_ConsultRvwTime.Text = "Consultant review time for a piece of document (Days)";
             // 
             // txt_PrjctName
             // 
-            this.txt_PrjctName.Location = new System.Drawing.Point(314, 78);
+            this.txt_PrjctName.Location = new System.Drawing.Point(309, 78);
             this.txt_PrjctName.Name = "txt_PrjctName";
-            this.txt_PrjctName.Size = new System.Drawing.Size(190, 23);
+            this.txt_PrjctName.Size = new System.Drawing.Size(200, 23);
             this.txt_PrjctName.TabIndex = 10;
             // 
             // datime_StartDate
@@ -179,44 +189,44 @@
             // 
             // num_ContactValue
             // 
-            this.num_ContactValue.Location = new System.Drawing.Point(349, 183);
+            this.num_ContactValue.Location = new System.Drawing.Point(309, 183);
             this.num_ContactValue.Name = "num_ContactValue";
-            this.num_ContactValue.Size = new System.Drawing.Size(120, 23);
+            this.num_ContactValue.Size = new System.Drawing.Size(200, 23);
             this.num_ContactValue.TabIndex = 13;
             // 
             // txt_Currency
             // 
-            this.txt_Currency.Location = new System.Drawing.Point(359, 218);
+            this.txt_Currency.Location = new System.Drawing.Point(309, 218);
             this.txt_Currency.Name = "txt_Currency";
-            this.txt_Currency.Size = new System.Drawing.Size(100, 23);
+            this.txt_Currency.Size = new System.Drawing.Size(200, 23);
             this.txt_Currency.TabIndex = 14;
             // 
             // txt_OwnerName
             // 
-            this.txt_OwnerName.Location = new System.Drawing.Point(359, 253);
+            this.txt_OwnerName.Location = new System.Drawing.Point(309, 253);
             this.txt_OwnerName.Name = "txt_OwnerName";
-            this.txt_OwnerName.Size = new System.Drawing.Size(100, 23);
+            this.txt_OwnerName.Size = new System.Drawing.Size(200, 23);
             this.txt_OwnerName.TabIndex = 15;
             // 
             // txt_ConsltName
             // 
-            this.txt_ConsltName.Location = new System.Drawing.Point(359, 288);
+            this.txt_ConsltName.Location = new System.Drawing.Point(309, 288);
             this.txt_ConsltName.Name = "txt_ConsltName";
-            this.txt_ConsltName.Size = new System.Drawing.Size(100, 23);
+            this.txt_ConsltName.Size = new System.Drawing.Size(200, 23);
             this.txt_ConsltName.TabIndex = 16;
             // 
             // txt_ContrctName
             // 
-            this.txt_ContrctName.Location = new System.Drawing.Point(359, 323);
+            this.txt_ContrctName.Location = new System.Drawing.Point(309, 323);
             this.txt_ContrctName.Name = "txt_ContrctName";
-            this.txt_ContrctName.Size = new System.Drawing.Size(100, 23);
+            this.txt_ContrctName.Size = new System.Drawing.Size(200, 23);
             this.txt_ContrctName.TabIndex = 17;
             // 
             // num_ConsltReviewDays
             // 
-            this.num_ConsltReviewDays.Location = new System.Drawing.Point(384, 358);
+            this.num_ConsltReviewDays.Location = new System.Drawing.Point(309, 358);
             this.num_ConsltReviewDays.Name = "num_ConsltReviewDays";
-            this.num_ConsltReviewDays.Size = new System.Drawing.Size(50, 23);
+            this.num_ConsltReviewDays.Size = new System.Drawing.Size(200, 23);
             this.num_ConsltReviewDays.TabIndex = 18;
             this.num_ConsltReviewDays.Value = new decimal(new int[] {
             7,
@@ -276,6 +286,8 @@
             this.Controls.Add(this.lbl_StartDate);
             this.Controls.Add(this.lbl_PrjName);
             this.Controls.Add(this.lbl_instructions);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "frm_NewProject";
             this.Text = "New Project";
             this.Load += new System.EventHandler(this.frm_NewProject_Load);

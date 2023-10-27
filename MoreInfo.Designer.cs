@@ -39,27 +39,30 @@
             // lbl_DocName
             // 
             this.lbl_DocName.AutoSize = true;
+            this.lbl_DocName.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_DocName.Location = new System.Drawing.Point(73, 34);
             this.lbl_DocName.Name = "lbl_DocName";
-            this.lbl_DocName.Size = new System.Drawing.Size(98, 15);
+            this.lbl_DocName.Size = new System.Drawing.Size(111, 17);
             this.lbl_DocName.TabIndex = 0;
             this.lbl_DocName.Text = "Document Name";
             // 
             // lbl_description
             // 
             this.lbl_description.AutoSize = true;
+            this.lbl_description.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_description.Location = new System.Drawing.Point(73, 116);
             this.lbl_description.Name = "lbl_description";
-            this.lbl_description.Size = new System.Drawing.Size(73, 15);
+            this.lbl_description.Size = new System.Drawing.Size(83, 17);
             this.lbl_description.TabIndex = 1;
             this.lbl_description.Text = "Description :";
             // 
             // lbl_Content
             // 
             this.lbl_Content.AutoSize = true;
+            this.lbl_Content.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_Content.Location = new System.Drawing.Point(73, 254);
             this.lbl_Content.Name = "lbl_Content";
-            this.lbl_Content.Size = new System.Drawing.Size(118, 15);
+            this.lbl_Content.Size = new System.Drawing.Size(135, 17);
             this.lbl_Content.TabIndex = 2;
             this.lbl_Content.Text = "Document Content : ";
             // 
@@ -101,6 +104,7 @@
             this.Controls.Add(this.lbl_Content);
             this.Controls.Add(this.lbl_description);
             this.Controls.Add(this.lbl_DocName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frm_MoreInfo";
             this.Text = "Document More Info";
             this.Load += new System.EventHandler(this.frm_MoreInfo_Load);
