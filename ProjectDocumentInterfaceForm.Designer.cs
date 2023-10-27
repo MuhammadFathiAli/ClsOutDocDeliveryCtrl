@@ -42,6 +42,7 @@
             this.img_EditDoc = new System.Windows.Forms.ImageList(this.components);
             this.lbl_DocSearch = new System.Windows.Forms.Label();
             this.txt_DocSearch = new System.Windows.Forms.TextBox();
+            this.btn_Info = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridView_ProjectDocsList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -172,11 +173,22 @@
             this.txt_DocSearch.TabIndex = 7;
             this.txt_DocSearch.TextChanged += new System.EventHandler(this.txt_DocSearch_TextChanged);
             // 
+            // btn_Info
+            // 
+            this.btn_Info.Location = new System.Drawing.Point(376, 374);
+            this.btn_Info.Name = "btn_Info";
+            this.btn_Info.Size = new System.Drawing.Size(75, 23);
+            this.btn_Info.TabIndex = 9;
+            this.btn_Info.Text = "More Info";
+            this.btn_Info.UseVisualStyleBackColor = true;
+            this.btn_Info.Click += new System.EventHandler(this.btn_Info_Click);
+            // 
             // frm_ProjectDocumentInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(691, 451);
+            this.Controls.Add(this.btn_Info);
             this.Controls.Add(this.lbl_DocSearch);
             this.Controls.Add(this.txt_DocSearch);
             this.Controls.Add(this.btn_EditDoc);
@@ -209,5 +221,6 @@
         private Label lbl_DocSearch;
         private TextBox txt_DocSearch;
         private ImageList img_EditDoc;
+        private Button btn_Info;
     }
 }

@@ -13,6 +13,7 @@ namespace ClsOutDocDeliveryCtrl
             InitializeComponent();
             this.btn_EditDoc.Enabled = false;
             this.btn_DeleteDoc.Enabled = false;
+            this.btn_Info.Enabled = false;
             this.gridView_ProjectDocsList.SelectionChanged += GridView_ProjectDocsList_SelectionChanged;
 
         }
@@ -22,12 +23,14 @@ namespace ClsOutDocDeliveryCtrl
             if (gridView_ProjectDocsList.SelectedRows.Count > 0)
             {
                 btn_EditDoc.Enabled = true;
+            this.btn_Info.Enabled = true;
                 btn_DeleteDoc.Enabled = true;
             }
             else
             {
                 btn_EditDoc.Enabled = false;
                 btn_DeleteDoc.Enabled = false;
+                this.btn_Info.Enabled = false;
 
             }
         }
@@ -120,9 +123,9 @@ namespace ClsOutDocDeliveryCtrl
         private void btn_DeleteDoc_Click(object sender, EventArgs e)
         {
             var count = gridView_ProjectDocsList.SelectedRows.Count;
-            if (count == 0)
+            if (count != 1)
             {
-                MessageBox.Show("Please select at least one project.", "Error", MessageBoxButtons.OK,
+                MessageBox.Show("Please select a single project.", "Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
             }
@@ -163,8 +166,40 @@ namespace ClsOutDocDeliveryCtrl
 
             if (confirmationResult == DialogResult.Yes)
             {
-                //navigate to projectDocument Form 
+                //navigate to projectDocument Form
+                frm_ProjectDosc projectDocumentsForm = new(_project);
                 this.Close();
+                projectDocumentsForm.ShowDialog();
+            }
+        }
+
+        private void btn_Info_Click(object sender, EventArgs e)
+        {
+            var selectedRows = this.gridView_ProjectDocsList.SelectedRows;
+            if (selectedRows.Count != 1)
+            {
+                MessageBox.Show("Please select a single document to show its info.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            DataGridViewRow selectedRow = selectedRows[0];
+            var docName = selectedRow.Cells[1].Value.ToString();
+            var projectName = selectedRow.Cells[1]?.Value?.ToString() ?? string.Empty;
+
+            // Fetch the object to be edited from the database
+            using (var context = new AppDBContext())
+            {
+                var docToEdit = context.Documents.FirstOrDefault(d => (d.ProjectId == _project.ProjectId) && (d.Name == docName));
+                if (docToEdit == null)
+                {
+                    MessageBox.Show("Selected document not found in the database.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                frm_MoreInfo frmMoreInfo = new(docToEdit);
+                this.Hide();
+                frmMoreInfo.ShowDialog();
+                this.Show();
+                this.LoadGrid();
             }
         }
     }

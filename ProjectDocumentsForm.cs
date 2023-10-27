@@ -1,5 +1,6 @@
 ﻿using ClsOutDocDeliveryCtrl.Context;
 using ClsOutDocDeliveryCtrl.Entities;
+using ClsOutDocDeliveryCtrl.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
@@ -18,6 +19,7 @@ namespace ClsOutDocDeliveryCtrl
 
         private bool ISShownSecondSubmital;
         private bool ISShownThirdSubmital;
+        private bool IsCanceledClose;
 
         private Project _project;
         private DataGridViewCell _clickedCell;
@@ -57,7 +59,12 @@ namespace ClsOutDocDeliveryCtrl
         {
             if (MessageBox.Show("Are you sure to exit Project Documents Form?", "Warning", MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+            {
                 e.Cancel = true;
+                IsCanceledClose = true;
+            }
+            else
+                IsCanceledClose = false;
         }
 
         private void ProjectDocumentsForm_Load(object sender, EventArgs e)
@@ -1216,32 +1223,7 @@ namespace ClsOutDocDeliveryCtrl
         private void btn_Save_Click(object sender, EventArgs e)
         {
             //Save To DB
-            using (var context = new AppDBContext())
-            {
-                try
-                {
-                    // Attach the modified entities to the context
-                    foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
-                    {
-                        if (row.DataBoundItem is Document document)
-                        {
-                            context.Documents.Attach(document);
-                            context.Entry(document).State = EntityState.Modified;
-                        }
-                    }
-
-                    // Save the changes to the database
-                    context.SaveChanges();
-
-                    // Optionally, display a success message
-                    MessageBox.Show("Data saved successfully to the database.");
-                }
-                catch (Exception ex)
-                {
-                    // Handle any exceptions that may occur during the database operation
-                    MessageBox.Show($"An error occurred: {ex.InnerException.Message}");
-                }
-            }
+            SaveToDB();
         }
 
         //Helpers
@@ -1302,5 +1284,133 @@ namespace ClsOutDocDeliveryCtrl
             lbl_TotalDeductions.Text = totalDeduction.ToString();
         }
 
+        private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.Yes)
+            {
+                SaveToDB();
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            frm_NewProject frm_newProject = new();
+            this.Close();
+            if (!IsCanceledClose)
+            {
+                this.Hide();
+                frm_newProject.ShowDialog();
+            }
+        }
+        private void SaveToDB()
+        {
+            using (var context = new AppDBContext())
+            {
+                try
+                {
+                    // Attach the modified entities to the context
+                    foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+                    {
+                        if (row.DataBoundItem is Document document)
+                        {
+                            context.Documents.Attach(document);
+                            context.Entry(document).State = EntityState.Modified;
+                        }
+                    }
+
+                    // Save the changes to the database
+                    context.SaveChanges();
+
+                    // Optionally, display a success message
+                    MessageBox.Show("Data saved successfully to the database.");
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions that may occur during the database operation
+                    MessageBox.Show($"An error occurred: {ex.InnerException.Message}");
+                    MessageBox.Show($"Data not saved, Changes ignored");
+                }
+            }
+        }
+
+        private void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.Yes)
+            {
+                SaveToDB();
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+            frm_ProjectList projectListForm = new frm_ProjectList();
+            this.Close();
+            if (!IsCanceledClose)
+            {
+                this.Hide();
+                projectListForm.ShowDialog();
+            }
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveToDB();
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void editProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
+
+            if (result == DialogResult.Yes)
+            {
+                SaveToDB();
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+            frm_EditProject frmEditProject = new(_project);
+            this.Close();
+            if (!IsCanceledClose)
+            {
+                this.Hide();
+                frmEditProject.ShowDialog();
+            }
+        }
+
+        private void exportAsPDFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.Yes)
+            {
+                SaveToDB();
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+            Report report = new Report(_project.ProjectId);
+            report.GenerateReport();
+        }
+
+        private void contactUsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

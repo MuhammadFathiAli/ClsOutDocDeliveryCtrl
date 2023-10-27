@@ -65,6 +65,19 @@
             this.tabPage_ConsultThirdResponse = new System.Windows.Forms.TabPage();
             this.btn_ThirdResponseBack = new System.Windows.Forms.Button();
             this.btn_ThirdResponseNext = new System.Windows.Forms.Button();
+            this.menuStrip_ = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportAsPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contactUsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.gridView_ProjectDocs)).BeginInit();
             this.tabPage_Retentions.SuspendLayout();
             this.tabPage_SubmitToOwner.SuspendLayout();
@@ -75,6 +88,7 @@
             this.tabPage_FirstCTRSubmit.SuspendLayout();
             this.tabPage_ConsultSecondResponse.SuspendLayout();
             this.tabPage_ConsultThirdResponse.SuspendLayout();
+            this.menuStrip_.SuspendLayout();
             this.SuspendLayout();
             // 
             // gridView_ProjectDocs
@@ -135,7 +149,7 @@
             this.tabPage_Retentions.Location = new System.Drawing.Point(4, 24);
             this.tabPage_Retentions.Name = "tabPage_Retentions";
             this.tabPage_Retentions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Retentions.Size = new System.Drawing.Size(1271, 654);
+            this.tabPage_Retentions.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_Retentions.TabIndex = 5;
             this.tabPage_Retentions.Text = "Retention - Deduction";
             // 
@@ -212,7 +226,7 @@
             // btn_RetDedBack
             // 
             this.btn_RetDedBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_RetDedBack.Location = new System.Drawing.Point(7, 623);
+            this.btn_RetDedBack.Location = new System.Drawing.Point(7, 599);
             this.btn_RetDedBack.Name = "btn_RetDedBack";
             this.btn_RetDedBack.Size = new System.Drawing.Size(75, 23);
             this.btn_RetDedBack.TabIndex = 11;
@@ -223,7 +237,7 @@
             // btn_Save
             // 
             this.btn_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Save.Location = new System.Drawing.Point(1189, 623);
+            this.btn_Save.Location = new System.Drawing.Point(1189, 599);
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(75, 23);
             this.btn_Save.TabIndex = 10;
@@ -239,14 +253,14 @@
             this.tabPage_SubmitToOwner.Location = new System.Drawing.Point(4, 24);
             this.tabPage_SubmitToOwner.Name = "tabPage_SubmitToOwner";
             this.tabPage_SubmitToOwner.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_SubmitToOwner.Size = new System.Drawing.Size(1271, 654);
+            this.tabPage_SubmitToOwner.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_SubmitToOwner.TabIndex = 4;
             this.tabPage_SubmitToOwner.Text = "Submittal to Owner";
             // 
             // btn_OwnerSubmitBack
             // 
             this.btn_OwnerSubmitBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_OwnerSubmitBack.Location = new System.Drawing.Point(7, 623);
+            this.btn_OwnerSubmitBack.Location = new System.Drawing.Point(7, 599);
             this.btn_OwnerSubmitBack.Name = "btn_OwnerSubmitBack";
             this.btn_OwnerSubmitBack.Size = new System.Drawing.Size(75, 23);
             this.btn_OwnerSubmitBack.TabIndex = 9;
@@ -257,7 +271,7 @@
             // btn_OwnerSubmitNext
             // 
             this.btn_OwnerSubmitNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_OwnerSubmitNext.Location = new System.Drawing.Point(1189, 623);
+            this.btn_OwnerSubmitNext.Location = new System.Drawing.Point(1189, 599);
             this.btn_OwnerSubmitNext.Name = "btn_OwnerSubmitNext";
             this.btn_OwnerSubmitNext.Size = new System.Drawing.Size(75, 23);
             this.btn_OwnerSubmitNext.TabIndex = 8;
@@ -273,14 +287,14 @@
             this.tabPage_ThirdCTRSubmit.Location = new System.Drawing.Point(4, 24);
             this.tabPage_ThirdCTRSubmit.Name = "tabPage_ThirdCTRSubmit";
             this.tabPage_ThirdCTRSubmit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_ThirdCTRSubmit.Size = new System.Drawing.Size(1271, 654);
+            this.tabPage_ThirdCTRSubmit.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_ThirdCTRSubmit.TabIndex = 3;
             this.tabPage_ThirdCTRSubmit.Text = "Contractor 3rd  Submittal";
             // 
             // btn_ThirdCTRBack
             // 
             this.btn_ThirdCTRBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_ThirdCTRBack.Location = new System.Drawing.Point(7, 623);
+            this.btn_ThirdCTRBack.Location = new System.Drawing.Point(7, 599);
             this.btn_ThirdCTRBack.Name = "btn_ThirdCTRBack";
             this.btn_ThirdCTRBack.Size = new System.Drawing.Size(75, 23);
             this.btn_ThirdCTRBack.TabIndex = 1;
@@ -291,7 +305,7 @@
             // btn_ThirdCTRSubmit
             // 
             this.btn_ThirdCTRSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_ThirdCTRSubmit.Location = new System.Drawing.Point(1189, 623);
+            this.btn_ThirdCTRSubmit.Location = new System.Drawing.Point(1189, 599);
             this.btn_ThirdCTRSubmit.Name = "btn_ThirdCTRSubmit";
             this.btn_ThirdCTRSubmit.Size = new System.Drawing.Size(75, 23);
             this.btn_ThirdCTRSubmit.TabIndex = 0;
@@ -307,14 +321,14 @@
             this.tabPage_SecondCTRSubmit.Location = new System.Drawing.Point(4, 24);
             this.tabPage_SecondCTRSubmit.Name = "tabPage_SecondCTRSubmit";
             this.tabPage_SecondCTRSubmit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_SecondCTRSubmit.Size = new System.Drawing.Size(1271, 654);
+            this.tabPage_SecondCTRSubmit.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_SecondCTRSubmit.TabIndex = 1;
             this.tabPage_SecondCTRSubmit.Text = "Contractor 2nd Submittal";
             // 
             // btn_SecondCTRBack
             // 
             this.btn_SecondCTRBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_SecondCTRBack.Location = new System.Drawing.Point(7, 623);
+            this.btn_SecondCTRBack.Location = new System.Drawing.Point(7, 599);
             this.btn_SecondCTRBack.Name = "btn_SecondCTRBack";
             this.btn_SecondCTRBack.Size = new System.Drawing.Size(75, 23);
             this.btn_SecondCTRBack.TabIndex = 7;
@@ -325,7 +339,7 @@
             // btn_SecondCTRNext
             // 
             this.btn_SecondCTRNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_SecondCTRNext.Location = new System.Drawing.Point(1189, 623);
+            this.btn_SecondCTRNext.Location = new System.Drawing.Point(1189, 599);
             this.btn_SecondCTRNext.Name = "btn_SecondCTRNext";
             this.btn_SecondCTRNext.Size = new System.Drawing.Size(75, 23);
             this.btn_SecondCTRNext.TabIndex = 6;
@@ -341,14 +355,14 @@
             this.tabPage_ConsultFirstResponse.Location = new System.Drawing.Point(4, 24);
             this.tabPage_ConsultFirstResponse.Name = "tabPage_ConsultFirstResponse";
             this.tabPage_ConsultFirstResponse.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_ConsultFirstResponse.Size = new System.Drawing.Size(1271, 654);
+            this.tabPage_ConsultFirstResponse.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_ConsultFirstResponse.TabIndex = 6;
             this.tabPage_ConsultFirstResponse.Text = "Consultant 1st response";
             // 
             // btn_FirstResponseBack
             // 
             this.btn_FirstResponseBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_FirstResponseBack.Location = new System.Drawing.Point(7, 623);
+            this.btn_FirstResponseBack.Location = new System.Drawing.Point(7, 599);
             this.btn_FirstResponseBack.Name = "btn_FirstResponseBack";
             this.btn_FirstResponseBack.Size = new System.Drawing.Size(75, 23);
             this.btn_FirstResponseBack.TabIndex = 5;
@@ -359,7 +373,7 @@
             // btn_FirstResponseNext
             // 
             this.btn_FirstResponseNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_FirstResponseNext.Location = new System.Drawing.Point(1189, 623);
+            this.btn_FirstResponseNext.Location = new System.Drawing.Point(1189, 599);
             this.btn_FirstResponseNext.Name = "btn_FirstResponseNext";
             this.btn_FirstResponseNext.Size = new System.Drawing.Size(75, 23);
             this.btn_FirstResponseNext.TabIndex = 4;
@@ -378,11 +392,11 @@
             this.tabControl1.Controls.Add(this.tabPage_SubmitToOwner);
             this.tabControl1.Controls.Add(this.tabPage_Retentions);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1279, 682);
+            this.tabControl1.Size = new System.Drawing.Size(1279, 658);
             this.tabControl1.TabIndex = 28;
             // 
             // tabPage_FirstCTRSubmit
@@ -393,14 +407,14 @@
             this.tabPage_FirstCTRSubmit.Location = new System.Drawing.Point(4, 24);
             this.tabPage_FirstCTRSubmit.Name = "tabPage_FirstCTRSubmit";
             this.tabPage_FirstCTRSubmit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_FirstCTRSubmit.Size = new System.Drawing.Size(1271, 654);
+            this.tabPage_FirstCTRSubmit.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_FirstCTRSubmit.TabIndex = 0;
             this.tabPage_FirstCTRSubmit.Text = "Contractor 1st Submittal";
             // 
             // btn_FirstCTRCancel
             // 
             this.btn_FirstCTRCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_FirstCTRCancel.Location = new System.Drawing.Point(7, 623);
+            this.btn_FirstCTRCancel.Location = new System.Drawing.Point(7, 599);
             this.btn_FirstCTRCancel.Name = "btn_FirstCTRCancel";
             this.btn_FirstCTRCancel.Size = new System.Drawing.Size(75, 23);
             this.btn_FirstCTRCancel.TabIndex = 3;
@@ -411,7 +425,7 @@
             // btn_FirstCTRNext
             // 
             this.btn_FirstCTRNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_FirstCTRNext.Location = new System.Drawing.Point(1189, 623);
+            this.btn_FirstCTRNext.Location = new System.Drawing.Point(1189, 599);
             this.btn_FirstCTRNext.Name = "btn_FirstCTRNext";
             this.btn_FirstCTRNext.Size = new System.Drawing.Size(75, 23);
             this.btn_FirstCTRNext.TabIndex = 2;
@@ -427,14 +441,14 @@
             this.tabPage_ConsultSecondResponse.Location = new System.Drawing.Point(4, 24);
             this.tabPage_ConsultSecondResponse.Name = "tabPage_ConsultSecondResponse";
             this.tabPage_ConsultSecondResponse.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_ConsultSecondResponse.Size = new System.Drawing.Size(1271, 654);
+            this.tabPage_ConsultSecondResponse.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_ConsultSecondResponse.TabIndex = 2;
             this.tabPage_ConsultSecondResponse.Text = "Consultant 2nd response";
             // 
             // btn_SecondResponseBack
             // 
             this.btn_SecondResponseBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_SecondResponseBack.Location = new System.Drawing.Point(7, 623);
+            this.btn_SecondResponseBack.Location = new System.Drawing.Point(7, 599);
             this.btn_SecondResponseBack.Name = "btn_SecondResponseBack";
             this.btn_SecondResponseBack.Size = new System.Drawing.Size(75, 23);
             this.btn_SecondResponseBack.TabIndex = 7;
@@ -445,7 +459,7 @@
             // btn_SecondResponseNext
             // 
             this.btn_SecondResponseNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_SecondResponseNext.Location = new System.Drawing.Point(1189, 623);
+            this.btn_SecondResponseNext.Location = new System.Drawing.Point(1189, 599);
             this.btn_SecondResponseNext.Name = "btn_SecondResponseNext";
             this.btn_SecondResponseNext.Size = new System.Drawing.Size(75, 23);
             this.btn_SecondResponseNext.TabIndex = 6;
@@ -460,14 +474,14 @@
             this.tabPage_ConsultThirdResponse.Controls.Add(this.btn_ThirdResponseNext);
             this.tabPage_ConsultThirdResponse.Location = new System.Drawing.Point(4, 24);
             this.tabPage_ConsultThirdResponse.Name = "tabPage_ConsultThirdResponse";
-            this.tabPage_ConsultThirdResponse.Size = new System.Drawing.Size(1271, 654);
+            this.tabPage_ConsultThirdResponse.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_ConsultThirdResponse.TabIndex = 7;
             this.tabPage_ConsultThirdResponse.Text = "Consultant 3rd response";
             // 
             // btn_ThirdResponseBack
             // 
             this.btn_ThirdResponseBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_ThirdResponseBack.Location = new System.Drawing.Point(7, 623);
+            this.btn_ThirdResponseBack.Location = new System.Drawing.Point(7, 599);
             this.btn_ThirdResponseBack.Name = "btn_ThirdResponseBack";
             this.btn_ThirdResponseBack.Size = new System.Drawing.Size(75, 23);
             this.btn_ThirdResponseBack.TabIndex = 9;
@@ -478,13 +492,117 @@
             // btn_ThirdResponseNext
             // 
             this.btn_ThirdResponseNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_ThirdResponseNext.Location = new System.Drawing.Point(1189, 623);
+            this.btn_ThirdResponseNext.Location = new System.Drawing.Point(1189, 599);
             this.btn_ThirdResponseNext.Name = "btn_ThirdResponseNext";
             this.btn_ThirdResponseNext.Size = new System.Drawing.Size(75, 23);
             this.btn_ThirdResponseNext.TabIndex = 8;
             this.btn_ThirdResponseNext.Text = "Next";
             this.btn_ThirdResponseNext.UseVisualStyleBackColor = true;
             this.btn_ThirdResponseNext.Click += new System.EventHandler(this.btn_ThirdResponseNext_Click);
+            // 
+            // menuStrip_
+            // 
+            this.menuStrip_.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.exportToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip_.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip_.Name = "menuStrip_";
+            this.menuStrip_.Size = new System.Drawing.Size(1279, 24);
+            this.menuStrip_.TabIndex = 47;
+            this.menuStrip_.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newProjectToolStripMenuItem,
+            this.openProjectToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newProjectToolStripMenuItem
+            // 
+            this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
+            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.newProjectToolStripMenuItem.Text = "New Project";
+            this.newProjectToolStripMenuItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
+            // 
+            // openProjectToolStripMenuItem
+            // 
+            this.openProjectToolStripMenuItem.Name = "openProjectToolStripMenuItem";
+            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.openProjectToolStripMenuItem.Text = "Open Project";
+            this.openProjectToolStripMenuItem.Click += new System.EventHandler(this.openProjectToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.saveAsToolStripMenuItem.Text = "Save as";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editProjectToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // editProjectToolStripMenuItem
+            // 
+            this.editProjectToolStripMenuItem.Name = "editProjectToolStripMenuItem";
+            this.editProjectToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.editProjectToolStripMenuItem.Text = "Edit Project";
+            this.editProjectToolStripMenuItem.Click += new System.EventHandler(this.editProjectToolStripMenuItem_Click);
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportAsPDFToolStripMenuItem,
+            this.exportToolStripMenuItem1});
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.exportToolStripMenuItem.Text = "Export";
+            // 
+            // exportAsPDFToolStripMenuItem
+            // 
+            this.exportAsPDFToolStripMenuItem.Name = "exportAsPDFToolStripMenuItem";
+            this.exportAsPDFToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.exportAsPDFToolStripMenuItem.Text = "Export As PDF";
+            this.exportAsPDFToolStripMenuItem.Click += new System.EventHandler(this.exportAsPDFToolStripMenuItem_Click);
+            // 
+            // exportToolStripMenuItem1
+            // 
+            this.exportToolStripMenuItem1.Name = "exportToolStripMenuItem1";
+            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(148, 22);
+            this.exportToolStripMenuItem1.Text = "Export";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contactUsToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // contactUsToolStripMenuItem
+            // 
+            this.contactUsToolStripMenuItem.Name = "contactUsToolStripMenuItem";
+            this.contactUsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.contactUsToolStripMenuItem.Text = "Contact Us";
+            this.contactUsToolStripMenuItem.Click += new System.EventHandler(this.contactUsToolStripMenuItem_Click);
             // 
             // frm_ProjectDosc
             // 
@@ -493,6 +611,8 @@
             this.ClientSize = new System.Drawing.Size(1279, 682);
             this.Controls.Add(this.gridView_ProjectDocs);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.menuStrip_);
+            this.MainMenuStrip = this.menuStrip_;
             this.Name = "frm_ProjectDosc";
             this.Text = "ProjectDocumentsForm";
             this.Load += new System.EventHandler(this.ProjectDocumentsForm_Load);
@@ -507,7 +627,10 @@
             this.tabPage_FirstCTRSubmit.ResumeLayout(false);
             this.tabPage_ConsultSecondResponse.ResumeLayout(false);
             this.tabPage_ConsultThirdResponse.ResumeLayout(false);
+            this.menuStrip_.ResumeLayout(false);
+            this.menuStrip_.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -545,5 +668,18 @@
         private Label lbl_TotalDedName;
         private Label lbl_TotalRetName;
         private Label lbl_DescRet;
+        private MenuStrip menuStrip_;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem newProjectToolStripMenuItem;
+        private ToolStripMenuItem openProjectToolStripMenuItem;
+        private ToolStripMenuItem saveToolStripMenuItem;
+        private ToolStripMenuItem saveAsToolStripMenuItem;
+        private ToolStripMenuItem editToolStripMenuItem;
+        private ToolStripMenuItem editProjectToolStripMenuItem;
+        private ToolStripMenuItem exportToolStripMenuItem;
+        private ToolStripMenuItem exportAsPDFToolStripMenuItem;
+        private ToolStripMenuItem helpToolStripMenuItem;
+        private ToolStripMenuItem contactUsToolStripMenuItem;
+        private ToolStripMenuItem exportToolStripMenuItem1;
     }
 }

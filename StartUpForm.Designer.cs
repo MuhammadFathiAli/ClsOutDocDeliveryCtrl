@@ -60,11 +60,11 @@
             // 
             this.lbl_PrjName.AutoSize = true;
             this.lbl_PrjName.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl_PrjName.Location = new System.Drawing.Point(109, 31);
+            this.lbl_PrjName.Location = new System.Drawing.Point(94, 30);
             this.lbl_PrjName.Name = "lbl_PrjName";
-            this.lbl_PrjName.Size = new System.Drawing.Size(567, 32);
+            this.lbl_PrjName.Size = new System.Drawing.Size(579, 32);
             this.lbl_PrjName.TabIndex = 2;
-            this.lbl_PrjName.Text = "Closeout Documents Delivery Control APP\r\n";
+            this.lbl_PrjName.Text = "Close Out Documents Delivery Control APP\r\n";
             // 
             // frm_StartUp
             // 
