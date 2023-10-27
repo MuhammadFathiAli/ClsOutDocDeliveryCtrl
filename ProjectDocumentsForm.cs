@@ -196,6 +196,7 @@ namespace ClsOutDocDeliveryCtrl
         }
         private void renameCols()
         {
+            gridView_ProjectDocs.Columns["Name"].ReadOnly =true;
             gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].HeaderText = "Recomended DeadLine Before Handover (Weeks)";
             gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"].HeaderText = "Recomended DeadLine After Handover (Weeks)";
             gridView_ProjectDocs.Columns["ActFirstCTRSubmitDeadline"].HeaderText = "Actual First Contractor Submittal Deadline";
@@ -1366,7 +1367,25 @@ namespace ClsOutDocDeliveryCtrl
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
 
+            if (result == DialogResult.Yes)
+            {
+                SaveToDB();
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+            frm_SaveAs frm_SaveAs = new frm_SaveAs(_project);
+            this.Close();
+            if (!IsCanceledClose)
+            {
+                this.Hide();
+                frm_SaveAs.ShowDialog();
+                
+            }
         }
 
         private void editProjectToolStripMenuItem_Click(object sender, EventArgs e)
