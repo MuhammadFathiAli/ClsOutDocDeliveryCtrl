@@ -36,13 +36,6 @@ namespace ClsOutDocDeliveryCtrl
                         newProject.Documents = newProjectDocs;
                         context.Projects.Add(newProject);
                         context.SaveChanges();
-                        //newProject = context.Projects.FirstOrDefault(d => d.Name == newName);
-                        //foreach (var doc in newProjectDocs)
-                        //{
-                        //    doc.ProjectId = newProject.ProjectId;
-                        //    context.Documents.Add(doc);
-                        //}
-                        //context.SaveChanges();
                     }
                     MessageBox.Show("New project saved successfully", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
