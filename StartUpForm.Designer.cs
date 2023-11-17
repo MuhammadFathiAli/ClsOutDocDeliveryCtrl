@@ -37,6 +37,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_Start
@@ -61,11 +62,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_PrjName.AutoSize = true;
             this.lbl_PrjName.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_PrjName.Location = new System.Drawing.Point(110, 33);
+            this.lbl_PrjName.Location = new System.Drawing.Point(73, 33);
             this.lbl_PrjName.Name = "lbl_PrjName";
-            this.lbl_PrjName.Size = new System.Drawing.Size(588, 32);
+            this.lbl_PrjName.Size = new System.Drawing.Size(643, 32);
             this.lbl_PrjName.TabIndex = 2;
-            this.lbl_PrjName.Text = "Close-Out Documents Delivery Control APP\r\n";
+            this.lbl_PrjName.Text = "Closeout Documents Delivery Management APP";
             // 
             // lbl_info
             // 
@@ -74,7 +75,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_info.AutoSize = true;
             this.lbl_info.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl_info.Location = new System.Drawing.Point(113, 100);
+            this.lbl_info.Location = new System.Drawing.Point(106, 132);
             this.lbl_info.MaximumSize = new System.Drawing.Size(600, 400);
             this.lbl_info.Name = "lbl_info";
             this.lbl_info.Size = new System.Drawing.Size(588, 54);
@@ -90,7 +91,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(113, 169);
+            this.label1.Location = new System.Drawing.Point(106, 202);
             this.label1.MaximumSize = new System.Drawing.Size(600, 400);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(600, 18);
@@ -105,7 +106,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(113, 202);
+            this.label2.Location = new System.Drawing.Point(106, 236);
             this.label2.MaximumSize = new System.Drawing.Size(600, 400);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(598, 54);
@@ -119,7 +120,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(113, 271);
+            this.label3.Location = new System.Drawing.Point(106, 306);
             this.label3.MaximumSize = new System.Drawing.Size(600, 400);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(580, 36);
@@ -134,7 +135,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(113, 322);
+            this.label4.Location = new System.Drawing.Point(106, 358);
             this.label4.MaximumSize = new System.Drawing.Size(600, 400);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(570, 54);
@@ -150,7 +151,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(113, 391);
+            this.label5.Location = new System.Drawing.Point(106, 428);
             this.label5.MaximumSize = new System.Drawing.Size(600, 400);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(565, 36);
@@ -158,11 +159,26 @@
             this.label5.Text = "# Closeout documents delivery process must be planned for in the time schedule su" +
     "bmitted by  the contractor at the project beginning.";
             // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(106, 94);
+            this.label6.MaximumSize = new System.Drawing.Size(600, 400);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(167, 19);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Important Guidelines";
+            // 
             // frm_StartUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 573);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -190,5 +206,6 @@
         private Label label3;
         private Label label4;
         private Label label5;
+        private Label label6;
     }
 }
