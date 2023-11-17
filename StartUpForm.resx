@@ -57,7 +57,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lbl_info.Text" xml:space="preserve">
-    <value>This application program is designed to aid the project Owner, or his representative, control the process of closeout documents delivery to Owner. The main motive is to help the facility team have all needed documents of the facility in a practical organized and accurate form on the right time along with a professional training on the new facility systems and equipments, which will result in a better operation and maintenance process of the facility with the minimum cost needed.We strongly recommend to keep a retention from the contractor's payment for the documents only, other than the traditional retention. It is to be set between 3-5% of the total contract value to form a real motivation to the contractor in the documents delivery process.</value>
+  <data name="label2.Text" xml:space="preserve">
+    <value># The main motive is to help the facility team have all the needed documents about the facility with accurate, practical and complete information, which shall result in a better operation and maintenance process of the facility with the minimum cost possible.</value>
   </data>
 </root>
