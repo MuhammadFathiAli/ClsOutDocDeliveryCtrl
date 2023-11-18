@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gridView_ProjectDocs = new System.Windows.Forms.DataGridView();
             this.tabPage_Retentions = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
             this.lbl_DescRet = new System.Windows.Forms.Label();
             this.lbl_TotalDedName = new System.Windows.Forms.Label();
             this.lbl_TotalRetName = new System.Windows.Forms.Label();
@@ -44,25 +45,32 @@
             this.btn_RetDedBack = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
             this.tabPage_SubmitToOwner = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
             this.btn_OwnerSubmitBack = new System.Windows.Forms.Button();
             this.btn_OwnerSubmitNext = new System.Windows.Forms.Button();
             this.tabPage_ThirdCTRSubmit = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
             this.btn_ThirdCTRBack = new System.Windows.Forms.Button();
             this.btn_ThirdCTRSubmit = new System.Windows.Forms.Button();
             this.tabPage_SecondCTRSubmit = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
             this.btn_SecondCTRBack = new System.Windows.Forms.Button();
             this.btn_SecondCTRNext = new System.Windows.Forms.Button();
             this.tabPage_ConsultFirstResponse = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.btn_FirstResponseBack = new System.Windows.Forms.Button();
             this.btn_FirstResponseNext = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_FirstCTRSubmit = new System.Windows.Forms.TabPage();
+            this.lbl_CTRFirstSub = new System.Windows.Forms.Label();
             this.btn_FirstCTRCancel = new System.Windows.Forms.Button();
             this.btn_FirstCTRNext = new System.Windows.Forms.Button();
             this.tabPage_ConsultSecondResponse = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
             this.btn_SecondResponseBack = new System.Windows.Forms.Button();
             this.btn_SecondResponseNext = new System.Windows.Forms.Button();
             this.tabPage_ConsultThirdResponse = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
             this.btn_ThirdResponseBack = new System.Windows.Forms.Button();
             this.btn_ThirdResponseNext = new System.Windows.Forms.Button();
             this.menuStrip_ = new System.Windows.Forms.MenuStrip();
@@ -76,14 +84,6 @@
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportAsPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.lbl_CTRFirstSub = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridView_ProjectDocs)).BeginInit();
             this.tabPage_Retentions.SuspendLayout();
             this.tabPage_SubmitToOwner.SuspendLayout();
@@ -106,37 +106,37 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridView_ProjectDocs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.gridView_ProjectDocs.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle29.BackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle29.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle29.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridView_ProjectDocs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridView_ProjectDocs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gridView_ProjectDocs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle30.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle30.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle30.NullValue = null;
-            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridView_ProjectDocs.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridView_ProjectDocs.DefaultCellStyle = dataGridViewCellStyle2;
             this.gridView_ProjectDocs.GridColor = System.Drawing.SystemColors.Control;
             this.gridView_ProjectDocs.Location = new System.Drawing.Point(4, 127);
             this.gridView_ProjectDocs.Name = "gridView_ProjectDocs";
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle31.BackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle31.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle31.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridView_ProjectDocs.RowHeadersDefaultCellStyle = dataGridViewCellStyle31;
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.gridView_ProjectDocs.RowsDefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridView_ProjectDocs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.gridView_ProjectDocs.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.gridView_ProjectDocs.Size = new System.Drawing.Size(1271, 503);
             this.gridView_ProjectDocs.TabIndex = 46;
             // 
@@ -159,6 +159,16 @@
             this.tabPage_Retentions.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_Retentions.TabIndex = 5;
             this.tabPage_Retentions.Text = "Retention - Deduction";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(473, 22);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(224, 30);
+            this.label7.TabIndex = 51;
+            this.label7.Text = "Retention - Deduction";
             // 
             // lbl_DescRet
             // 
@@ -265,6 +275,16 @@
             this.tabPage_SubmitToOwner.TabIndex = 4;
             this.tabPage_SubmitToOwner.Text = "Submittal to Owner";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(432, 20);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(319, 30);
+            this.label6.TabIndex = 50;
+            this.label6.Text = "Contractor\'s submittal to owner";
+            // 
             // btn_OwnerSubmitBack
             // 
             this.btn_OwnerSubmitBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -299,6 +319,16 @@
             this.tabPage_ThirdCTRSubmit.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_ThirdCTRSubmit.TabIndex = 3;
             this.tabPage_ThirdCTRSubmit.Text = "Contractor 3rd  Submittal";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(394, 20);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(411, 30);
+            this.label4.TabIndex = 49;
+            this.label4.Text = "Contractor\'s third submittal to consultant";
             // 
             // btn_ThirdCTRBack
             // 
@@ -335,6 +365,16 @@
             this.tabPage_SecondCTRSubmit.TabIndex = 1;
             this.tabPage_SecondCTRSubmit.Text = "Contractor 2nd Submittal";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(394, 20);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(433, 30);
+            this.label2.TabIndex = 49;
+            this.label2.Text = "Contractor\'s second submittal to consultant";
+            // 
             // btn_SecondCTRBack
             // 
             this.btn_SecondCTRBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -369,6 +409,16 @@
             this.tabPage_ConsultFirstResponse.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_ConsultFirstResponse.TabIndex = 6;
             this.tabPage_ConsultFirstResponse.Text = "Consultant 1st response";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(473, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(251, 30);
+            this.label1.TabIndex = 49;
+            this.label1.Text = "Consultant first response";
             // 
             // btn_FirstResponseBack
             // 
@@ -423,6 +473,17 @@
             this.tabPage_FirstCTRSubmit.TabIndex = 0;
             this.tabPage_FirstCTRSubmit.Text = "Contractor 1st Submittal";
             // 
+            // lbl_CTRFirstSub
+            // 
+            this.lbl_CTRFirstSub.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbl_CTRFirstSub.AutoSize = true;
+            this.lbl_CTRFirstSub.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.lbl_CTRFirstSub.Location = new System.Drawing.Point(394, 20);
+            this.lbl_CTRFirstSub.Name = "lbl_CTRFirstSub";
+            this.lbl_CTRFirstSub.Size = new System.Drawing.Size(402, 30);
+            this.lbl_CTRFirstSub.TabIndex = 48;
+            this.lbl_CTRFirstSub.Text = "Contractor\'s first submittal to consultant";
+            // 
             // btn_FirstCTRCancel
             // 
             this.btn_FirstCTRCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -458,6 +519,16 @@
             this.tabPage_ConsultSecondResponse.TabIndex = 2;
             this.tabPage_ConsultSecondResponse.Text = "Consultant 2nd response";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(473, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(282, 30);
+            this.label3.TabIndex = 50;
+            this.label3.Text = "Consultant second response";
+            // 
             // btn_SecondResponseBack
             // 
             this.btn_SecondResponseBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -491,6 +562,16 @@
             this.tabPage_ConsultThirdResponse.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_ConsultThirdResponse.TabIndex = 7;
             this.tabPage_ConsultThirdResponse.Text = "Consultant 3rd response";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(473, 22);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(260, 30);
+            this.label5.TabIndex = 50;
+            this.label5.Text = "Consultant third response";
             // 
             // btn_ThirdResponseBack
             // 
@@ -540,28 +621,28 @@
             // newProjectToolStripMenuItem
             // 
             this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
-            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.newProjectToolStripMenuItem.Text = "New Project";
             this.newProjectToolStripMenuItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
             // 
             // openProjectToolStripMenuItem
             // 
             this.openProjectToolStripMenuItem.Name = "openProjectToolStripMenuItem";
-            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.openProjectToolStripMenuItem.Text = "Open Project";
             this.openProjectToolStripMenuItem.Click += new System.EventHandler(this.openProjectToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.saveAsToolStripMenuItem.Text = "Save as";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -576,7 +657,7 @@
             // editProjectToolStripMenuItem
             // 
             this.editProjectToolStripMenuItem.Name = "editProjectToolStripMenuItem";
-            this.editProjectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editProjectToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.editProjectToolStripMenuItem.Text = "Edit Project";
             this.editProjectToolStripMenuItem.Click += new System.EventHandler(this.editProjectToolStripMenuItem_Click);
             // 
@@ -592,95 +673,15 @@
             // exportAsPDFToolStripMenuItem
             // 
             this.exportAsPDFToolStripMenuItem.Name = "exportAsPDFToolStripMenuItem";
-            this.exportAsPDFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportAsPDFToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.exportAsPDFToolStripMenuItem.Text = "Export As PDF";
             this.exportAsPDFToolStripMenuItem.Click += new System.EventHandler(this.exportAsPDFToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem1
             // 
             this.exportToolStripMenuItem1.Name = "exportToolStripMenuItem1";
-            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(148, 22);
             this.exportToolStripMenuItem1.Text = "Export";
-            // 
-            // lbl_CTRFirstSub
-            // 
-            this.lbl_CTRFirstSub.AutoSize = true;
-            this.lbl_CTRFirstSub.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.lbl_CTRFirstSub.Location = new System.Drawing.Point(394, 20);
-            this.lbl_CTRFirstSub.Name = "lbl_CTRFirstSub";
-            this.lbl_CTRFirstSub.Size = new System.Drawing.Size(402, 30);
-            this.lbl_CTRFirstSub.TabIndex = 48;
-            this.lbl_CTRFirstSub.Text = "Contractor\'s first submittal to consultant";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(473, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(251, 30);
-            this.label1.TabIndex = 49;
-            this.label1.Text = "Consultant first response";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(394, 20);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(433, 30);
-            this.label2.TabIndex = 49;
-            this.label2.Text = "Contractor\'s second submittal to consultant";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(473, 22);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(282, 30);
-            this.label3.TabIndex = 50;
-            this.label3.Text = "Consultant second response";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(394, 20);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(411, 30);
-            this.label4.TabIndex = 49;
-            this.label4.Text = "Contractor\'s third submittal to consultant";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(473, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(260, 30);
-            this.label5.TabIndex = 50;
-            this.label5.Text = "Consultant third response";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(432, 20);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(319, 30);
-            this.label6.TabIndex = 50;
-            this.label6.Text = "Contractor\'s submittal to owner";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(473, 22);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(224, 30);
-            this.label7.TabIndex = 51;
-            this.label7.Text = "Retention - Deduction";
             // 
             // frm_ProjectDosc
             // 

@@ -10,6 +10,7 @@ public class Document
     [MaxLength(500)]
     public string Name { get; set; }
     public string Description { get; set; }
+    public SendCopy SendCopyToOwner { get; set; } = SendCopy.No;
     public int? RcmdDeadlineBeforeHandover { get; set; }
     public int? RcmdDeadlineAfterHandover { get; set; }
     public DateTime? ActFirstCTRSubmitDeadline { get; set; }

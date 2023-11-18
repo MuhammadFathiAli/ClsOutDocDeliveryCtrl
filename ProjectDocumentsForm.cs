@@ -24,6 +24,7 @@ namespace ClsOutDocDeliveryCtrl
         private Project _project;
         private DataGridViewCell _clickedCell;
         private DateTimePicker _dtp;
+        private DataGridViewComboBoxColumn sendCopyCombBoxCol;
         private DataGridViewComboBoxColumn firstRspCodeCombBoxCol;
         private DataGridViewComboBoxColumn secondRspCodeCombBoxCol;
         private DataGridViewComboBoxColumn thirdRspCodeCombBoxCol;
@@ -44,6 +45,7 @@ namespace ClsOutDocDeliveryCtrl
             tabControl1.Selected += TabControl1_Selected;
             FormClosing += ProjectDocumentsForm_FormClosing;
             gridView_ProjectDocs.Visible = true;
+            sendCopyCombBoxCol = new DataGridViewComboBoxColumn();
             firstRspCodeCombBoxCol = new DataGridViewComboBoxColumn();
             secondRspCodeCombBoxCol = new DataGridViewComboBoxColumn();
             thirdRspCodeCombBoxCol = new DataGridViewComboBoxColumn();
@@ -146,8 +148,6 @@ namespace ClsOutDocDeliveryCtrl
             using (var context = new AppDBContext())
             {
                 var documents = context.Documents.Where(d => d.ProjectId == _project.ProjectId).ToList();
-                //documents.Add(new Document() { Name = "Total Deduction & Retention", Description = "Calculation of Total Deduction & Retention",
-                //    Deduction = documents.Sum(d => d.Deduction??0), Retention = documents.Sum(d=> d.Retention??0)});
                 gridView_ProjectDocs.DataSource = documents;
             }
         }
@@ -199,6 +199,9 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["Name"].ReadOnly =true;
             gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].HeaderText = "Recomended DeadLine Before Handover (Weeks)";
             gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"].HeaderText = "Recomended DeadLine After Handover (Weeks)";
+
+            gridView_ProjectDocs.Columns["SendCopyToOwner"].HeaderText = "Send a copy to Owner to include Facility Management feedback";
+
             gridView_ProjectDocs.Columns["ActFirstCTRSubmitDeadline"].HeaderText = "Actual First Contractor Submittal Deadline";
             gridView_ProjectDocs.Columns["ActFirstCTRSubmitDeliveryDate"].HeaderText = "Actual First Contractor Submittal Delivery Date";
             gridView_ProjectDocs.Columns["FirstCTRSubmitStatus"].HeaderText = "First Contractor Submittal Status";
@@ -289,6 +292,20 @@ namespace ClsOutDocDeliveryCtrl
             submitalFormatCol.ValueMember = "Value";
             submitalFormatCol.DataPropertyName = "OwnerSubmitFormat";
             submitalFormatCol.Name = "OwnerSubmitFormat";
+
+            sendCopyCombBoxCol.HeaderText = "Send a copy to Owner to include Facility Management feedback";
+            gridView_ProjectDocs.Columns.Insert(gridView_ProjectDocs.Columns["SendCopyToOwner"].Index, sendCopyCombBoxCol);
+            sendCopyCombBoxCol.ValueType = typeof(SendCopy);
+            var sendCopyFormatList = Enum.GetValues(typeof(SendCopy)).Cast<SendCopy>().ToList();
+            sendCopyCombBoxCol.DataSource = sendCopyFormatList.Select(s => new
+            {
+                Display = s.ToDescriptionString(),
+                Value = s
+            }).ToList();
+            sendCopyCombBoxCol.DisplayMember = "Display";
+            sendCopyCombBoxCol.ValueMember = "Value";
+            sendCopyCombBoxCol.DataPropertyName = "SendCopyToOwner";
+            sendCopyCombBoxCol.Name = "SendCopyToOwner";
         }
         private void SetSubmitColsVisibility()
         {
@@ -990,6 +1007,8 @@ namespace ClsOutDocDeliveryCtrl
         {
             tabControl1.SelectTab("tabPage_FirstCTRSubmit");
             gridView_ProjectDocs.Columns["Name"].Visible = show;
+            gridView_ProjectDocs.Columns["Description"].Visible = show;
+            gridView_ProjectDocs.Columns["SendCopyToOwner"].Visible = show;
             gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].Visible = show;
             gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"].Visible = show;
             gridView_ProjectDocs.Columns["ActFirstCTRSubmitDeadline"].Visible = show;
