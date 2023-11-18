@@ -67,6 +67,7 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocsList.Columns[1].Name = "Document Name";
             gridView_ProjectDocsList.Columns[2].Name = "Document Description";
             gridView_ProjectDocsList.AutoGenerateColumns = false;
+            gridView_ProjectDocsList.Columns["No."].AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
         }
         private List<Document> LoadDocuments()
         {

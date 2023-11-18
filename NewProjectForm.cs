@@ -3,6 +3,10 @@ using ClsOutDocDeliveryCtrl.Entities;
 
 namespace ClsOutDocDeliveryCtrl
 {
+    public enum DeliveryLimits
+    {
+        min, mid, max
+    }
     public partial class frm_NewProject : Form
     {
         private Dictionary<Control, string> customErrorMessages = new();
@@ -31,49 +35,8 @@ namespace ClsOutDocDeliveryCtrl
                 project.ContractorName = this.txt_ContrctName.Text;
                 project.ConsultantReviewTimeInDays = (int)this.num_ConsltReviewDays.Value;
                 project.RetentionforDocumentsDelivery = this.num_Retention.Value;
-                project.Documents = new List<Document>()
-                {
-                    new Document { Name = "As-Built Drawings", Description = "drawings",
-                        RcmdDeadlineBeforeHandover = 6, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(6*7))},
-                    new Document { Name = "Operation & Maintenance Manuals", Description = "include ''Health & safety file''",
-                        RcmdDeadlineBeforeHandover = 6, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(6*7))},
-                    new Document { Name = "Fire Safety Plans", Description = "search for it; manual procedures/fa scenario/ evac plan/ maint for ff sys",
-                        RcmdDeadlineBeforeHandover = 6, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(6*7))},
-                    new Document { Name = "Warranties' Documents", Description = "include warranty period and the supplier and all instructions",
-                        RcmdDeadlineBeforeHandover = 4, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(4*7))},
-                    new Document { Name = "Equipment Data Sheets", Description = "contains performance values",
-                        RcmdDeadlineBeforeHandover = 4, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(4*7))},
-                    new Document { Name = "Factory/Supplier Certifications", Description = "certifications for quality or success as plumbing",
-                        RcmdDeadlineBeforeHandover = 4, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(4*7))},
-                    new Document { Name = "Tests Result Reports", Description = "what is the test conducted and what is the results",
-                        RcmdDeadlineBeforeHandover = 2, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(2*7))},
-                    new Document { Name = "Inspection Reports", Description = "a documentation of the consultant inspection",
-                        RcmdDeadlineBeforeHandover = 2, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(2*7))},
-                    new Document { Name = "Commissioning Final Reports", Description = "include T&B",
-                        RcmdDeadlineBeforeHandover = 0, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(0*7))},
-                    new Document { Name = "Spare Parts Lists", Description = "تقرير يفيد ب ايه هى ال سبير بارتس و مقايسة بيها و ايه اللى تم توريده و مراجعته من الاستشارى و تسليمه للمالك",
-                        RcmdDeadlineBeforeHandover = 6, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(6*7))},
-                    new Document { Name = "List of Contacts for Suppliers and Subcontractors", Description = "Communication plan for the year of gurantee Description",
-                        RcmdDeadlineBeforeHandover = 4, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(4*7))},
-                    new Document { Name = "Defects Reporting Procedure during the Period of Gurantee", Description = "include escalation and contancts and communication method",
-                        RcmdDeadlineBeforeHandover = 6, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(6*7))},
-                    new Document { Name = "Training Plans", Description = "ايه بنود التدريب و جدولها الزمنى و مين الحضور و كدا",
-                        RcmdDeadlineBeforeHandover = 6, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(6*7))},
-                    new Document { Name = "Training Materials", Description = "اى مستند للعرض يكون مع المتدربين اثناء التدريب للاضطلاع عليه",
-                        RcmdDeadlineBeforeHandover = 4, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(4*7))},
-                    new Document { Name = "Training Completion Reports", Description = "Training Completion Reports",
-                        RcmdDeadlineBeforeHandover = 0, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(0*7))},
-                    new Document { Name = "Training Videos", Description = "تسجيل فيديو كامل للتدريب",
-                        RcmdDeadlineAfterHandover = 1, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(1*7)},
-                    new Document { Name = "Lessons Learned", Description = "باشتراك جميع الاطراف الخروج بالدروس المستفادة من هذا المشروع Recomm from all teams for next projects",
-                        RcmdDeadlineAfterHandover = 2, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(2*7)},
-                    new Document { Name = "Photographic Documentation", Description = "تصوير كامل للمشروع و يقدر ال FM يستخدمه بعد كدا فى مقارنة الحالى بالاستلام لتحديد حالة تدهور او تطور المبنى",
-                        RcmdDeadlineAfterHandover = 2, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(2*7)},
-                    new Document { Name = "Permits & Liscenses", Description = "زى شهادة تسليم الدفاع المدنى",
-                        RcmdDeadlineBeforeHandover = 1, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(1*7))},
-                    new Document { Name = "Other Documents stated in Contract", Description = "for example: RFIs, MOMs, variation orders",
-                        RcmdDeadlineBeforeHandover = 6, ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(6*7))}
-                };
+                var projectDurationInYears = (project.PlannedEndDate - project.StartDate).TotalDays / 365;
+                IntializeDocuments(project, projectDurationInYears);
 
                 if (!ValidateForm())
                 {
@@ -104,6 +67,73 @@ namespace ClsOutDocDeliveryCtrl
                     , Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void IntializeDocuments(Project project, double projectDurationInYears)
+        {
+            var limit = DeliveryLimits.mid;
+
+            if (projectDurationInYears < 1.5)
+                limit = DeliveryLimits.min;
+            else if (projectDurationInYears >= 1.5 && projectDurationInYears <= 2.5)
+                limit = DeliveryLimits.mid;
+            else
+                limit = DeliveryLimits.max;
+
+            project.Documents = new List<Document>()
+                {
+                    new Document { Name = "As-Built Drawings", Description = "drawings",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7))},
+                    new Document { Name = "Operation & Maintenance Manuals", Description = "include ''Health & safety file''",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7))},
+                    new Document { Name = "Fire Safety Plans", Description = "search for it; manual procedures/fa scenario/ evac plan/ maint for ff sys",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7))},
+                    new Document { Name = "Warranties' Documents", Description = "include warranty period and the supplier and all instructions",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7))},
+                    new Document { Name = "Equipment Data Sheets", Description = "contains performance values",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7))},
+                    new Document { Name = "Factory/Supplier Certifications", Description = "certifications for quality or success as plumbing",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7))},
+                    new Document { Name = "Tests Result Reports", Description = "what is the test conducted and what is the results",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(2, limit) * 7))},
+                    new Document { Name = "Inspection Reports", Description = "a documentation of the consultant inspection",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(2, limit) * 7))},
+                    new Document { Name = "Commissioning Final Reports", Description = "include T&B",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(0, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(0, limit) * 7))},
+                    new Document { Name = "Spare Parts Lists", Description = "تقرير يفيد ب ايه هى ال سبير بارتس و مقايسة بيها و ايه اللى تم توريده و مراجعته من الاستشارى و تسليمه للمالك",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7))},
+                    new Document { Name = "List of Contacts for Suppliers and Subcontractors", Description = "Communication plan for the year of gurantee Description",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7))},
+                    new Document { Name = "Defects Reporting Procedure during the Period of Gurantee", Description = "include escalation and contancts and communication method",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7))},
+                    new Document { Name = "Training Plans", Description = "ايه بنود التدريب و جدولها الزمنى و مين الحضور و كدا",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7))},
+                    new Document { Name = "Training Materials", Description = "اى مستند للعرض يكون مع المتدربين اثناء التدريب للاضطلاع عليه",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7))},
+                    new Document { Name = "Training Completion Reports", Description = "Training Completion Reports",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(0, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(0, limit) * 7))},
+                    new Document { Name = "Training Videos", Description = "تسجيل فيديو كامل للتدريب",
+                        RcmdDeadlineAfterHandover = CalculateWeeks(1, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(1, limit) * 7)},
+                    new Document { Name = "Lessons Learned", Description = "باشتراك جميع الاطراف الخروج بالدروس المستفادة من هذا المشروع Recomm from all teams for next projects",
+                        RcmdDeadlineAfterHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(2, limit) * 7)},
+                    new Document { Name = "Photographic Documentation", Description = "تصوير كامل للمشروع و يقدر ال FM يستخدمه بعد كدا فى مقارنة الحالى بالاستلام لتحديد حالة تدهور او تطور المبنى",
+                        RcmdDeadlineAfterHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(2, limit) * 7)},
+                    new Document { Name = "Permits & Liscenses", Description = "زى شهادة تسليم الدفاع المدنى",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(1, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(1, limit) * 7))},
+                    new Document { Name = "Other Documents stated in Contract", Description = "for example: RFIs, MOMs, variation orders",
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(3, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(3, limit) * 7))}
+                };
+        }
+
+        private int CalculateWeeks(int weeks, DeliveryLimits limit)
+        {
+            if (limit == DeliveryLimits.min)
+                return weeks;
+            else if (limit == DeliveryLimits.mid)
+                return weeks + 1;
+            else
+                return weeks + 2;
+        }
+
         private void btn_Back_Click(object sender, EventArgs e)
         {
             // Close it
