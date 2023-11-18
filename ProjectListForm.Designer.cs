@@ -50,7 +50,7 @@
             // 
             this.txt_ProjectSearch.Location = new System.Drawing.Point(193, 25);
             this.txt_ProjectSearch.Name = "txt_ProjectSearch";
-            this.txt_ProjectSearch.Size = new System.Drawing.Size(802, 23);
+            this.txt_ProjectSearch.Size = new System.Drawing.Size(1012, 23);
             this.txt_ProjectSearch.TabIndex = 1;
             this.txt_ProjectSearch.TextChanged += new System.EventHandler(this.txt_ProjectSearch_TextChanged);
             // 
@@ -94,13 +94,13 @@
             this.gridView_ProjectList.Name = "gridView_ProjectList";
             this.gridView_ProjectList.ReadOnly = true;
             this.gridView_ProjectList.RowTemplate.Height = 25;
-            this.gridView_ProjectList.Size = new System.Drawing.Size(1148, 298);
+            this.gridView_ProjectList.Size = new System.Drawing.Size(1333, 298);
             this.gridView_ProjectList.TabIndex = 3;
             // 
             // btn_Open
             // 
             this.btn_Open.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Open.Location = new System.Drawing.Point(1074, 377);
+            this.btn_Open.Location = new System.Drawing.Point(1259, 377);
             this.btn_Open.Name = "btn_Open";
             this.btn_Open.Size = new System.Drawing.Size(75, 23);
             this.btn_Open.TabIndex = 4;
@@ -160,9 +160,9 @@
             // brn_ProjectSearch
             // 
             this.brn_ProjectSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.brn_ProjectSearch.Location = new System.Drawing.Point(1074, 25);
+            this.brn_ProjectSearch.Location = new System.Drawing.Point(1227, 25);
             this.brn_ProjectSearch.Name = "brn_ProjectSearch";
-            this.brn_ProjectSearch.Size = new System.Drawing.Size(75, 23);
+            this.brn_ProjectSearch.Size = new System.Drawing.Size(107, 23);
             this.brn_ProjectSearch.TabIndex = 0;
             this.brn_ProjectSearch.Text = "Search";
             this.brn_ProjectSearch.UseVisualStyleBackColor = true;
@@ -172,7 +172,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1161, 412);
+            this.ClientSize = new System.Drawing.Size(1346, 412);
             this.Controls.Add(this.btn_Back);
             this.Controls.Add(this.btn_Open);
             this.Controls.Add(this.gridView_ProjectList);
