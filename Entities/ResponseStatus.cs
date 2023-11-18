@@ -4,7 +4,7 @@
     {
         NotSet,
         Late,
-        Pending,
+        Required,
         RespondedOnTime,
         RespondedLate
     }
@@ -18,8 +18,8 @@
                     return "Not Set";
                 case ResponseStatus.Late:
                     return "Late";
-                case ResponseStatus.Pending:
-                    return "Pending";
+                case ResponseStatus.Required:
+                    return "Required";
                 case ResponseStatus.RespondedOnTime:
                     return "Responded on Time";
                 case ResponseStatus.RespondedLate:

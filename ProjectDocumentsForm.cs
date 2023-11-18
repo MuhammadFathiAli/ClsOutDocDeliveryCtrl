@@ -197,6 +197,9 @@ namespace ClsOutDocDeliveryCtrl
         private void renameCols()
         {
             gridView_ProjectDocs.Columns["Name"].ReadOnly =true;
+            gridView_ProjectDocs.Columns["Name"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            gridView_ProjectDocs.Columns["Description"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
             gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].HeaderText = "Recomended DeadLine Before Handover (Weeks)";
             gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"].HeaderText = "Recomended DeadLine After Handover (Weeks)";
 
@@ -491,7 +494,7 @@ namespace ClsOutDocDeliveryCtrl
                     {
                         if ((DateTime)deadlineCellValue >= DateTime.Today)
                         {
-                            row.Cells[statusColName].Value = DeliveryStatus.Pending;
+                            row.Cells[statusColName].Value = DeliveryStatus.Required;
                         }
                         else
                         {
@@ -550,7 +553,7 @@ namespace ClsOutDocDeliveryCtrl
                     {
                         if ((DateTime)expectedCellValue >= DateTime.Today)
                         {
-                            row.Cells[statusColName].Value = ResponseStatus.Pending;
+                            row.Cells[statusColName].Value = ResponseStatus.Required;
                         }
                         else
                         {
@@ -592,7 +595,7 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     ResponseStatus.RespondedOnTime => Color.LightGreen,
                     ResponseStatus.RespondedLate or ResponseStatus.Late => Color.OrangeRed,
-                    ResponseStatus.Pending => Color.LightYellow,
+                    ResponseStatus.Required => Color.LightYellow,
                     _ => Color.DarkGray
                 };
                 cell.Style.BackColor = backColor;
@@ -607,7 +610,7 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     DeliveryStatus.DeliveredOnTime => Color.LightGreen,
                     DeliveryStatus.DeliveredLate or DeliveryStatus.Late => Color.OrangeRed,
-                    DeliveryStatus.Pending => Color.LightYellow,
+                    DeliveryStatus.Required => Color.LightYellow,
                     _ => Color.DarkGray
                 };
 

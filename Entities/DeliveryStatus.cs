@@ -4,7 +4,7 @@
     {
         NotSet,
         Late,
-        Pending,
+        Required,
         DeliveredOnTime,
         DeliveredLate
     }
@@ -18,8 +18,8 @@
                     return "Not Set";
                 case DeliveryStatus.Late:
                     return "Late";
-                case DeliveryStatus.Pending:
-                    return "Pending";
+                case DeliveryStatus.Required:
+                    return "Required";
                 case DeliveryStatus.DeliveredOnTime:
                     return "Delivered on Time";
                 case DeliveryStatus.DeliveredLate:

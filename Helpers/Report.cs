@@ -67,7 +67,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         var totalDeliveredToOwner = _documents.Where(d => d.OwnerSubmitStatus == DeliveryStatus.DeliveredOnTime || d.OwnerSubmitStatus == DeliveryStatus.DeliveredLate).ToList().Count();
                         var totalDeliveredOntime = _documents.Where(d => d.OwnerSubmitStatus == DeliveryStatus.DeliveredOnTime).ToList().Count();
                         var totalDeliveredLate = _documents.Where(d => d.OwnerSubmitStatus == DeliveryStatus.DeliveredLate).ToList().Count();
-                        var totalNotDelivered = _documents.Where(d => d.OwnerSubmitStatus == DeliveryStatus.Pending || d.OwnerSubmitStatus == DeliveryStatus.NotSet || d.OwnerSubmitStatus == DeliveryStatus.Late).ToList().Count();
+                        var totalNotDelivered = _documents.Where(d => d.OwnerSubmitStatus == DeliveryStatus.Required || d.OwnerSubmitStatus == DeliveryStatus.NotSet || d.OwnerSubmitStatus == DeliveryStatus.Late).ToList().Count();
                         decimal performance = 0;
                         if (totalDeliveredToOwner != 0)
                         {
