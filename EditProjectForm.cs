@@ -30,6 +30,7 @@ namespace ClsOutDocDeliveryCtrl
             txt_ConsltName.Text = _project.ConsultantName;
             txt_ContrctName.Text = _project.ContractorName;
             num_ConsltReviewDays.Value = _project.ConsultantReviewTimeInDays;
+            num_Retention.Value = _project.RetentionforDocumentsDelivery;
         }
         private void btn_Save_Click(object sender, EventArgs e)
         {
@@ -50,6 +51,7 @@ namespace ClsOutDocDeliveryCtrl
                 _project.ConsultantName = txt_ConsltName.Text;
                 _project.ContractorName = txt_ContrctName.Text;
                 _project.ConsultantReviewTimeInDays = (int)num_ConsltReviewDays.Value;
+                _project.RetentionforDocumentsDelivery = num_Retention.Value;
 
                 //save changes in database
                 using (var context = new AppDBContext())
@@ -66,6 +68,7 @@ namespace ClsOutDocDeliveryCtrl
                         projectToUpdate.ConsultantName = _project.ConsultantName;
                         projectToUpdate.ContractorName = _project.ContractorName;
                         projectToUpdate.ConsultantReviewTimeInDays = _project.ConsultantReviewTimeInDays;
+                        projectToUpdate.RetentionforDocumentsDelivery = _project.RetentionforDocumentsDelivery;
 
                         var documentsToEdit = context.Documents.Where(d => d.ProjectId == _project.ProjectId);
                         foreach (var document in documentsToEdit)
@@ -128,6 +131,9 @@ namespace ClsOutDocDeliveryCtrl
             num_ContactValue.Maximum = decimal.MaxValue;
             num_ContactValue.DecimalPlaces = 2;
             num_ConsltReviewDays.Maximum = int.MaxValue;
+            num_Retention.Value = 5;
+            num_Retention.DecimalPlaces = 2;
+            num_Retention.Maximum = 10;
 
         }
         private void SetCustomErrors()
@@ -147,8 +153,23 @@ namespace ClsOutDocDeliveryCtrl
                 return false;
             else if (!IsValidCurrency())
                 return false;
+            else if (!IsValidRetention())
+                return false;
             return IsValidDates();
         }
+
+        private bool IsValidRetention()
+        {
+            if (num_Retention.Value < 0 || num_Retention.Value > 10)
+            {
+                errorProvider_EditProject.SetError(num_Retention, "Retention for Documents Delivery Max value is 10.00%.");
+                errorMessage = "Retention for Documents Delivery Max value is 10.00%.. \n";
+                return false;
+            }
+            errorProvider_EditProject.SetError(num_Retention, ""); // Clear the error message
+            return true;
+        }
+
         private bool IsValidDates()
         {
             // Validate that datime_PEndDate is after datime_StartDate

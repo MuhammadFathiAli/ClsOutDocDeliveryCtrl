@@ -283,7 +283,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(399, 404);
+            this.label2.Location = new System.Drawing.Point(399, 409);
             this.label2.MaximumSize = new System.Drawing.Size(200, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(22, 18);

@@ -51,15 +51,20 @@
             this.lbl_PrjName = new System.Windows.Forms.Label();
             this.lbl_instructions = new System.Windows.Forms.Label();
             this.errorProvider_EditProject = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.num_Retention = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.num_ConsltReviewDays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_ContactValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider_EditProject)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_Retention)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Back
             // 
             this.btn_Back.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_Back.Location = new System.Drawing.Point(12, 412);
+            this.btn_Back.Location = new System.Drawing.Point(12, 476);
             this.btn_Back.Name = "btn_Back";
             this.btn_Back.Size = new System.Drawing.Size(75, 23);
             this.btn_Back.TabIndex = 41;
@@ -70,7 +75,7 @@
             // btn_Save
             // 
             this.btn_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Save.Location = new System.Drawing.Point(713, 412);
+            this.btn_Save.Location = new System.Drawing.Point(713, 476);
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(75, 23);
             this.btn_Save.TabIndex = 40;
@@ -80,9 +85,9 @@
             // 
             // num_ConsltReviewDays
             // 
-            this.num_ConsltReviewDays.Location = new System.Drawing.Point(314, 348);
+            this.num_ConsltReviewDays.Location = new System.Drawing.Point(309, 358);
             this.num_ConsltReviewDays.Name = "num_ConsltReviewDays";
-            this.num_ConsltReviewDays.Size = new System.Drawing.Size(190, 23);
+            this.num_ConsltReviewDays.Size = new System.Drawing.Size(81, 23);
             this.num_ConsltReviewDays.TabIndex = 39;
             this.num_ConsltReviewDays.Value = new decimal(new int[] {
             7,
@@ -92,66 +97,65 @@
             // 
             // txt_ContrctName
             // 
-            this.txt_ContrctName.Location = new System.Drawing.Point(314, 313);
+            this.txt_ContrctName.Location = new System.Drawing.Point(309, 323);
             this.txt_ContrctName.Name = "txt_ContrctName";
             this.txt_ContrctName.Size = new System.Drawing.Size(190, 23);
             this.txt_ContrctName.TabIndex = 38;
             // 
             // txt_ConsltName
             // 
-            this.txt_ConsltName.Location = new System.Drawing.Point(314, 278);
+            this.txt_ConsltName.Location = new System.Drawing.Point(309, 288);
             this.txt_ConsltName.Name = "txt_ConsltName";
             this.txt_ConsltName.Size = new System.Drawing.Size(190, 23);
             this.txt_ConsltName.TabIndex = 37;
             // 
             // txt_OwnerName
             // 
-            this.txt_OwnerName.Location = new System.Drawing.Point(314, 243);
+            this.txt_OwnerName.Location = new System.Drawing.Point(309, 253);
             this.txt_OwnerName.Name = "txt_OwnerName";
             this.txt_OwnerName.Size = new System.Drawing.Size(190, 23);
             this.txt_OwnerName.TabIndex = 36;
             // 
             // txt_Currency
             // 
-            this.txt_Currency.Location = new System.Drawing.Point(314, 208);
+            this.txt_Currency.Location = new System.Drawing.Point(309, 218);
             this.txt_Currency.Name = "txt_Currency";
             this.txt_Currency.Size = new System.Drawing.Size(190, 23);
             this.txt_Currency.TabIndex = 35;
             // 
             // num_ContactValue
             // 
-            this.num_ContactValue.Location = new System.Drawing.Point(314, 173);
+            this.num_ContactValue.Location = new System.Drawing.Point(309, 183);
             this.num_ContactValue.Name = "num_ContactValue";
             this.num_ContactValue.Size = new System.Drawing.Size(190, 23);
             this.num_ContactValue.TabIndex = 34;
             // 
             // datime_PEndDate
             // 
-            this.datime_PEndDate.Location = new System.Drawing.Point(314, 138);
+            this.datime_PEndDate.Location = new System.Drawing.Point(309, 148);
             this.datime_PEndDate.Name = "datime_PEndDate";
             this.datime_PEndDate.Size = new System.Drawing.Size(190, 23);
             this.datime_PEndDate.TabIndex = 33;
             // 
             // datime_StartDate
             // 
-            this.datime_StartDate.Location = new System.Drawing.Point(314, 103);
+            this.datime_StartDate.Location = new System.Drawing.Point(309, 113);
             this.datime_StartDate.Name = "datime_StartDate";
             this.datime_StartDate.Size = new System.Drawing.Size(190, 23);
             this.datime_StartDate.TabIndex = 32;
             // 
             // txt_PrjctName
             // 
-            this.txt_PrjctName.Location = new System.Drawing.Point(314, 68);
+            this.txt_PrjctName.Location = new System.Drawing.Point(309, 78);
             this.txt_PrjctName.Name = "txt_PrjctName";
             this.txt_PrjctName.Size = new System.Drawing.Size(190, 23);
             this.txt_PrjctName.TabIndex = 31;
             // 
             // lbl_ConsultRvwTime
             // 
-            this.lbl_ConsultRvwTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_ConsultRvwTime.AutoSize = true;
             this.lbl_ConsultRvwTime.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_ConsultRvwTime.Location = new System.Drawing.Point(54, 348);
+            this.lbl_ConsultRvwTime.Location = new System.Drawing.Point(54, 358);
             this.lbl_ConsultRvwTime.MaximumSize = new System.Drawing.Size(200, 0);
             this.lbl_ConsultRvwTime.Name = "lbl_ConsultRvwTime";
             this.lbl_ConsultRvwTime.Size = new System.Drawing.Size(200, 30);
@@ -160,10 +164,9 @@
             // 
             // lbl_CtrctName
             // 
-            this.lbl_CtrctName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_CtrctName.AutoSize = true;
             this.lbl_CtrctName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_CtrctName.Location = new System.Drawing.Point(54, 321);
+            this.lbl_CtrctName.Location = new System.Drawing.Point(54, 331);
             this.lbl_CtrctName.Name = "lbl_CtrctName";
             this.lbl_CtrctName.Size = new System.Drawing.Size(98, 15);
             this.lbl_CtrctName.TabIndex = 29;
@@ -171,10 +174,9 @@
             // 
             // lbl_ConsltName
             // 
-            this.lbl_ConsltName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_ConsltName.AutoSize = true;
             this.lbl_ConsltName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_ConsltName.Location = new System.Drawing.Point(54, 286);
+            this.lbl_ConsltName.Location = new System.Drawing.Point(54, 296);
             this.lbl_ConsltName.Name = "lbl_ConsltName";
             this.lbl_ConsltName.Size = new System.Drawing.Size(99, 15);
             this.lbl_ConsltName.TabIndex = 28;
@@ -182,10 +184,9 @@
             // 
             // lbl_OwnerName
             // 
-            this.lbl_OwnerName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_OwnerName.AutoSize = true;
             this.lbl_OwnerName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_OwnerName.Location = new System.Drawing.Point(54, 251);
+            this.lbl_OwnerName.Location = new System.Drawing.Point(54, 261);
             this.lbl_OwnerName.Name = "lbl_OwnerName";
             this.lbl_OwnerName.Size = new System.Drawing.Size(77, 15);
             this.lbl_OwnerName.TabIndex = 27;
@@ -193,10 +194,9 @@
             // 
             // lbl_Currency
             // 
-            this.lbl_Currency.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_Currency.AutoSize = true;
             this.lbl_Currency.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_Currency.Location = new System.Drawing.Point(54, 216);
+            this.lbl_Currency.Location = new System.Drawing.Point(54, 226);
             this.lbl_Currency.Name = "lbl_Currency";
             this.lbl_Currency.Size = new System.Drawing.Size(54, 15);
             this.lbl_Currency.TabIndex = 26;
@@ -204,10 +204,9 @@
             // 
             // lbl_CtrctValue
             // 
-            this.lbl_CtrctValue.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_CtrctValue.AutoSize = true;
             this.lbl_CtrctValue.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_CtrctValue.Location = new System.Drawing.Point(54, 181);
+            this.lbl_CtrctValue.Location = new System.Drawing.Point(54, 191);
             this.lbl_CtrctValue.Name = "lbl_CtrctValue";
             this.lbl_CtrctValue.Size = new System.Drawing.Size(121, 15);
             this.lbl_CtrctValue.TabIndex = 25;
@@ -215,10 +214,9 @@
             // 
             // lbl_EndDate
             // 
-            this.lbl_EndDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_EndDate.AutoSize = true;
             this.lbl_EndDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_EndDate.Location = new System.Drawing.Point(54, 146);
+            this.lbl_EndDate.Location = new System.Drawing.Point(54, 156);
             this.lbl_EndDate.Name = "lbl_EndDate";
             this.lbl_EndDate.Size = new System.Drawing.Size(101, 15);
             this.lbl_EndDate.TabIndex = 24;
@@ -226,10 +224,9 @@
             // 
             // lbl_StartDate
             // 
-            this.lbl_StartDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_StartDate.AutoSize = true;
             this.lbl_StartDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_StartDate.Location = new System.Drawing.Point(54, 111);
+            this.lbl_StartDate.Location = new System.Drawing.Point(54, 121);
             this.lbl_StartDate.Name = "lbl_StartDate";
             this.lbl_StartDate.Size = new System.Drawing.Size(60, 15);
             this.lbl_StartDate.TabIndex = 23;
@@ -237,10 +234,9 @@
             // 
             // lbl_PrjName
             // 
-            this.lbl_PrjName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_PrjName.AutoSize = true;
             this.lbl_PrjName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_PrjName.Location = new System.Drawing.Point(54, 76);
+            this.lbl_PrjName.Location = new System.Drawing.Point(54, 86);
             this.lbl_PrjName.Name = "lbl_PrjName";
             this.lbl_PrjName.Size = new System.Drawing.Size(79, 15);
             this.lbl_PrjName.TabIndex = 22;
@@ -249,10 +245,10 @@
             // lbl_instructions
             // 
             this.lbl_instructions.AutoSize = true;
-            this.lbl_instructions.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_instructions.Location = new System.Drawing.Point(54, 23);
+            this.lbl_instructions.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lbl_instructions.Location = new System.Drawing.Point(54, 33);
             this.lbl_instructions.Name = "lbl_instructions";
-            this.lbl_instructions.Size = new System.Drawing.Size(312, 20);
+            this.lbl_instructions.Size = new System.Drawing.Size(333, 21);
             this.lbl_instructions.TabIndex = 21;
             this.lbl_instructions.Text = "Please edit any of the following information:";
             // 
@@ -260,11 +256,60 @@
             // 
             this.errorProvider_EditProject.ContainerControl = this;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(399, 409);
+            this.label2.MaximumSize = new System.Drawing.Size(200, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(22, 18);
+            this.label2.TabIndex = 44;
+            this.label2.Text = "%";
+            // 
+            // num_Retention
+            // 
+            this.num_Retention.Location = new System.Drawing.Point(308, 407);
+            this.num_Retention.Name = "num_Retention";
+            this.num_Retention.Size = new System.Drawing.Size(82, 23);
+            this.num_Retention.TabIndex = 43;
+            this.num_Retention.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(53, 407);
+            this.label1.MaximumSize = new System.Drawing.Size(200, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(190, 30);
+            this.label1.TabIndex = 42;
+            this.label1.Text = "Retention for Documents Delivery (Percentage)";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(399, 358);
+            this.label3.MaximumSize = new System.Drawing.Size(200, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(42, 17);
+            this.label3.TabIndex = 45;
+            this.label3.Text = "Days";
+            // 
             // frm_EditProject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 511);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.num_Retention);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_Back);
             this.Controls.Add(this.btn_Save);
             this.Controls.Add(this.num_ConsltReviewDays);
@@ -294,6 +339,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_ConsltReviewDays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_ContactValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider_EditProject)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_Retention)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -323,5 +369,9 @@
         private Label lbl_PrjName;
         private Label lbl_instructions;
         private ErrorProvider errorProvider_EditProject;
+        private Label label2;
+        private NumericUpDown num_Retention;
+        private Label label1;
+        private Label label3;
     }
 }
