@@ -30,6 +30,7 @@ namespace ClsOutDocDeliveryCtrl
                 project.ConsultantName = this.txt_ConsltName.Text;
                 project.ContractorName = this.txt_ContrctName.Text;
                 project.ConsultantReviewTimeInDays = (int)this.num_ConsltReviewDays.Value;
+                project.RetentionforDocumentsDelivery = this.num_Retention.Value;
                 project.Documents = new List<Document>()
                 {
                     new Document { Name = "As-built Drawings", Description = "As-built Drawings Description", RcmdDeadlineBeforeHandover = 4,
@@ -108,6 +109,9 @@ namespace ClsOutDocDeliveryCtrl
             num_ContactValue.Maximum = decimal.MaxValue;
             num_ContactValue.DecimalPlaces = 2;
             num_ConsltReviewDays.Maximum = int.MaxValue;
+            num_Retention.Value = 5;
+            num_Retention.DecimalPlaces = 2;
+            num_Retention.Maximum = 10;
 
         }
         private void SetCustomErrors()
@@ -128,8 +132,23 @@ namespace ClsOutDocDeliveryCtrl
                 return false;
             else if (!IsValidCurrency())
                 return false;
+            else if (!IsValidRetention())
+                return false;
             return IsValidDates();
         }
+
+        private bool IsValidRetention()
+        {
+            if (num_Retention.Value < 0 || num_Retention.Value > 10)
+            {
+                errorProvider_NewProject.SetError(num_Retention, "Retention for Documents Delivery Max value is 10.00%.");
+                errorMessage = "Retention for Documents Delivery Max value is 10.00%.. \n";
+                return false;
+            }
+            errorProvider_NewProject.SetError(num_Retention, ""); // Clear the error message
+            return true;
+        }
+
         private bool IsValidDates()
         {
             // Validate that datime_PEndDate is after datime_StartDate

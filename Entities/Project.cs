@@ -22,6 +22,10 @@ public class Project
     public string ContractorName { get; set; }
     public int ConsultantReviewTimeInDays { get; set; }
 
+    [Column(TypeName = "decimal(4, 2)")]
+    [Range(0.0, 10.0, ErrorMessage = "Retention for Documents Delivery must be between 0.00% and 10.00%")]
+    public decimal RetentionforDocumentsDelivery { get; set; }
+
     // Navigation property for many-to-many relationship with documents
     public ICollection<Document> Documents { get; set; } = new HashSet<Document>();
 }
