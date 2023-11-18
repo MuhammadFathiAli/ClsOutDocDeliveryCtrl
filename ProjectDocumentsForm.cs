@@ -238,6 +238,10 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["StoragePlace"].HeaderText = "Physical Storage Place";
             gridView_ProjectDocs.Columns["SoftCopyLink"].HeaderText = "Soft-Copy Link";
             gridView_ProjectDocs.Columns["ReceivedBy"].HeaderText = "Received By";
+            gridView_ProjectDocs.Columns["SoftCopyFormat"].HeaderText = "Soft-Copy Format";
+
+
+
             gridView_ProjectDocs.Columns["Retention"].HeaderText = "Retention (from total project value)";
             gridView_ProjectDocs.Columns["Deduction"].HeaderText = "Deduction (from total project value)";
         }
@@ -1112,7 +1116,9 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["OwnerSubmitStatus"].Visible = show;
             submitalFormatCol.Visible = show;
             gridView_ProjectDocs.Columns["StoragePlace"].Visible = show;
+            gridView_ProjectDocs.Columns["SoftCopyFormat"].Visible = show;
             gridView_ProjectDocs.Columns["SoftCopyLink"].Visible = show;
+            gridView_ProjectDocs.Columns["Comment"].Visible = show;
             gridView_ProjectDocs.Columns["ReceivedBy"].Visible = show;
         }
 
@@ -1447,11 +1453,6 @@ namespace ClsOutDocDeliveryCtrl
             }
             Report report = new Report(_project.ProjectId);
             report.GenerateReport();
-        }
-
-        private void contactUsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

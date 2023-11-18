@@ -63,6 +63,10 @@ public class Document
     public string? StoragePlace { get; set; }
     [MaxLength(500)]
     public string? SoftCopyLink { get; set; }
+    [MaxLength(500)]
+    public string? SoftCopyFormat { get; set; }
+    [MaxLength(1000)]
+    public string? Comment { get; set; }
     [MaxLength(100)]
     public string? ReceivedBy { get; set; }
     [Column(TypeName = "decimal(5, 4)")]
