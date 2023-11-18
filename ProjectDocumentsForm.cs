@@ -1110,8 +1110,19 @@ namespace ClsOutDocDeliveryCtrl
         }
         private void ShowOwnerContent(bool show)
         {
+            var deadLineCol = new DataGridViewTextBoxColumn();
+            deadLineCol.HeaderText = "DeadLine";
+            deadLineCol.ValueType = typeof(DateTime);
+            deadLineCol.Name = "DeadLine";
+            deadLineCol.ReadOnly = true;
+            deadLineCol.DefaultCellStyle.Format = "d";
+
+            gridView_ProjectDocs.Columns.Insert(2, deadLineCol);
+            FillDeadLineColumn(deadLineCol);
+
             tabControl1.SelectTab("tabPage_SubmitToOwner");
             gridView_ProjectDocs.Columns["Name"].Visible = true;
+            gridView_ProjectDocs.Columns["DeadLine"].Visible = show;
             gridView_ProjectDocs.Columns["ActOwnerSubmitDate"].Visible = show;
             gridView_ProjectDocs.Columns["OwnerSubmitStatus"].Visible = show;
             submitalFormatCol.Visible = show;
@@ -1120,6 +1131,25 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["SoftCopyLink"].Visible = show;
             gridView_ProjectDocs.Columns["Comment"].Visible = show;
             gridView_ProjectDocs.Columns["ReceivedBy"].Visible = show;
+        }
+
+        private void FillDeadLineColumn(DataGridViewColumn deadLineCol)
+        {
+            foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+            {
+                if (row.Cells["RcmdDeadlineBeforeHandover"].Value != null)
+                {
+                    row.Cells["DeadLine"].Value = _project.PlannedEndDate;
+                }
+                else
+                {
+                    DateTime? actFirstCTRSubmitDeadline = row.Cells["ActFirstCTRSubmitDeadline"].Value as DateTime?;
+                    if (actFirstCTRSubmitDeadline != null)
+                    {
+                        row.Cells["DeadLine"].Value = actFirstCTRSubmitDeadline.Value.AddDays(14).Date;
+                    }
+                }
+            }
         }
 
         //Retentions-Deductions View
@@ -1454,5 +1484,6 @@ namespace ClsOutDocDeliveryCtrl
             Report report = new Report(_project.ProjectId);
             report.GenerateReport();
         }
+
     }
 }
