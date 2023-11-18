@@ -213,6 +213,8 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectList.Columns["ContractorName"].HeaderText = "Contractor Name";
             gridView_ProjectList.Columns["ConsultantReviewTimeInDays"].HeaderText = "Consultant review time/document (Days)";
             gridView_ProjectList.Columns["ConsultantReviewTimeInDays"].HeaderCell.Style.WrapMode  = DataGridViewTriState.True;
+            gridView_ProjectList.Columns["RetentionforDocumentsDelivery"].HeaderText = "Retention for Documents Delivery (%)";
+            gridView_ProjectList.Columns["RetentionforDocumentsDelivery"].HeaderCell.Style.WrapMode = DataGridViewTriState.True;
         }
 
         private void LoadAllProjects()
