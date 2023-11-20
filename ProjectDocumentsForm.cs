@@ -99,26 +99,16 @@ namespace ClsOutDocDeliveryCtrl
         {
             foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
             {
-                var datetime = row.Cells["ActOwnerSubmitDate"].Value;
-                if (datetime is DateTime date)
+                if (row.Cells["ActOwnerSubmitDate"].Value is null && row.Cells["OwnerSubmitalDeadline"].Value is DateTime deadLine)
                 {
-
-                    if (date.Date > _project.PlannedEndDate.Date)
+                    if (deadLine < DateTime.Today.Date)
                     {
-                        row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.DeliveredLate;
+                        row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.Late;
                     }
-                    else if (date.Date <= _project.PlannedEndDate.Date)
+                    else
                     {
-                        row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.DeliveredOnTime;
+                        row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.Required;
                     }
-                }
-                else if (_project.PlannedEndDate.Date < DateTime.Today)
-                {
-                    row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.Late;
-                }
-                else if (_project.PlannedEndDate.Date >= DateTime.Today)
-                {
-                    row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.NotSet;
                 }
             }
         }
@@ -763,9 +753,10 @@ namespace ClsOutDocDeliveryCtrl
                 DateTime? actFirstCTRSubmitDeadline = gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActFirstCTRSubmitDeadline"].Value as DateTime?;
                 if (actFirstCTRSubmitDeadline != null)
                 {
-                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["OwnerSubmitalDeadline"].Value = actFirstCTRSubmitDeadline.Value.AddDays(_project.ConsultantReviewTimeInDays).Date;
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["OwnerSubmitalDeadline"].Value = actFirstCTRSubmitDeadline.Value.AddDays(2 * _project.ConsultantReviewTimeInDays).Date;
                 }
             }
+            SetOwnerSubmitStatus();
         }
 
         private void setExpectedConsultRspDate(DataGridViewCellEventArgs e, SubmitalPhase phase)
@@ -846,667 +837,666 @@ namespace ClsOutDocDeliveryCtrl
 
         private void SetSbmitToOwnerStatus(object? sender, DataGridViewCellEventArgs e)
         {
-            var columnName = gridView_ProjectDocs.Columns[e.ColumnIndex].Name;
-            var cell = gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            if (cell.Value != null && columnName == "ActOwnerSubmitDate")
+            var row = gridView_ProjectDocs.Rows[e.RowIndex];
+            var cell = row.Cells[e.ColumnIndex];
+            if (row.Cells["OwnerSubmitalDeadline"].Value is DateTime deadLine && cell.Value != null)
             {
-                if ((DateTime)cell.Value > _project.PlannedEndDate)
+                if ((DateTime)cell.Value > deadLine)
                 {
-                    gridView_ProjectDocs.Rows[cell.RowIndex].Cells["OwnerSubmitStatus"].Value = DeliveryStatus.DeliveredLate;
+                    row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.DeliveredLate;
                 }
-                else if ((DateTime)cell.Value <= _project.PlannedEndDate)
+                else if ((DateTime)cell.Value <= deadLine)
                 {
-                    gridView_ProjectDocs.Rows[cell.RowIndex].Cells["OwnerSubmitStatus"].Value = DeliveryStatus.DeliveredOnTime;
+                    row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.DeliveredOnTime;
                 }
             }
             else if (cell.Value == null)
             {
-                gridView_ProjectDocs.Rows[cell.RowIndex].Cells["OwnerSubmitStatus"].Value = DeliveryStatus.NotSet;
-                SetOwnerSubmitStatus();
+                row.Cells["OwnerSubmitStatus"].Value = DeliveryStatus.Required;
             }
         }
 
-        private void handleMaxSubmitTrails(object? sender, DataGridViewCellEventArgs e)
+    private void handleMaxSubmitTrails(object? sender, DataGridViewCellEventArgs e)
+    {
+        var columnName = gridView_ProjectDocs.Columns[e.ColumnIndex].Name;
+        var cell = gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex];
+        if (cell.Value != null && columnName == thirdRspCodeCombBoxCol.Name
+           && (ResponseCode)cell.Value == ResponseCode.ResubmitAsPerNoted)
         {
-            var columnName = gridView_ProjectDocs.Columns[e.ColumnIndex].Name;
-            var cell = gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            if (cell.Value != null && columnName == thirdRspCodeCombBoxCol.Name
-               && (ResponseCode)cell.Value == ResponseCode.ResubmitAsPerNoted)
+            MessageBox.Show("Error: ResubmitAsPerNoted is not allowed in the third submit," +
+                " Max trails of document submit is [Three times].", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            cell.Value = ResponseCode.ApprovedAsSubmitted;
+        }
+    }
+
+    private void GridView_ProjectDocs_Scroll(object? sender, ScrollEventArgs e)
+    {
+        _dtp.Visible = false;
+    }
+    private void GridView_ProjectDocs_CellClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        if (e.ColumnIndex < 0) return;
+        var colIndex = gridView_ProjectDocs.Columns[e.ColumnIndex];
+        try
+        {
+            if (colIndex is DataGridViewTextBoxColumn && colIndex.ValueType == typeof(DateTime?))
             {
-                MessageBox.Show("Error: ResubmitAsPerNoted is not allowed in the third submit," +
-                    " Max trails of document submit is [Three times].", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                cell.Value = ResponseCode.ApprovedAsSubmitted;
+                _clickedCell = gridView_ProjectDocs[e.ColumnIndex, e.RowIndex];
+                ShowDateTimePicker(_clickedCell);
             }
         }
+        catch (Exception)
+        {
+            // Handle any specific exception here
+        }
+    }
 
-        private void GridView_ProjectDocs_Scroll(object? sender, ScrollEventArgs e)
+    private void ToggleColumnsEnableState(object? sender, DataGridViewCellEventArgs e)
+    {
+        var afterHandoverColumn = gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"];
+        var beforeHandoverColumn = gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"];
+
+        if (e.ColumnIndex != afterHandoverColumn.Index && e.ColumnIndex != beforeHandoverColumn.Index) return;
+
+        var row = gridView_ProjectDocs.Rows[e.RowIndex];
+        var afterHandoverCell = row.Cells[afterHandoverColumn.Index];
+        var beforeHandoverCell = row.Cells[beforeHandoverColumn.Index];
+
+        var isAfterHandoverColumn = e.ColumnIndex == afterHandoverColumn.Index;
+        var isBeforeHandoverColumn = e.ColumnIndex == beforeHandoverColumn.Index;
+
+        if (!string.IsNullOrEmpty(afterHandoverCell.EditedFormattedValue?.ToString()) ||
+            !string.IsNullOrEmpty(beforeHandoverCell.EditedFormattedValue?.ToString()))
+        {
+            if (isAfterHandoverColumn)
+            {
+                afterHandoverCell.Style.BackColor = gridView_ProjectDocs.DefaultCellStyle.BackColor;
+                beforeHandoverCell.Value = null;
+                beforeHandoverCell.Style.BackColor = Color.DarkGray;
+            }
+            else if (isBeforeHandoverColumn)
+            {
+                beforeHandoverCell.Style.BackColor = gridView_ProjectDocs.DefaultCellStyle.BackColor;
+                afterHandoverCell.Value = null;
+                afterHandoverCell.Style.BackColor = Color.DarkGray;
+            }
+        }
+    }
+    private void _dtp_TextChanged(object? sender, EventArgs e)
+    {
+        this.gridView_ProjectDocs.CurrentCell.Value = _dtp.Value;
+    }
+    private void WholeNumKeyPress(object? sender, KeyPressEventArgs e)
+    {
+        if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+        {
+            e.Handled = true;
+        }
+
+        // only allow one decimal point
+        if (e.KeyChar == '.' && (sender as TextBox)?.Text.IndexOf('.') > -1)
+        {
+            e.Handled = true;
+        }
+    }
+    private void NumKeyPress(object? sender, KeyPressEventArgs e)
+    {
+        if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+        {
+            e.Handled = true;
+        }
+    }
+    //don't delete
+    protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+    {
+        if (keyData == Keys.Escape)
         {
             _dtp.Visible = false;
+            return true;
         }
-        private void GridView_ProjectDocs_CellClick(object? sender, DataGridViewCellEventArgs e)
+        return base.ProcessCmdKey(ref msg, keyData);
+    }
+    private void ShowDateTimePicker(DataGridViewCell cell)
+    {
+        if (!cell.ReadOnly)
         {
-            if (e.ColumnIndex < 0) return;
-            var colIndex = gridView_ProjectDocs.Columns[e.ColumnIndex];
-            try
-            {
-                if (colIndex is DataGridViewTextBoxColumn && colIndex.ValueType == typeof(DateTime?))
-                {
-                    _clickedCell = gridView_ProjectDocs[e.ColumnIndex, e.RowIndex];
-                    ShowDateTimePicker(_clickedCell);
-                }
-            }
-            catch (Exception)
-            {
-                // Handle any specific exception here
-            }
+            var cellRectangle = gridView_ProjectDocs.
+                GetCellDisplayRectangle(cell.ColumnIndex, cell.RowIndex, true);
+            _dtp.Size = new Size(cellRectangle.Width, cellRectangle.Height);
+            _dtp.Location = new Point(cellRectangle.X, cellRectangle.Y);
+            _dtp.Visible = true;
         }
+    }
 
-        private void ToggleColumnsEnableState(object? sender, DataGridViewCellEventArgs e)
-        {
-            var afterHandoverColumn = gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"];
-            var beforeHandoverColumn = gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"];
-
-            if (e.ColumnIndex != afterHandoverColumn.Index && e.ColumnIndex != beforeHandoverColumn.Index) return;
-
-            var row = gridView_ProjectDocs.Rows[e.RowIndex];
-            var afterHandoverCell = row.Cells[afterHandoverColumn.Index];
-            var beforeHandoverCell = row.Cells[beforeHandoverColumn.Index];
-
-            var isAfterHandoverColumn = e.ColumnIndex == afterHandoverColumn.Index;
-            var isBeforeHandoverColumn = e.ColumnIndex == beforeHandoverColumn.Index;
-
-            if (!string.IsNullOrEmpty(afterHandoverCell.EditedFormattedValue?.ToString()) ||
-                !string.IsNullOrEmpty(beforeHandoverCell.EditedFormattedValue?.ToString()))
-            {
-                if (isAfterHandoverColumn)
-                {
-                    afterHandoverCell.Style.BackColor = gridView_ProjectDocs.DefaultCellStyle.BackColor;
-                    beforeHandoverCell.Value = null;
-                    beforeHandoverCell.Style.BackColor = Color.DarkGray;
-                }
-                else if (isBeforeHandoverColumn)
-                {
-                    beforeHandoverCell.Style.BackColor = gridView_ProjectDocs.DefaultCellStyle.BackColor;
-                    afterHandoverCell.Value = null;
-                    afterHandoverCell.Style.BackColor = Color.DarkGray;
-                }
-            }
-        }
-        private void _dtp_TextChanged(object? sender, EventArgs e)
-        {
-            this.gridView_ProjectDocs.CurrentCell.Value = _dtp.Value;
-        }
-        private void WholeNumKeyPress(object? sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if (e.KeyChar == '.' && (sender as TextBox)?.Text.IndexOf('.') > -1)
-            {
-                e.Handled = true;
-            }
-        }
-        private void NumKeyPress(object? sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-        //don't delete
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Escape)
-            {
-                _dtp.Visible = false;
-                return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-        private void ShowDateTimePicker(DataGridViewCell cell)
-        {
-            if (!cell.ReadOnly)
-            {
-                var cellRectangle = gridView_ProjectDocs.
-                    GetCellDisplayRectangle(cell.ColumnIndex, cell.RowIndex, true);
-                _dtp.Size = new Size(cellRectangle.Width, cellRectangle.Height);
-                _dtp.Location = new Point(cellRectangle.X, cellRectangle.Y);
-                _dtp.Visible = true;
-            }
-        }
-
-        private void TabControl1_Selected(object? sender, TabControlEventArgs e)
-        {
-            if (e.TabPage == tabPage_FirstCTRSubmit)
-            {
-                FirstSubmitView();
-            }
-            else if (e.TabPage == tabPage_ConsultFirstResponse)
-            {
-                FirstResponseView();
-            }
-            else if (e.TabPage == tabPage_SecondCTRSubmit)
-            {
-                SecondSubmitView();
-            }
-            else if (e.TabPage == tabPage_ConsultSecondResponse)
-            {
-                SecondResponseView();
-            }
-            else if (e.TabPage == tabPage_ThirdCTRSubmit)
-            {
-                ThirdSubmitView();
-            }
-            else if (e.TabPage == tabPage_ConsultThirdResponse)
-            {
-                ThirdResponseView();
-            }
-            else if (e.TabPage == tabPage_SubmitToOwner)
-            {
-                OwnerSubmitView();
-            }
-            else if (e.TabPage == tabPage_Retentions)
-            {
-                RetentionsDeductionsView();
-            }
-        }
-
-        //Views
-
-        private void HideAllColumns()
-        {
-            foreach (DataGridViewColumn col in gridView_ProjectDocs.Columns)
-            {
-                col.Visible = false;
-            }
-            _dtp.Visible = false;
-        }
-
-        //First Submit 
-        private void FirstSubmitView()
-        {
-            HideAllColumns();
-            ShowFirstSubmitContent(true);
-        }
-        private void ShowFirstSubmitContent(bool show)
-        {
-            tabControl1.SelectTab("tabPage_FirstCTRSubmit");
-            gridView_ProjectDocs.Columns["Name"].Visible = show;
-            gridView_ProjectDocs.Columns["Description"].Visible = show;
-            gridView_ProjectDocs.Columns["SendCopyToOwner"].Visible = show;
-            gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].Visible = show;
-            gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"].Visible = show;
-            gridView_ProjectDocs.Columns["ActFirstCTRSubmitDeadline"].Visible = show;
-            gridView_ProjectDocs.Columns["ActFirstCTRSubmitDeliveryDate"].Visible = show;
-            gridView_ProjectDocs.Columns["FirstCTRSubmitStatus"].Visible = show;
-        }
-
-        //First Response
-        private void FirstResponseView()
-        {
-            HideAllColumns();
-            ShowFirstResponseContent(true);
-        }
-        private void ShowFirstResponseContent(bool show)
-        {
-            tabControl1.SelectTab("tabPage_ConsultFirstResponse");
-            gridView_ProjectDocs.Columns["Name"].Visible = true;
-            gridView_ProjectDocs.Columns["ExpFirstConsultRspDate"].Visible = show;
-            gridView_ProjectDocs.Columns["ActFirstConsultRspDate"].Visible = show;
-            firstRspCodeCombBoxCol.Visible = show;
-            gridView_ProjectDocs.Columns["ConsultFirstRspStatus"].Visible = show;
-        }
-
-        //Second Submit
-        private void SecondSubmitView()
-        {
-            HideAllColumns();
-            ShowSecondSubmitContent(true);
-        }
-        private void ShowSecondSubmitContent(bool show)
-        {
-            tabControl1.SelectTab("tabPage_SecondCTRSubmit");
-            gridView_ProjectDocs.Columns["Name"].Visible = show;
-            gridView_ProjectDocs.Columns["ActSecondCTRSubmitDeadline"].Visible = show;
-            gridView_ProjectDocs.Columns["ActSecondCTRSubmitDeliveryDate"].Visible = show;
-            gridView_ProjectDocs.Columns["SecondCTRSubmitStatus"].Visible = show;
-
-        }
-
-        //Second Response
-        private void SecondResponseView()
-        {
-            HideAllColumns();
-            ShowSecondResponseContent(true);
-        }
-        private void ShowSecondResponseContent(bool show)
-        {
-            tabControl1.SelectTab("tabPage_ConsultSecondResponse");
-            gridView_ProjectDocs.Columns["Name"].Visible = true;
-            gridView_ProjectDocs.Columns["ExpSecondConsultRspDate"].Visible = show;
-            gridView_ProjectDocs.Columns["ActSecondConsultRspDate"].Visible = show;
-            secondRspCodeCombBoxCol.Visible = show;
-            gridView_ProjectDocs.Columns["ConsultSecondRspStatus"].Visible = show;
-        }
-
-        //Third Submit
-        private void ThirdSubmitView()
-        {
-            HideAllColumns();
-            ShowThirdSubmitContent(true);
-        }
-        private void ShowThirdSubmitContent(bool show)
-        {
-            tabControl1.SelectTab("tabPage_ThirdCTRSubmit");
-            gridView_ProjectDocs.Columns["Name"].Visible = show;
-            gridView_ProjectDocs.Columns["ActThirdCTRSubmitDeadline"].Visible = show;
-            gridView_ProjectDocs.Columns["ActThirdCTRSubmitDeliveryDate"].Visible = show;
-            gridView_ProjectDocs.Columns["ThirdCTRSubmitStatus"].Visible = show;
-        }
-
-        //Third Response
-        private void ThirdResponseView()
-        {
-            HideAllColumns();
-            ShowThirdResponseContent(true);
-        }
-        private void ShowThirdResponseContent(bool show)
-        {
-            tabControl1.SelectTab("tabPage_ConsultThirdResponse");
-            gridView_ProjectDocs.Columns["Name"].Visible = true;
-            gridView_ProjectDocs.Columns["ExpThirdConsultRspDate"].Visible = show;
-            gridView_ProjectDocs.Columns["ActThirdConsultRspDate"].Visible = show;
-            thirdRspCodeCombBoxCol.Visible = show;
-            gridView_ProjectDocs.Columns["ConsultThirdRspStatus"].Visible = show;
-        }
-
-        //Owner Submit
-        private void OwnerSubmitView()
-        {
-            HideAllColumns();
-            ShowOwnerContent(true);
-        }
-        private void ShowOwnerContent(bool show)
-        {
-            //var deadLineCol = new DataGridViewTextBoxColumn();
-            //deadLineCol.HeaderText = "DeadLine";
-            //deadLineCol.ValueType = typeof(DateTime);
-            //deadLineCol.Name = "DeadLine";
-            //deadLineCol.ReadOnly = true;
-            //deadLineCol.DefaultCellStyle.Format = "d";
-
-            //gridView_ProjectDocs.Columns.Insert(2, deadLineCol);
-            //FillDeadLineColumn(deadLineCol);
-
-            tabControl1.SelectTab("tabPage_SubmitToOwner");
-            gridView_ProjectDocs.Columns["Name"].Visible = true;
-            gridView_ProjectDocs.Columns["OwnerSubmitalDeadline"].Visible = show;
-            gridView_ProjectDocs.Columns["OwnerSubmitalDeadline"].DefaultCellStyle.NullValue = null;
-            gridView_ProjectDocs.Columns["ActOwnerSubmitDate"].Visible = show;
-            gridView_ProjectDocs.Columns["OwnerSubmitStatus"].Visible = show;
-            submitalFormatCol.Visible = show;
-            gridView_ProjectDocs.Columns["StoragePlace"].Visible = show;
-            gridView_ProjectDocs.Columns["SoftCopyFormat"].Visible = show;
-            gridView_ProjectDocs.Columns["SoftCopyLink"].Visible = show;
-            gridView_ProjectDocs.Columns["Comment"].Visible = show;
-            gridView_ProjectDocs.Columns["ReceivedBy"].Visible = show;
-        }
-
-        //private void FillDeadLineColumn()
-        //{
-        //    foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
-        //    {
-        //        if (row.Cells["RcmdDeadlineBeforeHandover"].Value != null)
-        //        {
-        //            row.Cells["OwnerSubmitalDeadline"].Value = _project.PlannedEndDate;
-        //        }
-        //        else
-        //        {
-        //            DateTime? actFirstCTRSubmitDeadline = row.Cells["ActFirstCTRSubmitDeadline"].Value as DateTime?;
-        //            if (actFirstCTRSubmitDeadline != null)
-        //            {
-        //                row.Cells["OwnerSubmitalDeadline"].Value = actFirstCTRSubmitDeadline.Value.AddDays(14).Date;
-        //            }
-        //        }
-        //    }
-        //}
-
-        //Retentions-Deductions View
-        private void RetentionsDeductionsView()
-        {
-            HideAllColumns();
-            ShowRetentionsDeductionsContent(true);
-        }
-
-        private void ShowRetentionsDeductionsContent(bool show)
-        {
-            tabControl1.SelectTab("tabPage_Retentions");
-            gridView_ProjectDocs.Columns["Name"].Visible = true;
-            gridView_ProjectDocs.Columns["RetentionWeight"].Visible = show;
-            gridView_ProjectDocs.Columns["Retention"].Visible = show;
-            gridView_ProjectDocs.Columns["Deduction"].Visible = show;
-            CalculateTotalRetention();
-            CalculateTotalDeductions();
-        }
-
-
-        //Events
-
-        //First Submit
-        private void btn_FirstCTRCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-        private void btn_FirstCTRNext_Click(object sender, EventArgs e)
-        {
-            FirstResponseView();
-        }
-
-        //First Response
-        private void btn_FirstResponseBack_Click(object sender, EventArgs e)
+    private void TabControl1_Selected(object? sender, TabControlEventArgs e)
+    {
+        if (e.TabPage == tabPage_FirstCTRSubmit)
         {
             FirstSubmitView();
         }
-        private void btn_FirstResponseNext_Click(object sender, EventArgs e)
-        {
-            if (ShowSecondSubmital)
-            {
-                InsertSecondSubmitTrailScreen();
-
-                SecondSubmitView();
-            }
-            else
-            {
-                OwnerSubmitView();
-            }
-
-        }
-
-        //Second Submit
-        private void btn_SecondCTRBack_Click(object sender, EventArgs e)
+        else if (e.TabPage == tabPage_ConsultFirstResponse)
         {
             FirstResponseView();
         }
-        private void btn_SecondCTRNext_Click(object sender, EventArgs e)
-        {
-            SecondResponseView();
-        }
-
-        //Second Response
-        private void btn_SecondResponseBack_Click(object sender, EventArgs e)
+        else if (e.TabPage == tabPage_SecondCTRSubmit)
         {
             SecondSubmitView();
         }
-        private void btn_SecondResponseNext_Click(object sender, EventArgs e)
-        {
-            if (ShowThirdSubmital)
-            {
-                InsertThirdSubmitTrailScreen();
-
-                ThirdSubmitView();
-            }
-            else
-            {
-                OwnerSubmitView();
-            }
-        }
-
-        //Third Submit
-        private void btn_ThirdCTRBack_Click(object sender, EventArgs e)
+        else if (e.TabPage == tabPage_ConsultSecondResponse)
         {
             SecondResponseView();
         }
-        private void btn_ThirdCTRSubmit_Click(object sender, EventArgs e)
-        {
-            ThirdResponseView();
-        }
-
-        //Third Response
-        private void btn_ThirdResponseBack_Click(object sender, EventArgs e)
+        else if (e.TabPage == tabPage_ThirdCTRSubmit)
         {
             ThirdSubmitView();
         }
-        private void btn_ThirdResponseNext_Click(object sender, EventArgs e)
+        else if (e.TabPage == tabPage_ConsultThirdResponse)
+        {
+            ThirdResponseView();
+        }
+        else if (e.TabPage == tabPage_SubmitToOwner)
         {
             OwnerSubmitView();
         }
-
-        //Owner Submit
-        private void btn_OwnerSubmitBack_Click(object sender, EventArgs e)
-        {
-            if (ISShownThirdSubmital)
-            {
-                ThirdResponseView();
-            }
-            else if (ISShownSecondSubmital)
-            {
-                SecondResponseView();
-            }
-            else
-            {
-                FirstResponseView();
-            }
-
-        }
-        private void btn_OwnerSubmitNext_Click(object sender, EventArgs e)
+        else if (e.TabPage == tabPage_Retentions)
         {
             RetentionsDeductionsView();
         }
+    }
 
-        //Retentions Submit
-        private void btn_RetDedBack_Click(object sender, EventArgs e)
+    //Views
+
+    private void HideAllColumns()
+    {
+        foreach (DataGridViewColumn col in gridView_ProjectDocs.Columns)
+        {
+            col.Visible = false;
+        }
+        _dtp.Visible = false;
+    }
+
+    //First Submit 
+    private void FirstSubmitView()
+    {
+        HideAllColumns();
+        ShowFirstSubmitContent(true);
+    }
+    private void ShowFirstSubmitContent(bool show)
+    {
+        tabControl1.SelectTab("tabPage_FirstCTRSubmit");
+        gridView_ProjectDocs.Columns["Name"].Visible = show;
+        gridView_ProjectDocs.Columns["Description"].Visible = show;
+        gridView_ProjectDocs.Columns["SendCopyToOwner"].Visible = show;
+        gridView_ProjectDocs.Columns["RcmdDeadlineBeforeHandover"].Visible = show;
+        gridView_ProjectDocs.Columns["RcmdDeadlineAfterHandover"].Visible = show;
+        gridView_ProjectDocs.Columns["ActFirstCTRSubmitDeadline"].Visible = show;
+        gridView_ProjectDocs.Columns["ActFirstCTRSubmitDeliveryDate"].Visible = show;
+        gridView_ProjectDocs.Columns["FirstCTRSubmitStatus"].Visible = show;
+    }
+
+    //First Response
+    private void FirstResponseView()
+    {
+        HideAllColumns();
+        ShowFirstResponseContent(true);
+    }
+    private void ShowFirstResponseContent(bool show)
+    {
+        tabControl1.SelectTab("tabPage_ConsultFirstResponse");
+        gridView_ProjectDocs.Columns["Name"].Visible = true;
+        gridView_ProjectDocs.Columns["ExpFirstConsultRspDate"].Visible = show;
+        gridView_ProjectDocs.Columns["ActFirstConsultRspDate"].Visible = show;
+        firstRspCodeCombBoxCol.Visible = show;
+        gridView_ProjectDocs.Columns["ConsultFirstRspStatus"].Visible = show;
+    }
+
+    //Second Submit
+    private void SecondSubmitView()
+    {
+        HideAllColumns();
+        ShowSecondSubmitContent(true);
+    }
+    private void ShowSecondSubmitContent(bool show)
+    {
+        tabControl1.SelectTab("tabPage_SecondCTRSubmit");
+        gridView_ProjectDocs.Columns["Name"].Visible = show;
+        gridView_ProjectDocs.Columns["ActSecondCTRSubmitDeadline"].Visible = show;
+        gridView_ProjectDocs.Columns["ActSecondCTRSubmitDeliveryDate"].Visible = show;
+        gridView_ProjectDocs.Columns["SecondCTRSubmitStatus"].Visible = show;
+
+    }
+
+    //Second Response
+    private void SecondResponseView()
+    {
+        HideAllColumns();
+        ShowSecondResponseContent(true);
+    }
+    private void ShowSecondResponseContent(bool show)
+    {
+        tabControl1.SelectTab("tabPage_ConsultSecondResponse");
+        gridView_ProjectDocs.Columns["Name"].Visible = true;
+        gridView_ProjectDocs.Columns["ExpSecondConsultRspDate"].Visible = show;
+        gridView_ProjectDocs.Columns["ActSecondConsultRspDate"].Visible = show;
+        secondRspCodeCombBoxCol.Visible = show;
+        gridView_ProjectDocs.Columns["ConsultSecondRspStatus"].Visible = show;
+    }
+
+    //Third Submit
+    private void ThirdSubmitView()
+    {
+        HideAllColumns();
+        ShowThirdSubmitContent(true);
+    }
+    private void ShowThirdSubmitContent(bool show)
+    {
+        tabControl1.SelectTab("tabPage_ThirdCTRSubmit");
+        gridView_ProjectDocs.Columns["Name"].Visible = show;
+        gridView_ProjectDocs.Columns["ActThirdCTRSubmitDeadline"].Visible = show;
+        gridView_ProjectDocs.Columns["ActThirdCTRSubmitDeliveryDate"].Visible = show;
+        gridView_ProjectDocs.Columns["ThirdCTRSubmitStatus"].Visible = show;
+    }
+
+    //Third Response
+    private void ThirdResponseView()
+    {
+        HideAllColumns();
+        ShowThirdResponseContent(true);
+    }
+    private void ShowThirdResponseContent(bool show)
+    {
+        tabControl1.SelectTab("tabPage_ConsultThirdResponse");
+        gridView_ProjectDocs.Columns["Name"].Visible = true;
+        gridView_ProjectDocs.Columns["ExpThirdConsultRspDate"].Visible = show;
+        gridView_ProjectDocs.Columns["ActThirdConsultRspDate"].Visible = show;
+        thirdRspCodeCombBoxCol.Visible = show;
+        gridView_ProjectDocs.Columns["ConsultThirdRspStatus"].Visible = show;
+    }
+
+    //Owner Submit
+    private void OwnerSubmitView()
+    {
+        HideAllColumns();
+        ShowOwnerContent(true);
+    }
+    private void ShowOwnerContent(bool show)
+    {
+        //var deadLineCol = new DataGridViewTextBoxColumn();
+        //deadLineCol.HeaderText = "DeadLine";
+        //deadLineCol.ValueType = typeof(DateTime);
+        //deadLineCol.Name = "DeadLine";
+        //deadLineCol.ReadOnly = true;
+        //deadLineCol.DefaultCellStyle.Format = "d";
+
+        //gridView_ProjectDocs.Columns.Insert(2, deadLineCol);
+        //FillDeadLineColumn(deadLineCol);
+
+        tabControl1.SelectTab("tabPage_SubmitToOwner");
+        gridView_ProjectDocs.Columns["Name"].Visible = true;
+        gridView_ProjectDocs.Columns["OwnerSubmitalDeadline"].Visible = show;
+        gridView_ProjectDocs.Columns["OwnerSubmitalDeadline"].DefaultCellStyle.NullValue = null;
+        gridView_ProjectDocs.Columns["ActOwnerSubmitDate"].Visible = show;
+        gridView_ProjectDocs.Columns["OwnerSubmitStatus"].Visible = show;
+        submitalFormatCol.Visible = show;
+        gridView_ProjectDocs.Columns["StoragePlace"].Visible = show;
+        gridView_ProjectDocs.Columns["SoftCopyFormat"].Visible = show;
+        gridView_ProjectDocs.Columns["SoftCopyLink"].Visible = show;
+        gridView_ProjectDocs.Columns["Comment"].Visible = show;
+        gridView_ProjectDocs.Columns["ReceivedBy"].Visible = show;
+    }
+
+    //private void FillDeadLineColumn()
+    //{
+    //    foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+    //    {
+    //        if (row.Cells["RcmdDeadlineBeforeHandover"].Value != null)
+    //        {
+    //            row.Cells["OwnerSubmitalDeadline"].Value = _project.PlannedEndDate;
+    //        }
+    //        else
+    //        {
+    //            DateTime? actFirstCTRSubmitDeadline = row.Cells["ActFirstCTRSubmitDeadline"].Value as DateTime?;
+    //            if (actFirstCTRSubmitDeadline != null)
+    //            {
+    //                row.Cells["OwnerSubmitalDeadline"].Value = actFirstCTRSubmitDeadline.Value.AddDays(14).Date;
+    //            }
+    //        }
+    //    }
+    //}
+
+    //Retentions-Deductions View
+    private void RetentionsDeductionsView()
+    {
+        HideAllColumns();
+        ShowRetentionsDeductionsContent(true);
+    }
+
+    private void ShowRetentionsDeductionsContent(bool show)
+    {
+        tabControl1.SelectTab("tabPage_Retentions");
+        gridView_ProjectDocs.Columns["Name"].Visible = true;
+        gridView_ProjectDocs.Columns["RetentionWeight"].Visible = show;
+        gridView_ProjectDocs.Columns["Retention"].Visible = show;
+        gridView_ProjectDocs.Columns["Deduction"].Visible = show;
+        CalculateTotalRetention();
+        CalculateTotalDeductions();
+    }
+
+
+    //Events
+
+    //First Submit
+    private void btn_FirstCTRCancel_Click(object sender, EventArgs e)
+    {
+        this.Close();
+    }
+    private void btn_FirstCTRNext_Click(object sender, EventArgs e)
+    {
+        FirstResponseView();
+    }
+
+    //First Response
+    private void btn_FirstResponseBack_Click(object sender, EventArgs e)
+    {
+        FirstSubmitView();
+    }
+    private void btn_FirstResponseNext_Click(object sender, EventArgs e)
+    {
+        if (ShowSecondSubmital)
+        {
+            InsertSecondSubmitTrailScreen();
+
+            SecondSubmitView();
+        }
+        else
         {
             OwnerSubmitView();
         }
 
-        private void btn_Save_Click(object sender, EventArgs e)
+    }
+
+    //Second Submit
+    private void btn_SecondCTRBack_Click(object sender, EventArgs e)
+    {
+        FirstResponseView();
+    }
+    private void btn_SecondCTRNext_Click(object sender, EventArgs e)
+    {
+        SecondResponseView();
+    }
+
+    //Second Response
+    private void btn_SecondResponseBack_Click(object sender, EventArgs e)
+    {
+        SecondSubmitView();
+    }
+    private void btn_SecondResponseNext_Click(object sender, EventArgs e)
+    {
+        if (ShowThirdSubmital)
         {
-            //Save To DB
-            SaveToDB();
+            InsertThirdSubmitTrailScreen();
+
+            ThirdSubmitView();
         }
-
-        //Helpers
-        private void InsertSecondSubmitTrailScreen()
+        else
         {
-            if (!ISShownSecondSubmital)
-            {
-                this.tabControl1.TabPages.Insert(2, this.tabPage_SecondCTRSubmit);
-                this.tabControl1.TabPages.Insert(3, this.tabPage_ConsultSecondResponse);
-                ISShownSecondSubmital = true;
-            }
+            OwnerSubmitView();
         }
-        private void InsertThirdSubmitTrailScreen()
+    }
+
+    //Third Submit
+    private void btn_ThirdCTRBack_Click(object sender, EventArgs e)
+    {
+        SecondResponseView();
+    }
+    private void btn_ThirdCTRSubmit_Click(object sender, EventArgs e)
+    {
+        ThirdResponseView();
+    }
+
+    //Third Response
+    private void btn_ThirdResponseBack_Click(object sender, EventArgs e)
+    {
+        ThirdSubmitView();
+    }
+    private void btn_ThirdResponseNext_Click(object sender, EventArgs e)
+    {
+        OwnerSubmitView();
+    }
+
+    //Owner Submit
+    private void btn_OwnerSubmitBack_Click(object sender, EventArgs e)
+    {
+        if (ISShownThirdSubmital)
         {
-            if (!ISShownThirdSubmital)
-            {
-                this.tabControl1.TabPages.Insert(4, this.tabPage_ThirdCTRSubmit);
-                this.tabControl1.TabPages.Insert(5, this.tabPage_ConsultThirdResponse);
-                ISShownThirdSubmital = true;
-            }
+            ThirdResponseView();
         }
-        private void CalculateTotalRetention()
+        else if (ISShownSecondSubmital)
         {
-            decimal totalRetention = 0;
-            foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
-            {
-                var retention = row.Cells["Retention"].Value;
-                if (retention is not null && retention is decimal retentionValue)
-                {
-                    totalRetention += retentionValue;
-                }
-                if (totalRetention >= 100)
-                {
-                    MessageBox.Show("Retention value can't be more than Project value", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    lbl_TotalRetentions.Text = "N.A";
-                    return;
-                }
-            }
-            lbl_TotalRetentions.Text = totalRetention.ToString();
+            SecondResponseView();
         }
-        private void CalculateTotalDeductions()
+        else
         {
-            decimal totalDeduction = 0;
-            foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
-            {
-                var deduction = row.Cells["Deduction"].Value;
-                if (deduction is not null && deduction is decimal deductionValue)
-                {
-                    totalDeduction += deductionValue;
-                }
-                if (totalDeduction >= 100)
-                {
-                    MessageBox.Show("Deduction value can't be more than Project value", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    lbl_TotalDeductions.Text = "N.A";
-                    return;
-                }
-            }
-            lbl_TotalDeductions.Text = totalDeduction.ToString();
-        }
-
-        private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-
-            if (result == DialogResult.Yes)
-            {
-                SaveToDB();
-            }
-            else if (result == DialogResult.Cancel)
-            {
-                return;
-            }
-
-            frm_NewProject frm_newProject = new();
-            this.Close();
-            if (!IsCanceledClose)
-            {
-                this.Hide();
-                frm_newProject.ShowDialog();
-            }
-        }
-        private void SaveToDB()
-        {
-            using (var context = new AppDBContext())
-            {
-                try
-                {
-                    // Attach the modified entities to the context
-                    foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
-                    {
-                        if (row.DataBoundItem is Document document)
-                        {
-                            context.Documents.Attach(document);
-                            context.Entry(document).State = EntityState.Modified;
-                        }
-                    }
-
-                    // Save the changes to the database
-                    context.SaveChanges();
-
-                    // Optionally, display a success message
-                    MessageBox.Show("Data saved successfully to the database.");
-                }
-                catch (Exception ex)
-                {
-                    // Handle any exceptions that may occur during the database operation
-                    MessageBox.Show($"An error occurred: {ex.InnerException.Message}");
-                    MessageBox.Show($"Data not saved, Changes ignored");
-                }
-            }
-        }
-
-        private void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-
-            if (result == DialogResult.Yes)
-            {
-                SaveToDB();
-            }
-            else if (result == DialogResult.Cancel)
-            {
-                return;
-            }
-            frm_ProjectList projectListForm = new frm_ProjectList();
-            this.Close();
-            if (!IsCanceledClose)
-            {
-                this.Hide();
-                projectListForm.ShowDialog();
-            }
-        }
-
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveToDB();
-        }
-
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-
-            if (result == DialogResult.Yes)
-            {
-                SaveToDB();
-            }
-            else if (result == DialogResult.Cancel)
-            {
-                return;
-            }
-            frm_SaveAs frm_SaveAs = new frm_SaveAs(_project);
-            this.Close();
-            if (!IsCanceledClose)
-            {
-                this.Hide();
-                frm_SaveAs.ShowDialog();
-
-            }
-        }
-
-        private void editProjectToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
-
-            if (result == DialogResult.Yes)
-            {
-                SaveToDB();
-            }
-            else if (result == DialogResult.Cancel)
-            {
-                return;
-            }
-            frm_EditProject frmEditProject = new(_project);
-            this.Close();
-            if (!IsCanceledClose)
-            {
-                this.Hide();
-                frmEditProject.ShowDialog();
-            }
-        }
-
-        private void exportAsPDFToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-
-            if (result == DialogResult.Yes)
-            {
-                SaveToDB();
-            }
-            else if (result == DialogResult.Cancel)
-            {
-                return;
-            }
-            Report report = new Report(_project.ProjectId);
-            report.GenerateReport();
+            FirstResponseView();
         }
 
     }
+    private void btn_OwnerSubmitNext_Click(object sender, EventArgs e)
+    {
+        RetentionsDeductionsView();
+    }
+
+    //Retentions Submit
+    private void btn_RetDedBack_Click(object sender, EventArgs e)
+    {
+        OwnerSubmitView();
+    }
+
+    private void btn_Save_Click(object sender, EventArgs e)
+    {
+        //Save To DB
+        SaveToDB();
+    }
+
+    //Helpers
+    private void InsertSecondSubmitTrailScreen()
+    {
+        if (!ISShownSecondSubmital)
+        {
+            this.tabControl1.TabPages.Insert(2, this.tabPage_SecondCTRSubmit);
+            this.tabControl1.TabPages.Insert(3, this.tabPage_ConsultSecondResponse);
+            ISShownSecondSubmital = true;
+        }
+    }
+    private void InsertThirdSubmitTrailScreen()
+    {
+        if (!ISShownThirdSubmital)
+        {
+            this.tabControl1.TabPages.Insert(4, this.tabPage_ThirdCTRSubmit);
+            this.tabControl1.TabPages.Insert(5, this.tabPage_ConsultThirdResponse);
+            ISShownThirdSubmital = true;
+        }
+    }
+    private void CalculateTotalRetention()
+    {
+        decimal totalRetention = 0;
+        foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+        {
+            var retention = row.Cells["Retention"].Value;
+            if (retention is not null && retention is decimal retentionValue)
+            {
+                totalRetention += retentionValue;
+            }
+            if (totalRetention >= 100)
+            {
+                MessageBox.Show("Retention value can't be more than Project value", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lbl_TotalRetentions.Text = "N.A";
+                return;
+            }
+        }
+        lbl_TotalRetentions.Text = totalRetention.ToString();
+    }
+    private void CalculateTotalDeductions()
+    {
+        decimal totalDeduction = 0;
+        foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+        {
+            var deduction = row.Cells["Deduction"].Value;
+            if (deduction is not null && deduction is decimal deductionValue)
+            {
+                totalDeduction += deductionValue;
+            }
+            if (totalDeduction >= 100)
+            {
+                MessageBox.Show("Deduction value can't be more than Project value", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lbl_TotalDeductions.Text = "N.A";
+                return;
+            }
+        }
+        lbl_TotalDeductions.Text = totalDeduction.ToString();
+    }
+
+    private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
+            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+        if (result == DialogResult.Yes)
+        {
+            SaveToDB();
+        }
+        else if (result == DialogResult.Cancel)
+        {
+            return;
+        }
+
+        frm_NewProject frm_newProject = new();
+        this.Close();
+        if (!IsCanceledClose)
+        {
+            this.Hide();
+            frm_newProject.ShowDialog();
+        }
+    }
+    private void SaveToDB()
+    {
+        using (var context = new AppDBContext())
+        {
+            try
+            {
+                // Attach the modified entities to the context
+                foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+                {
+                    if (row.DataBoundItem is Document document)
+                    {
+                        context.Documents.Attach(document);
+                        context.Entry(document).State = EntityState.Modified;
+                    }
+                }
+
+                // Save the changes to the database
+                context.SaveChanges();
+
+                // Optionally, display a success message
+                MessageBox.Show("Data saved successfully to the database.");
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that may occur during the database operation
+                MessageBox.Show($"An error occurred: {ex.InnerException.Message}");
+                MessageBox.Show($"Data not saved, Changes ignored");
+            }
+        }
+    }
+
+    private void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
+            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+        if (result == DialogResult.Yes)
+        {
+            SaveToDB();
+        }
+        else if (result == DialogResult.Cancel)
+        {
+            return;
+        }
+        frm_ProjectList projectListForm = new frm_ProjectList();
+        this.Close();
+        if (!IsCanceledClose)
+        {
+            this.Hide();
+            projectListForm.ShowDialog();
+        }
+    }
+
+    private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        SaveToDB();
+    }
+
+    private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
+            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+        if (result == DialogResult.Yes)
+        {
+            SaveToDB();
+        }
+        else if (result == DialogResult.Cancel)
+        {
+            return;
+        }
+        frm_SaveAs frm_SaveAs = new frm_SaveAs(_project);
+        this.Close();
+        if (!IsCanceledClose)
+        {
+            this.Hide();
+            frm_SaveAs.ShowDialog();
+
+        }
+    }
+
+    private void editProjectToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
+            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
+
+        if (result == DialogResult.Yes)
+        {
+            SaveToDB();
+        }
+        else if (result == DialogResult.Cancel)
+        {
+            return;
+        }
+        frm_EditProject frmEditProject = new(_project);
+        this.Close();
+        if (!IsCanceledClose)
+        {
+            this.Hide();
+            frmEditProject.ShowDialog();
+        }
+    }
+
+    private void exportAsPDFToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
+            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+        if (result == DialogResult.Yes)
+        {
+            SaveToDB();
+        }
+        else if (result == DialogResult.Cancel)
+        {
+            return;
+        }
+        Report report = new Report(_project.ProjectId);
+        report.GenerateReport();
+    }
+
+}
 }

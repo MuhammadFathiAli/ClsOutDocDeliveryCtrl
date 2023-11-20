@@ -73,24 +73,8 @@ namespace ClsOutDocDeliveryCtrl
                         var documentsToEdit = context.Documents.Where(d => d.ProjectId == _project.ProjectId);
                         foreach (var document in documentsToEdit)
                         {
-                            var x = document.RcmdDeadlineBeforeHandover;
-                            var y = document.RcmdDeadlineAfterHandover;
-                            if (x.HasValue && x is not null && x is int beforeWeeks)
-                            {
-                                document.ActFirstCTRSubmitDeadline = projectToUpdate.PlannedEndDate.AddDays(-(beforeWeeks*7));
-                            }
-                            else if (y.HasValue && y is not null && y is int afterWeeks)
-                            {
-                                document.ActFirstCTRSubmitDeadline = projectToUpdate.PlannedEndDate.AddDays(afterWeeks* 7);
-                            }
-                            if (projectToUpdate.PlannedEndDate < DateTime.Today)
-                            {
-                                document.OwnerSubmitStatus = DeliveryStatus.Late;
-                            }
-                            else
-                            {
-                                document.OwnerSubmitStatus = DeliveryStatus.NotSet;
-                            }
+                            UpdateDocumentCTRDeadLine(document, projectToUpdate);
+                            UpdateDocumentOwnerSubmitlStatus(document, projectToUpdate);
                         }
                         context.SaveChanges();
                     }
@@ -111,6 +95,38 @@ namespace ClsOutDocDeliveryCtrl
             }
             MessageBox.Show("Project details updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
+        }
+
+        private void UpdateDocumentOwnerSubmitlStatus(Document document, Project projectToUpdate)
+        {
+            if (document.OwnerSubmitalDeadline is DateTime deadLine && document.ActOwnerSubmitDate is null)
+            {
+                if (deadLine.Date < DateTime.Today.Date)
+                {
+                    document.OwnerSubmitStatus = DeliveryStatus.Late;
+                }
+                else
+                {
+                    document.OwnerSubmitStatus = DeliveryStatus.Required;
+                }
+            }
+        }
+
+        private void UpdateDocumentCTRDeadLine(Document document, Project projectToUpdate)
+        {
+            var x = document.RcmdDeadlineBeforeHandover;
+            var y = document.RcmdDeadlineAfterHandover;
+            if (x.HasValue && x is not null && x is int beforeWeeks)
+            {
+                document.ActFirstCTRSubmitDeadline = projectToUpdate.PlannedEndDate.AddDays(-(beforeWeeks * 7));
+                document.OwnerSubmitalDeadline = projectToUpdate.PlannedEndDate;
+            }
+            else if (y.HasValue && y is not null && y is int afterWeeks)
+            {
+                var CtrDeadLine = projectToUpdate.PlannedEndDate.AddDays(afterWeeks * 7);
+                document.ActFirstCTRSubmitDeadline = CtrDeadLine;
+                document.OwnerSubmitalDeadline = CtrDeadLine.AddDays(2 * projectToUpdate.ConsultantReviewTimeInDays);
+            }
         }
 
 

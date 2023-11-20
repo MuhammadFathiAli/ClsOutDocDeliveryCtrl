@@ -147,11 +147,11 @@ namespace ClsOutDocDeliveryCtrl
                     },
                     new Document { Name = "Lessons Learned", Description = "باشتراك جميع الاطراف الخروج بالدروس المستفادة من هذا المشروع Recomm from all teams for next projects", SendCopyToOwner = SendCopy.Yes,
                         RcmdDeadlineAfterHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(2, limit) * 7),
-                        OwnerSubmitalDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(1, limit) * 7).AddDays(2 * project.ConsultantReviewTimeInDays)
+                        OwnerSubmitalDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(2, limit) * 7).AddDays(2 * project.ConsultantReviewTimeInDays)
                     },
                     new Document { Name = "Photographic Documentation", Description = "تصوير كامل للمشروع و يقدر ال FM يستخدمه بعد كدا فى مقارنة الحالى بالاستلام لتحديد حالة تدهور او تطور المبنى", SendCopyToOwner = SendCopy.Yes,
                         RcmdDeadlineAfterHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(2, limit) * 7),
-                        OwnerSubmitalDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(1, limit) * 7).AddDays(2 * project.ConsultantReviewTimeInDays)
+                        OwnerSubmitalDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(2, limit) * 7).AddDays(2 * project.ConsultantReviewTimeInDays)
                     },
                     new Document { Name = "Permits & Liscenses", Description = "زى شهادة تسليم الدفاع المدنى", SendCopyToOwner = SendCopy.Yes,
                         RcmdDeadlineBeforeHandover = CalculateWeeks(1, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(1, limit) * 7)),
