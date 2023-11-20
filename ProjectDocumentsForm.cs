@@ -196,7 +196,7 @@ namespace ClsOutDocDeliveryCtrl
         }
         private void renameCols()
         {
-            gridView_ProjectDocs.Columns["Name"].ReadOnly =true;
+            gridView_ProjectDocs.Columns["Name"].ReadOnly = true;
             gridView_ProjectDocs.Columns["Name"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             gridView_ProjectDocs.Columns["Description"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
@@ -232,6 +232,8 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["ConsultThirdRspStatus"].HeaderText = "Third Consultant Response Status";
 
 
+            gridView_ProjectDocs.Columns["OwnerSubmitalDeadline"].HeaderText = "Deadline";
+            gridView_ProjectDocs.Columns["OwnerSubmitalDeadline"].ReadOnly = true;
             gridView_ProjectDocs.Columns["ActOwnerSubmitDate"].HeaderText = "Actual Owner Submittal Date";
             gridView_ProjectDocs.Columns["OwnerSubmitStatus"].HeaderText = "Owner Submittal Status";
             gridView_ProjectDocs.Columns["OwnerSubmitFormat"].HeaderText = "Owner Submittal Format";
@@ -242,6 +244,7 @@ namespace ClsOutDocDeliveryCtrl
 
 
 
+            gridView_ProjectDocs.Columns["RetentionWeight"].HeaderText = "Retention Weight";
             gridView_ProjectDocs.Columns["Retention"].HeaderText = "Retention (from total project value)";
             gridView_ProjectDocs.Columns["Deduction"].HeaderText = "Deduction (from total project value)";
         }
@@ -662,32 +665,34 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     ToggleColumnsEnableState(sender, e);
                 }
+                if (columnName == "RcmdDeadlineBeforeHandover")
+                {
+                    SetActualFirstSubmitDeadline(e, before: true);
+                    SetOwnerDeadlineDate(e, before: true);
+                }
+                else
+                {
+                    SetActualFirstSubmitDeadline(e, before: false);
+                    SetOwnerDeadlineDate(e, before: false);
+                }
             }
-            if (columnName == firstRspCodeCombBoxCol.Name)
+            else if (columnName == firstRspCodeCombBoxCol.Name)
             {
                 SetSubmitColsVisibility();
                 SetSubmitColsValues(sender, e, thirdOnly: false);
 
             }
-            if (columnName == secondRspCodeCombBoxCol.Name)
+            else if (columnName == secondRspCodeCombBoxCol.Name)
             {
                 SetSecondSubmitColVisibilty();
                 SetSubmitColsValues(sender, e, thirdOnly: true);
 
             }
-            if (columnName == thirdRspCodeCombBoxCol.Name)
+            else if (columnName == thirdRspCodeCombBoxCol.Name)
             {
                 handleMaxSubmitTrails(sender, e);
             }
-            if (columnName == "RcmdDeadlineBeforeHandover")
-            {
-                SetActualFirstSubmitDeadline(e, before: true);
-            }
-            if (columnName == "RcmdDeadlineAfterHandover")
-            {
-                SetActualFirstSubmitDeadline(e, before: false);
-            }
-            if (columnName == "ActFirstCTRSubmitDeadline" || columnName == "ActFirstCTRSubmitDeliveryDate")
+            else if (columnName == "ActFirstCTRSubmitDeadline" || columnName == "ActFirstCTRSubmitDeliveryDate")
             {
                 SetSubmitStatusColumn(SubmitalPhase.first);
                 if (columnName == "ActFirstCTRSubmitDeliveryDate")
@@ -695,7 +700,7 @@ namespace ClsOutDocDeliveryCtrl
                     setExpectedConsultRspDate(e, SubmitalPhase.first);
                 }
             }
-            if (columnName == "ActSecondCTRSubmitDeadline" || columnName == "ActSecondCTRSubmitDeliveryDate")
+            else if (columnName == "ActSecondCTRSubmitDeadline" || columnName == "ActSecondCTRSubmitDeliveryDate")
             {
                 SetSubmitStatusColumn(SubmitalPhase.second);
                 if (columnName == "ActSecondCTRSubmitDeliveryDate")
@@ -703,7 +708,7 @@ namespace ClsOutDocDeliveryCtrl
                     setExpectedConsultRspDate(e, SubmitalPhase.second);
                 }
             }
-            if (columnName == "ActThirdCTRSubmitDeadline" || columnName == "ActThirdCTRSubmitDeliveryDate")
+            else if (columnName == "ActThirdCTRSubmitDeadline" || columnName == "ActThirdCTRSubmitDeliveryDate")
             {
                 SetSubmitStatusColumn(SubmitalPhase.third);
                 if (columnName == "ActThirdCTRSubmitDeliveryDate")
@@ -711,7 +716,7 @@ namespace ClsOutDocDeliveryCtrl
                     setExpectedConsultRspDate(e, SubmitalPhase.third);
                 }
             }
-            if (columnName == "ActFirstConsultRspDate" || columnName == "ExpFirstConsultRspDate")
+            else if (columnName == "ActFirstConsultRspDate" || columnName == "ExpFirstConsultRspDate")
             {
                 SetResponseStatusColumn(SubmitalPhase.first);
                 bool isResubmit = (gridView_ProjectDocs.Rows[e.RowIndex].Cells[firstRspCodeCombBoxCol.Index].Value?.ToString() ?? String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString();
@@ -720,7 +725,7 @@ namespace ClsOutDocDeliveryCtrl
                     SetActualExtraSubmitDeadline(e, second: true);
                 }
             }
-            if (columnName == "ActSecondConsultRspDate" || columnName == "ExpSecondConsultRspDate")
+            else if (columnName == "ActSecondConsultRspDate" || columnName == "ExpSecondConsultRspDate")
             {
                 SetResponseStatusColumn(SubmitalPhase.second);
                 bool isResubmit = (gridView_ProjectDocs.Rows[e.RowIndex].Cells[secondRspCodeCombBoxCol.Index].Value?.ToString() ?? String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString();
@@ -729,21 +734,37 @@ namespace ClsOutDocDeliveryCtrl
                     SetActualExtraSubmitDeadline(e, second: false);
                 }
             }
-            if (columnName == "ActThirdConsultRspDate" || columnName == "ExpThirdConsultRspDate")
+            else if (columnName == "ActThirdConsultRspDate" || columnName == "ExpThirdConsultRspDate")
             {
                 SetResponseStatusColumn(SubmitalPhase.third);
             }
-            if (columnName == "ActOwnerSubmitDate")
+            else if (columnName == "ActOwnerSubmitDate")
             {
                 SetSbmitToOwnerStatus(sender, e);
             }
-            if (columnName == "Retention")
+            else if (columnName == "Retention")
             {
                 CalculateTotalRetention();
             }
-            if (columnName == "Deduction")
+            else if (columnName == "Deduction")
             {
                 CalculateTotalDeductions();
+            }
+        }
+
+        private void SetOwnerDeadlineDate(DataGridViewCellEventArgs e, bool before)
+        {
+            if (before)
+            {
+                gridView_ProjectDocs.Rows[e.RowIndex].Cells["OwnerSubmitalDeadline"].Value = _project.PlannedEndDate.Date;
+            }
+            else
+            {
+                DateTime? actFirstCTRSubmitDeadline = gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActFirstCTRSubmitDeadline"].Value as DateTime?;
+                if (actFirstCTRSubmitDeadline != null)
+                {
+                    gridView_ProjectDocs.Rows[e.RowIndex].Cells["OwnerSubmitalDeadline"].Value = actFirstCTRSubmitDeadline.Value.AddDays(_project.ConsultantReviewTimeInDays).Date;
+                }
             }
         }
 
@@ -1110,19 +1131,20 @@ namespace ClsOutDocDeliveryCtrl
         }
         private void ShowOwnerContent(bool show)
         {
-            var deadLineCol = new DataGridViewTextBoxColumn();
-            deadLineCol.HeaderText = "DeadLine";
-            deadLineCol.ValueType = typeof(DateTime);
-            deadLineCol.Name = "DeadLine";
-            deadLineCol.ReadOnly = true;
-            deadLineCol.DefaultCellStyle.Format = "d";
+            //var deadLineCol = new DataGridViewTextBoxColumn();
+            //deadLineCol.HeaderText = "DeadLine";
+            //deadLineCol.ValueType = typeof(DateTime);
+            //deadLineCol.Name = "DeadLine";
+            //deadLineCol.ReadOnly = true;
+            //deadLineCol.DefaultCellStyle.Format = "d";
 
-            gridView_ProjectDocs.Columns.Insert(2, deadLineCol);
-            FillDeadLineColumn(deadLineCol);
+            //gridView_ProjectDocs.Columns.Insert(2, deadLineCol);
+            //FillDeadLineColumn(deadLineCol);
 
             tabControl1.SelectTab("tabPage_SubmitToOwner");
             gridView_ProjectDocs.Columns["Name"].Visible = true;
-            gridView_ProjectDocs.Columns["DeadLine"].Visible = show;
+            gridView_ProjectDocs.Columns["OwnerSubmitalDeadline"].Visible = show;
+            gridView_ProjectDocs.Columns["OwnerSubmitalDeadline"].DefaultCellStyle.NullValue = null;
             gridView_ProjectDocs.Columns["ActOwnerSubmitDate"].Visible = show;
             gridView_ProjectDocs.Columns["OwnerSubmitStatus"].Visible = show;
             submitalFormatCol.Visible = show;
@@ -1133,24 +1155,24 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["ReceivedBy"].Visible = show;
         }
 
-        private void FillDeadLineColumn(DataGridViewColumn deadLineCol)
-        {
-            foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
-            {
-                if (row.Cells["RcmdDeadlineBeforeHandover"].Value != null)
-                {
-                    row.Cells["DeadLine"].Value = _project.PlannedEndDate;
-                }
-                else
-                {
-                    DateTime? actFirstCTRSubmitDeadline = row.Cells["ActFirstCTRSubmitDeadline"].Value as DateTime?;
-                    if (actFirstCTRSubmitDeadline != null)
-                    {
-                        row.Cells["DeadLine"].Value = actFirstCTRSubmitDeadline.Value.AddDays(14).Date;
-                    }
-                }
-            }
-        }
+        //private void FillDeadLineColumn()
+        //{
+        //    foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+        //    {
+        //        if (row.Cells["RcmdDeadlineBeforeHandover"].Value != null)
+        //        {
+        //            row.Cells["OwnerSubmitalDeadline"].Value = _project.PlannedEndDate;
+        //        }
+        //        else
+        //        {
+        //            DateTime? actFirstCTRSubmitDeadline = row.Cells["ActFirstCTRSubmitDeadline"].Value as DateTime?;
+        //            if (actFirstCTRSubmitDeadline != null)
+        //            {
+        //                row.Cells["OwnerSubmitalDeadline"].Value = actFirstCTRSubmitDeadline.Value.AddDays(14).Date;
+        //            }
+        //        }
+        //    }
+        //}
 
         //Retentions-Deductions View
         private void RetentionsDeductionsView()
@@ -1163,6 +1185,7 @@ namespace ClsOutDocDeliveryCtrl
         {
             tabControl1.SelectTab("tabPage_Retentions");
             gridView_ProjectDocs.Columns["Name"].Visible = true;
+            gridView_ProjectDocs.Columns["RetentionWeight"].Visible = show;
             gridView_ProjectDocs.Columns["Retention"].Visible = show;
             gridView_ProjectDocs.Columns["Deduction"].Visible = show;
             CalculateTotalRetention();
@@ -1442,7 +1465,7 @@ namespace ClsOutDocDeliveryCtrl
             {
                 this.Hide();
                 frm_SaveAs.ShowDialog();
-                
+
             }
         }
 

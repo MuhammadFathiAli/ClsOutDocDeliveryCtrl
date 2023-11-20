@@ -53,7 +53,7 @@ public class Document
 
 
 
-
+    public DateTime? OwnerSubmitalDeadline { get; set; }
     public DateTime? ActOwnerSubmitDate { get; set; }
     [MaxLength(50)]
     public DeliveryStatus OwnerSubmitStatus { get; set; } = DeliveryStatus.NotSet;
@@ -69,11 +69,12 @@ public class Document
     public string? Comment { get; set; }
     [MaxLength(100)]
     public string? ReceivedBy { get; set; }
-    [Column(TypeName = "decimal(6, 4)")]
-    public decimal? Retention { get; set; }
 
     [Column(TypeName = "decimal(6, 4)")]
     public decimal? RetentionWeight { get; set; }
+    
+    [Column(TypeName = "decimal(6, 4)")]
+    public decimal? Retention { get; set; }
 
     [Column(TypeName = "decimal(6, 4)")]
     public decimal? Deduction { get; set; }

@@ -82,45 +82,85 @@ namespace ClsOutDocDeliveryCtrl
             project.Documents = new List<Document>()
                 {
                     new Document { Name = "As-Built Drawings", Description = "drawings", SendCopyToOwner = SendCopy.No,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Operation & Maintenance Manuals", Description = "include ''Health & safety file''", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Fire Safety Plans", Description = "search for it; manual procedures/fa scenario/ evac plan/ maint for ff sys", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Warranties' Documents", Description = "include warranty period and the supplier and all instructions", SendCopyToOwner = SendCopy.No,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Equipment Data Sheets", Description = "contains performance values", SendCopyToOwner = SendCopy.No,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Factory/Supplier Certifications", Description = "certifications for quality or success as plumbing", SendCopyToOwner = SendCopy.No,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Tests Result Reports", Description = "what is the test conducted and what is the results", SendCopyToOwner = SendCopy.No,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(2, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(2, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Inspection Reports", Description = "a documentation of the consultant inspection", SendCopyToOwner = SendCopy.No,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(2, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(2, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Commissioning Final Reports", Description = "include T&B", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(0, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(0, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(0, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(0, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Spare Parts Lists", Description = "تقرير يفيد ب ايه هى ال سبير بارتس و مقايسة بيها و ايه اللى تم توريده و مراجعته من الاستشارى و تسليمه للمالك", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "List of Contacts for Suppliers and Subcontractors", Description = "Communication plan for the year of gurantee Description", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Defects Reporting Procedure during the Period of Gurantee", Description = "include escalation and contancts and communication method", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Training Plans", Description = "ايه بنود التدريب و جدولها الزمنى و مين الحضور و كدا", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(6, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(6, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Training Materials", Description = "اى مستند للعرض يكون مع المتدربين اثناء التدريب للاضطلاع عليه", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(4, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(4, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Training Completion Reports", Description = "Training Completion Reports", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(0, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(0, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(0, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(0, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Training Videos", Description = "تسجيل فيديو كامل للتدريب", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineAfterHandover = CalculateWeeks(1, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(1, limit) * 7)},
+                        RcmdDeadlineAfterHandover = CalculateWeeks(1, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(1, limit) * 7),
+                        OwnerSubmitalDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(1, limit) * 7).AddDays(2 * project.ConsultantReviewTimeInDays)
+                    },
                     new Document { Name = "Lessons Learned", Description = "باشتراك جميع الاطراف الخروج بالدروس المستفادة من هذا المشروع Recomm from all teams for next projects", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineAfterHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(2, limit) * 7)},
+                        RcmdDeadlineAfterHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(2, limit) * 7),
+                        OwnerSubmitalDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(1, limit) * 7).AddDays(2 * project.ConsultantReviewTimeInDays)
+                    },
                     new Document { Name = "Photographic Documentation", Description = "تصوير كامل للمشروع و يقدر ال FM يستخدمه بعد كدا فى مقارنة الحالى بالاستلام لتحديد حالة تدهور او تطور المبنى", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineAfterHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(2, limit) * 7)},
+                        RcmdDeadlineAfterHandover = CalculateWeeks(2, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(2, limit) * 7),
+                        OwnerSubmitalDeadline = project.PlannedEndDate.AddDays(CalculateWeeks(1, limit) * 7).AddDays(2 * project.ConsultantReviewTimeInDays)
+                    },
                     new Document { Name = "Permits & Liscenses", Description = "زى شهادة تسليم الدفاع المدنى", SendCopyToOwner = SendCopy.Yes,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(1, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(1, limit) * 7))},
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(1, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(1, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    },
                     new Document { Name = "Other Documents stated in Contract", Description = "for example: RFIs, MOMs, variation orders", SendCopyToOwner = SendCopy.No,
-                        RcmdDeadlineBeforeHandover = CalculateWeeks(3, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(3, limit) * 7))}
+                        RcmdDeadlineBeforeHandover = CalculateWeeks(3, limit), ActFirstCTRSubmitDeadline = project.PlannedEndDate.AddDays(-(CalculateWeeks(3, limit) * 7)),
+                        OwnerSubmitalDeadline = project.PlannedEndDate
+                    }
                 };
         }
 
