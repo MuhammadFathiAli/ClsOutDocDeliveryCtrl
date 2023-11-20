@@ -69,9 +69,9 @@ public class Document
     public string? Comment { get; set; }
     [MaxLength(100)]
     public string? ReceivedBy { get; set; }
-    [Column(TypeName = "decimal(5, 4)")]
+    [Column(TypeName = "decimal(6, 4)")]
     public decimal? Retention { get; set; }
-    [Column(TypeName = "decimal(5, 4)")]
+    [Column(TypeName = "decimal(6, 4)")]
     public decimal? Deduction { get; set; }
     public int ProjectId { get; set; }
     public Project Project { get; set; }

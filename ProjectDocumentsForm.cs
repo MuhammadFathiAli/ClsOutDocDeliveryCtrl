@@ -1314,7 +1314,7 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     totalRetention += retentionValue;
                 }
-                if (totalRetention >= 1)
+                if (totalRetention >= 100)
                 {
                     MessageBox.Show("Retention value can't be more than Project value", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     lbl_TotalRetentions.Text = "N.A";
@@ -1333,7 +1333,7 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     totalDeduction += deductionValue;
                 }
-                if (totalDeduction >= 1)
+                if (totalDeduction >= 100)
                 {
                     MessageBox.Show("Deduction value can't be more than Project value", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     lbl_TotalDeductions.Text = "N.A";
