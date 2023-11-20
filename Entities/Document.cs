@@ -71,6 +71,10 @@ public class Document
     public string? ReceivedBy { get; set; }
     [Column(TypeName = "decimal(6, 4)")]
     public decimal? Retention { get; set; }
+
+    [Column(TypeName = "decimal(6, 4)")]
+    public decimal? RetentionWeight { get; set; }
+
     [Column(TypeName = "decimal(6, 4)")]
     public decimal? Deduction { get; set; }
     public int ProjectId { get; set; }
