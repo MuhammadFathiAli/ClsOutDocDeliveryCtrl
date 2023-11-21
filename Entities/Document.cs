@@ -71,13 +71,13 @@ public class Document
     public string? ReceivedBy { get; set; }
 
     [Column(TypeName = "decimal(6, 4)")]
-    public decimal? RetentionWeight { get; set; }
+    public decimal? RetentionWeight { get; set; } = 0.0m;
     
     [Column(TypeName = "decimal(6, 4)")]
-    public decimal? Retention { get; set; }
+    public decimal? Retention { get; set; } = decimal.Zero;
 
     [Column(TypeName = "decimal(6, 4)")]
-    public decimal? Deduction { get; set; }
+    public decimal? Deduction { get; set; } = decimal.Zero;
     public int ProjectId { get; set; }
     public Project Project { get; set; }
 
