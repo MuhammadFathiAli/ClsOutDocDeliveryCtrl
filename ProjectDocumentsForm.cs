@@ -240,6 +240,10 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["Retention"].ReadOnly = true;
             gridView_ProjectDocs.Columns["Deduction"].HeaderText = "Deduction (% from total project value)";
             gridView_ProjectDocs.Columns["Deduction"].ReadOnly = true;
+            gridView_ProjectDocs.Columns["contractorDelay"].HeaderText = "Contractor's Delay (Days)";
+            gridView_ProjectDocs.Columns["contractorDelay"].ReadOnly = true;
+            gridView_ProjectDocs.Columns["consultantDelay"].HeaderText = "Consultant's Delay (Days)";
+            gridView_ProjectDocs.Columns["consultantDelay"].ReadOnly = true;
         }
         private void AddComboBoxColumns()
         {
@@ -1159,6 +1163,7 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["OwnerSubmitalDeadline"].DefaultCellStyle.NullValue = null;
             gridView_ProjectDocs.Columns["ActOwnerSubmitDate"].Visible = show;
             gridView_ProjectDocs.Columns["OwnerSubmitStatus"].Visible = show;
+            gridView_ProjectDocs.Columns["OwnerSubmitStatus"].DisplayIndex = 33;
             submitalFormatCol.Visible = show;
             gridView_ProjectDocs.Columns["StoragePlace"].Visible = show;
             gridView_ProjectDocs.Columns["SoftCopyFormat"].Visible = show;
@@ -1181,6 +1186,10 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["RetentionWeight"].Visible = show;
             gridView_ProjectDocs.Columns["Retention"].Visible = show;
             gridView_ProjectDocs.Columns["Deduction"].Visible = show;
+            gridView_ProjectDocs.Columns["OwnerSubmitStatus"].Visible = show;
+            gridView_ProjectDocs.Columns["OwnerSubmitStatus"].DisplayIndex = 43;
+            gridView_ProjectDocs.Columns["contractorDelay"].Visible = show;
+            gridView_ProjectDocs.Columns["consultantDelay"].Visible = show;
             CalculateTotalRetention();
             CalculateTotalDeductions();
         }
