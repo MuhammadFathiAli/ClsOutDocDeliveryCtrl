@@ -71,7 +71,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         decimal performance = 0;
                         if (totalRequiredDocs != 0)
                         {
-                            performance = ((totalDeliveredOntime + ((decimal)totalDeliveredLate / 2)) / totalRequiredDocs) * 100;
+                            performance = Math.Round(((totalDeliveredOntime + ((decimal)totalDeliveredLate / 2)) / totalRequiredDocs) * 100, 2);
                         }
                         var totalContactorDelay = _documents.Sum(d => d.contractorDelay);
                         var totalConsultantDelay = _documents.Sum(d => d.consultantDelay);
