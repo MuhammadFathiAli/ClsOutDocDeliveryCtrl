@@ -827,7 +827,7 @@ namespace ClsOutDocDeliveryCtrl
                 try
                 {
                     retentionValue = ((decimal)row.Cells[e.ColumnIndex].Value * maxRetention) / (totalWeights);
-                    retentionValueDisplayed = Math.Round(retentionValue, 2, MidpointRounding.ToEven);
+                    retentionValueDisplayed = Math.Ceiling(retentionValue / (decimal)0.01) * (decimal)0.01;
                 }
                 finally
                 {
