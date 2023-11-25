@@ -1519,7 +1519,7 @@ namespace ClsOutDocDeliveryCtrl
                 catch (Exception ex)
                 {
                     // Handle any exceptions that may occur during the database operation
-                    MessageBox.Show($"An error occurred: {ex.InnerException.Message}");
+                    MessageBox.Show($"An error occurred: {ex?.InnerException?.Message}");
                     MessageBox.Show($"Data not saved, Changes ignored");
                 }
             }

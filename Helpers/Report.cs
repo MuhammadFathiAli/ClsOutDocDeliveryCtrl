@@ -60,7 +60,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                 {
                     try
                     {
-                        var retentions = _documents.Sum(d => d.Retention);
+                        var retentions = _project.RetentionforDocumentsDelivery;
                         var deductions = _documents.Sum(d => d.Deduction);
                         var release = retentions - deductions;
                         var totalRequiredDocs = _documents.Count;
@@ -69,10 +69,12 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         var totalDeliveredLate = _documents.Where(d => d.OwnerSubmitStatus == DeliveryStatus.DeliveredLate).ToList().Count();
                         var totalNotDelivered = _documents.Where(d => d.OwnerSubmitStatus == DeliveryStatus.Required || d.OwnerSubmitStatus == DeliveryStatus.NotSet || d.OwnerSubmitStatus == DeliveryStatus.Late).ToList().Count();
                         decimal performance = 0;
-                        if (totalDeliveredToOwner != 0)
+                        if (totalRequiredDocs != 0)
                         {
-                            performance = ((totalDeliveredOntime + ((decimal)totalDeliveredLate / 2)) / totalDeliveredToOwner) * 100;
+                            performance = ((totalDeliveredOntime + ((decimal)totalDeliveredLate / 2)) / totalRequiredDocs) * 100;
                         }
+                        var totalContactorDelay = _documents.Sum(d => d.contractorDelay);
+                        var totalConsultantDelay = _documents.Sum(d => d.consultantDelay);
 
                         #region ProjectInfo contributers Row
                         Documentt document = new Documentt(PageSize.A4.Rotate(), 1f, 1f, 150f, 150f);
@@ -106,7 +108,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         #endregion
 
                         #region ProjectInfo Dates Row
-                        PdfPCell startDateCell = new PdfPCell(new Phrase($"Starting Date: {_project.StartDate.ToShortDateString()}",
+                        PdfPCell startDateCell = new PdfPCell(new Phrase($"Current Date: {DateTime.Now.ToShortDateString()}",
                     new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
                         startDateCell.Padding = 5; // Set padding
                         startDateCell.MinimumHeight = 10f; // Set minimum height
@@ -122,7 +124,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         pTable.AddCell(projectNameCell);
 
 
-                        PdfPCell endDateCell = new PdfPCell(new Phrase($"Planned End Date: {_project.PlannedEndDate.ToShortDateString()}",
+                        PdfPCell endDateCell = new PdfPCell(new Phrase($"Handover Date: {_project.PlannedEndDate.ToShortDateString()}",
                             new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
                         endDateCell.Padding = 5; // Set padding
                         endDateCell.MinimumHeight = 10f; // Set minimum height
@@ -316,6 +318,117 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         commentNotDeliveredDocsCell.MinimumHeight = 10f; // Set minimum height
                         commentNotDeliveredDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(commentNotDeliveredDocsCell);
+                        #endregion
+
+                        #region Contractor Delay
+                        PdfPCell itemContctorDelayCell = new PdfPCell(new Phrase("Contractor's total delay (Days)",
+                            new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
+                        itemContctorDelayCell.Padding = 5; // Set padding
+                        itemContctorDelayCell.MinimumHeight = 10f; // Set minimum height
+                        itemContctorDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(itemContctorDelayCell);
+
+                        PdfPCell valueContctorDelayCell = new PdfPCell(new Phrase($"{totalContactorDelay}",
+                            new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
+                        valueContctorDelayCell.Padding = 5; // Set padding
+                        valueContctorDelayCell.MinimumHeight = 10f; // Set minimum height
+                        valueContctorDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(valueContctorDelayCell);
+
+                        PdfPCell commentContctorDelayCell = new PdfPCell(new Phrase(""));
+                        commentContctorDelayCell.Padding = 5; // Set padding
+                        commentContctorDelayCell.MinimumHeight = 10f; // Set minimum height
+                        commentContctorDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(commentContctorDelayCell);
+                        #endregion
+
+                        #region Consultant Delay
+                        PdfPCell itemConsultantDelayCell = new PdfPCell(new Phrase("Consultant's total delay (Days)",
+                            new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
+                        itemConsultantDelayCell.Padding = 5; // Set padding
+                        itemConsultantDelayCell.MinimumHeight = 10f; // Set minimum height
+                        itemConsultantDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(itemConsultantDelayCell);
+
+                        PdfPCell valueConsultantDelayCell = new PdfPCell(new Phrase($"{totalConsultantDelay}",
+                            new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
+                        valueConsultantDelayCell.Padding = 5; // Set padding
+                        valueConsultantDelayCell.MinimumHeight = 10f; // Set minimum height
+                        valueConsultantDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(valueConsultantDelayCell);
+
+                        PdfPCell commentConsultantDelayCell = new PdfPCell(new Phrase(""));
+                        commentConsultantDelayCell.Padding = 5; // Set padding
+                        commentConsultantDelayCell.MinimumHeight = 10f; // Set minimum height
+                        commentConsultantDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(commentConsultantDelayCell);
+                        #endregion
+
+                        #region Project Total Duration
+                        PdfPCell itemtotalDurationCell = new PdfPCell(new Phrase("Project Total Duration (Days)",
+                            new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
+                        itemtotalDurationCell.Padding = 5; // Set padding
+                        itemtotalDurationCell.MinimumHeight = 10f; // Set minimum height
+                        itemtotalDurationCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(itemtotalDurationCell);
+
+                        PdfPCell valuetotalDurationCell = new PdfPCell(new Phrase($"{(_project.PlannedEndDate - _project.StartDate).Days}",
+                            new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
+                        valuetotalDurationCell.Padding = 5; // Set padding
+                        valuetotalDurationCell.MinimumHeight = 10f; // Set minimum height
+                        valuetotalDurationCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(valuetotalDurationCell);
+
+                        PdfPCell commenttotalDurationCell = new PdfPCell(new Phrase(""));
+                        commenttotalDurationCell.Padding = 5; // Set padding
+                        commenttotalDurationCell.MinimumHeight = 10f; // Set minimum height
+                        commenttotalDurationCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(commenttotalDurationCell);
+                        #endregion
+
+
+                        #region Contract Price
+                        PdfPCell itemContractPriceCell = new PdfPCell(new Phrase("Contract Price (currency)",
+                            new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
+                        itemContractPriceCell.Padding = 5; // Set padding
+                        itemContractPriceCell.MinimumHeight = 10f; // Set minimum height
+                        itemContractPriceCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(itemContractPriceCell);
+
+                        PdfPCell valueContractPriceCell = new PdfPCell(new Phrase($"{_project.ContractValue}",
+                            new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
+                        valueContractPriceCell.Padding = 5; // Set padding
+                        valueContractPriceCell.MinimumHeight = 10f; // Set minimum height
+                        valueContractPriceCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(valueContractPriceCell);
+
+                        PdfPCell commentContractPriceCell = new PdfPCell(new Phrase(""));
+                        commentContractPriceCell.Padding = 5; // Set padding
+                        commentContractPriceCell.MinimumHeight = 10f; // Set minimum height
+                        commentContractPriceCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(commentContractPriceCell);
+                        #endregion
+
+                        #region Total Deduction Value
+                        PdfPCell itemDeductionValueCell = new PdfPCell(new Phrase("Total Deduction value (Currency)",
+                            new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
+                        itemDeductionValueCell.Padding = 5; // Set padding
+                        itemDeductionValueCell.MinimumHeight = 10f; // Set minimum height
+                        itemDeductionValueCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(itemContractPriceCell);
+
+                        PdfPCell valueDeductionValueCell = new PdfPCell(new Phrase($"{_project.ContractValue * deductions * (decimal)0.01}",
+                            new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
+                        valueDeductionValueCell.Padding = 5; // Set padding
+                        valueDeductionValueCell.MinimumHeight = 10f; // Set minimum height
+                        valueDeductionValueCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(valueDeductionValueCell);
+
+                        PdfPCell commentDeductionValueCell = new PdfPCell(new Phrase(""));
+                        commentDeductionValueCell.Padding = 5; // Set padding
+                        commentDeductionValueCell.MinimumHeight = 10f; // Set minimum height
+                        commentDeductionValueCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        pTable.AddCell(commentDeductionValueCell);
                         #endregion
 
                         #region Performance
