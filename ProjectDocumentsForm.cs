@@ -724,6 +724,7 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     SetActualExtraSubmitDeadline(e, second: true);
                 }
+                UpdateConsultantDelay(e);
             }
             else if (columnName == "ActSecondConsultRspDate" || columnName == "ExpSecondConsultRspDate")
             {
@@ -733,29 +734,18 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     SetActualExtraSubmitDeadline(e, second: false);
                 }
+                UpdateConsultantDelay(e);
             }
             else if (columnName == "ActThirdConsultRspDate" || columnName == "ExpThirdConsultRspDate")
             {
                 SetResponseStatusColumn(SubmitalPhase.third);
+                UpdateConsultantDelay(e);
             }
             else if (columnName == "ActOwnerSubmitDate")
             {
                 SetSbmitToOwnerStatus(sender, e);
+                CalculateDeductions(e);
             }
-            //else if (columnName == "ActFirstCTRSubmitDeliveryDate" || columnName == "SecondCTRSubmitStatus" || columnName == "ThirdCTRSubmitStatus")
-            //{
-            //    var value = (DeliveryStatus)(gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
-            //    var submitalPhase = SubmitalPhase.first;
-            //    if (value != DeliveryStatus.DeliveredLate)
-            //        return;
-            //    if (columnName == "FirstCTRSubmitStatus")
-            //        submitalPhase = SubmitalPhase.first;
-            //    else if (columnName == "SecondCTRSubmitStatus")
-            //        submitalPhase &= SubmitalPhase.second;
-            //    else
-            //        submitalPhase &= SubmitalPhase.third;
-            //    UpdateContractorDelay(e, submitalPhase);
-            //}
             else if (columnName == "Retention")
             {
                 CalculateTotalRetention();
@@ -763,19 +753,50 @@ namespace ClsOutDocDeliveryCtrl
             else if (columnName == "RetentionWeight")
             {
                 CalculateRetentions(e);
+                CalculateAllDeductions(e);
             }
             else if (columnName == "Deduction")
             {
                 CalculateTotalDeductions();
             }
+            else if (columnName == "contractorDelay" || columnName == "consultantDelay")
+            {
+                CalculateDeductions(e);
+            }
+        }
+
+
+
+        private void UpdateConsultantDelay(DataGridViewCellEventArgs e)
+        {
+            var Cummulativedelay = 0;
+            if (gridView_ProjectDocs.Rows[e.RowIndex].Cells["ConsultFirstRspStatus"].Value.ToString() == ResponseStatus.RespondedLate.ToString())
+            {
+                Cummulativedelay = ((DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActFirstConsultRspDate"].Value
+                - (DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ExpFirstConsultRspDate"].Value).Days;
+            }
+            if (gridView_ProjectDocs.Rows[e.RowIndex].Cells["ConsultSecondRspStatus"].Value.ToString() == ResponseStatus.RespondedLate.ToString())
+            {
+                Cummulativedelay += ((DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondConsultRspDate"].Value
+                    - (DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ExpSecondConsultRspDate"].Value).Days;
+            }
+            if (gridView_ProjectDocs.Rows[e.RowIndex].Cells["ConsultThirdRspStatus"].Value.ToString() == ResponseStatus.RespondedLate.ToString())
+            {
+                Cummulativedelay += ((DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActThirdConsultRspDate"].Value
+                    - (DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ExpThirdConsultRspDate"].Value).Days;
+            }
+            gridView_ProjectDocs.Rows[e.RowIndex].Cells["consultantDelay"].Value = Cummulativedelay;
         }
 
         private void UpdateContractorDelay(DataGridViewCellEventArgs e)
         {
             var Cummulativedelay = 0;
 
-            Cummulativedelay = ((DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActFirstCTRSubmitDeliveryDate"].Value
+            if (gridView_ProjectDocs.Rows[e.RowIndex].Cells["FirstCTRSubmitStatus"].Value.ToString() == DeliveryStatus.DeliveredLate.ToString())
+            {
+                Cummulativedelay = ((DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActFirstCTRSubmitDeliveryDate"].Value
                 - (DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActFirstCTRSubmitDeadline"].Value).Days;
+            }
 
             if (gridView_ProjectDocs.Rows[e.RowIndex].Cells["SecondCTRSubmitStatus"].Value.ToString() == DeliveryStatus.DeliveredLate.ToString())
             {
@@ -792,8 +813,8 @@ namespace ClsOutDocDeliveryCtrl
 
         private void CalculateRetentions(DataGridViewCellEventArgs e)
         {
-            decimal totalWeights = 0;
-            decimal totalRetentions = 0;
+            decimal totalWeights = decimal.Zero;
+            decimal totalRetentions = decimal.Zero;
             decimal maxRetention = _project.RetentionforDocumentsDelivery;
             foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
             {
@@ -801,8 +822,8 @@ namespace ClsOutDocDeliveryCtrl
             }
             foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
             {
-                decimal retentionValue = 0;
-                decimal retentionValueDisplayed = 0;
+                decimal retentionValue = decimal.Zero;
+                decimal retentionValueDisplayed = decimal.Zero;
                 try
                 {
                     retentionValue = ((decimal)row.Cells[e.ColumnIndex].Value * maxRetention) / (totalWeights);
@@ -813,7 +834,52 @@ namespace ClsOutDocDeliveryCtrl
                     row.Cells["Retention"].Value = retentionValueDisplayed;
                     totalRetentions += retentionValue;
                 }
+                //CalculateDeductions(e);
             }
+        }
+        private void CalculateAllDeductions(DataGridViewCellEventArgs e)
+        {
+            foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+            {
+                CalculateDeductions(new DataGridViewCellEventArgs(0, row.Index));
+            }
+        }
+
+        private void CalculateDeductions(DataGridViewCellEventArgs e)
+        {
+            var row = gridView_ProjectDocs.Rows[e.RowIndex];
+            var retention = (decimal)row.Cells["Retention"].Value;
+            var status = (DeliveryStatus)row.Cells["OwnerSubmitStatus"].Value;
+            var ctrDelay = (int)row.Cells["contractorDelay"].Value;
+            var cnsultDelay = (int)row.Cells["consultantDelay"].Value;
+
+            if (status == DeliveryStatus.DeliveredOnTime || status == DeliveryStatus.Required || status == DeliveryStatus.NotSet)
+            {
+                row.Cells["Deduction"].Value = decimal.Zero;
+            }
+            else if (status == DeliveryStatus.Late)
+            {
+                row.Cells["Deduction"].Value = retention;
+            }
+            else if (status == DeliveryStatus.DeliveredLate)
+            {
+                if (ctrDelay > 0)
+                {
+                    row.Cells["Deduction"].Value = (decimal)0.5 * retention;
+                }
+                else
+                {
+                    if (cnsultDelay == 0)
+                    {
+                        row.Cells["Deduction"].Value = (decimal)0.5 * retention;
+                    }
+                    else
+                    {
+                        row.Cells["Deduction"].Value = decimal.Zero;
+                    }
+                }
+            }
+
         }
 
         private void SetOwnerDeadlineDate(DataGridViewCellEventArgs e, bool before)
