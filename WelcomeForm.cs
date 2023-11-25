@@ -27,7 +27,22 @@ namespace ClsOutDocDeliveryCtrl
         private void cmbox_Recents_SelectedIndexChanged(object sender, EventArgs e)
         {
             //frm
-            Project? project;
+            if (cmbox_Recents.SelectedIndex > 0)
+            {
+                var projectName = cmbox_Recents.SelectedItem;
+                Project? project = null;
+                using (var context = new AppDBContext())
+                {
+                     project = context.Projects.Where(x => x.Name == projectName).ToList().FirstOrDefault();
+                }
+                if (project is not null)
+                {
+                    frm_ProjectDosc projectDocumentsForm = new(project);
+                    this.Hide();
+                    projectDocumentsForm.ShowDialog();
+                    this.Show();
+                }
+            }
 
             //if (cmbox_Recents.SelectedItem is Project selectedProject)
             //{
@@ -45,21 +60,20 @@ namespace ClsOutDocDeliveryCtrl
         {
             // Fetch the last two created projects from your database
             // Replace this with actual database query code
-            List<Project> recentProjects = GetLastTwoProjectsFromDatabase();
+            List<string> recentProjects = GetLastTwoProjectsFromDatabase();
 
             //if (recentProjects.Count == 0)
             //{
             //    var x = new List<string> { "No Projects Created" }.ToArray();
             //    cmbox_Recents.Items.AddRange(x);
             //}
+            recentProjects.Insert(0, "Choose from recents");
 
             //// Add the project names to the combo box
             cmbox_Recents.DataSource = recentProjects;
-            cmbox_Recents.DisplayMember = "Name";
-            cmbox_Recents.ValueMember = "ProjectId";
         }
 
-        private List<Project> GetLastTwoProjectsFromDatabase()
+        private List<string> GetLastTwoProjectsFromDatabase()
         {
             try
             {
@@ -70,13 +84,9 @@ namespace ClsOutDocDeliveryCtrl
                             .ToList();
                     if (recentProjects is null)
                     {
-                        recentProjects = new List<Project>();
+                        return new List<string>();
                     }
-                    else if (recentProjects.Count < 2)
-                    {
-                        //recentProjects.Add("No more projects");
-                    }
-                    return recentProjects;
+                    return recentProjects.Select(x => x.Name).ToList();
                 }
             }
             catch (Exception)

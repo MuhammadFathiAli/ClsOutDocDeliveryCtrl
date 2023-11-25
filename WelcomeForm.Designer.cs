@@ -69,10 +69,12 @@
             // 
             // cmbox_Recents
             // 
+            this.cmbox_Recents.BackColor = System.Drawing.Color.Lavender;
+            this.cmbox_Recents.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbox_Recents.FormattingEnabled = true;
-            this.cmbox_Recents.Location = new System.Drawing.Point(315, 250);
+            this.cmbox_Recents.Location = new System.Drawing.Point(317, 244);
             this.cmbox_Recents.Name = "cmbox_Recents";
-            this.cmbox_Recents.Size = new System.Drawing.Size(207, 40);
+            this.cmbox_Recents.Size = new System.Drawing.Size(337, 30);
             this.cmbox_Recents.TabIndex = 6;
             this.cmbox_Recents.Text = "Recents";
             this.cmbox_Recents.SelectedIndexChanged += new System.EventHandler(this.cmbox_Recents_SelectedIndexChanged);
@@ -80,9 +82,10 @@
             // lbl_Recents
             // 
             this.lbl_Recents.AutoSize = true;
+            this.lbl_Recents.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbl_Recents.Location = new System.Drawing.Point(107, 250);
             this.lbl_Recents.Name = "lbl_Recents";
-            this.lbl_Recents.Size = new System.Drawing.Size(122, 32);
+            this.lbl_Recents.Size = new System.Drawing.Size(92, 24);
             this.lbl_Recents.TabIndex = 7;
             this.lbl_Recents.Text = "Recents";
             // 
