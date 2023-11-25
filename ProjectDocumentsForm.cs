@@ -696,6 +696,7 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     setExpectedConsultRspDate(e, SubmitalPhase.first);
                 }
+                UpdateContractorDelay(e);
             }
             else if (columnName == "ActSecondCTRSubmitDeadline" || columnName == "ActSecondCTRSubmitDeliveryDate")
             {
@@ -704,6 +705,7 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     setExpectedConsultRspDate(e, SubmitalPhase.second);
                 }
+                UpdateContractorDelay(e);
             }
             else if (columnName == "ActThirdCTRSubmitDeadline" || columnName == "ActThirdCTRSubmitDeliveryDate")
             {
@@ -712,6 +714,7 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     setExpectedConsultRspDate(e, SubmitalPhase.third);
                 }
+                UpdateContractorDelay(e);
             }
             else if (columnName == "ActFirstConsultRspDate" || columnName == "ExpFirstConsultRspDate")
             {
@@ -739,6 +742,20 @@ namespace ClsOutDocDeliveryCtrl
             {
                 SetSbmitToOwnerStatus(sender, e);
             }
+            //else if (columnName == "ActFirstCTRSubmitDeliveryDate" || columnName == "SecondCTRSubmitStatus" || columnName == "ThirdCTRSubmitStatus")
+            //{
+            //    var value = (DeliveryStatus)(gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+            //    var submitalPhase = SubmitalPhase.first;
+            //    if (value != DeliveryStatus.DeliveredLate)
+            //        return;
+            //    if (columnName == "FirstCTRSubmitStatus")
+            //        submitalPhase = SubmitalPhase.first;
+            //    else if (columnName == "SecondCTRSubmitStatus")
+            //        submitalPhase &= SubmitalPhase.second;
+            //    else
+            //        submitalPhase &= SubmitalPhase.third;
+            //    UpdateContractorDelay(e, submitalPhase);
+            //}
             else if (columnName == "Retention")
             {
                 CalculateTotalRetention();
@@ -751,6 +768,26 @@ namespace ClsOutDocDeliveryCtrl
             {
                 CalculateTotalDeductions();
             }
+        }
+
+        private void UpdateContractorDelay(DataGridViewCellEventArgs e)
+        {
+            var Cummulativedelay = 0;
+
+            Cummulativedelay = ((DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActFirstCTRSubmitDeliveryDate"].Value
+                - (DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActFirstCTRSubmitDeadline"].Value).Days;
+
+            if (gridView_ProjectDocs.Rows[e.RowIndex].Cells["SecondCTRSubmitStatus"].Value.ToString() == DeliveryStatus.DeliveredLate.ToString())
+            {
+                Cummulativedelay += ((DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondCTRSubmitDeliveryDate"].Value
+                    - (DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondCTRSubmitDeadline"].Value).Days;
+            }
+            if (gridView_ProjectDocs.Rows[e.RowIndex].Cells["ThirdCTRSubmitStatus"].Value.ToString() == DeliveryStatus.DeliveredLate.ToString())
+            {
+                Cummulativedelay += ((DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActThirdCTRSubmitDeliveryDate"].Value
+                    - (DateTime)gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActThirdCTRSubmitDeadline"].Value).Days;
+            }
+            gridView_ProjectDocs.Rows[e.RowIndex].Cells["contractorDelay"].Value = Cummulativedelay;
         }
 
         private void CalculateRetentions(DataGridViewCellEventArgs e)
