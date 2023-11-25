@@ -83,7 +83,6 @@
             this.editProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportAsPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.gridView_ProjectDocs)).BeginInit();
             this.tabPage_Retentions.SuspendLayout();
             this.tabPage_SubmitToOwner.SuspendLayout();
@@ -664,8 +663,7 @@
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportAsPDFToolStripMenuItem,
-            this.exportToolStripMenuItem1});
+            this.exportAsPDFToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.exportToolStripMenuItem.Text = "Export";
@@ -673,15 +671,9 @@
             // exportAsPDFToolStripMenuItem
             // 
             this.exportAsPDFToolStripMenuItem.Name = "exportAsPDFToolStripMenuItem";
-            this.exportAsPDFToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.exportAsPDFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportAsPDFToolStripMenuItem.Text = "Export As PDF";
             this.exportAsPDFToolStripMenuItem.Click += new System.EventHandler(this.exportAsPDFToolStripMenuItem_Click);
-            // 
-            // exportToolStripMenuItem1
-            // 
-            this.exportToolStripMenuItem1.Name = "exportToolStripMenuItem1";
-            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(148, 22);
-            this.exportToolStripMenuItem1.Text = "Export";
             // 
             // frm_ProjectDosc
             // 
@@ -764,7 +756,6 @@
         private ToolStripMenuItem editProjectToolStripMenuItem;
         private ToolStripMenuItem exportToolStripMenuItem;
         private ToolStripMenuItem exportAsPDFToolStripMenuItem;
-        private ToolStripMenuItem exportToolStripMenuItem1;
         private Label label2;
         private Label label1;
         private Label lbl_CTRFirstSub;

@@ -227,10 +227,46 @@ namespace ClsOutDocDeliveryCtrl
         }
         private void exportToPDFToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             var selectedProject = gridView_ProjectList.SelectedRows[0];
             int projectID = (int)selectedProject.Cells[0].Value;
+            var documents = LoadAllDocuments(projectID);
+
+            List<string> essentialDocsName = new List<string>()
+            {
+                "As-Built Drawings", "Operation & Maintenance Manuals", "Fire Safety Plans", "Warranties' Documents"
+            };
+            foreach (var docName in essentialDocsName)
+            {
+                if (IsUndeliveredDocument(docName, documents))
+                {
+                    MessageBox.Show($"Essential Document [{docName}] is not delivered", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
             Report report = new Report(projectID);
             report.GenerateReport();
+        }
+
+        private List<Document> LoadAllDocuments(int projectID)
+        {
+            using (var context = new AppDBContext())
+            {
+                return context.Documents.Where(x => x.ProjectId == projectID).ToList();
+            }
+        }
+        private bool IsUndeliveredDocument(string docName, List<Document> documents)
+        {
+            foreach (var doc in documents)
+            {
+                if (doc.Name == docName &&
+                    doc.OwnerSubmitStatus != DeliveryStatus.DeliveredOnTime &&
+                    doc.OwnerSubmitStatus != DeliveryStatus.DeliveredLate)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

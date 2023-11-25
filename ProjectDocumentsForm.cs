@@ -1514,7 +1514,7 @@ namespace ClsOutDocDeliveryCtrl
                     context.SaveChanges();
 
                     // Optionally, display a success message
-                    MessageBox.Show("Data saved successfully to the database.");
+                    MessageBox.Show("Data saved successfully to the database.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -1599,6 +1599,18 @@ namespace ClsOutDocDeliveryCtrl
 
         private void exportAsPDFToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            List<string> essentialDocsName = new List<string>()
+            {
+                "As-Built Drawings", "Operation & Maintenance Manuals", "Fire Safety Plans", "Warranties' Documents"
+            };
+            foreach (var docName in essentialDocsName)
+            {
+                if (IsUndeliveredDocument(docName))
+                {
+                    MessageBox.Show($"Essential Document [{docName}] is not delivered", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
             DialogResult result = MessageBox.Show("Save Changes?", "Warning", MessageBoxButtons.YesNoCancel,
                 MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
 
@@ -1613,6 +1625,19 @@ namespace ClsOutDocDeliveryCtrl
             Report report = new Report(_project.ProjectId);
             report.GenerateReport();
         }
-
+        private bool IsUndeliveredDocument(string docName)
+        {
+            foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
+            {
+                if (row.Cells["Name"].Value.ToString() == docName &&
+                    (DeliveryStatus)row.Cells["OwnerSubmitStatus"].Value != DeliveryStatus.DeliveredOnTime &&
+                    (DeliveryStatus)row.Cells["OwnerSubmitStatus"].Value != DeliveryStatus.DeliveredLate)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
+
 }
