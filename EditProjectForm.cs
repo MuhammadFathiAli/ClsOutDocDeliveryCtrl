@@ -71,10 +71,16 @@ namespace ClsOutDocDeliveryCtrl
                         projectToUpdate.RetentionforDocumentsDelivery = _project.RetentionforDocumentsDelivery;
 
                         var documentsToEdit = context.Documents.Where(d => d.ProjectId == _project.ProjectId);
+                        var totalWeights = decimal.Zero;
+                        foreach (var document in documentsToEdit)
+                        {
+                            totalWeights += document.RetentionWeight ?? decimal.Zero;
+                        }
                         foreach (var document in documentsToEdit)
                         {
                             UpdateDocumentCTRDeadLine(document, projectToUpdate);
                             UpdateDocumentOwnerSubmitlStatus(document, projectToUpdate);
+                            UpdateDocumentRetention(document, projectToUpdate, totalWeights);
                         }
                         context.SaveChanges();
                     }
@@ -95,6 +101,22 @@ namespace ClsOutDocDeliveryCtrl
             }
             MessageBox.Show("Project details updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
+        }
+
+        private void UpdateDocumentRetention(Document document, Project projectToUpdate, decimal totalWeights)
+        {
+            decimal maxRetention = projectToUpdate.RetentionforDocumentsDelivery;
+            decimal retentionValue = 0;
+            decimal retentionValueDisplayed = 0;
+            try
+            {
+                retentionValue = ((decimal)document.RetentionWeight * maxRetention) / (totalWeights);
+                retentionValueDisplayed = Math.Round(retentionValue, 2, MidpointRounding.ToEven);
+            }
+            finally
+            {
+                document.Retention = retentionValueDisplayed;
+            }
         }
 
         private void UpdateDocumentOwnerSubmitlStatus(Document document, Project projectToUpdate)

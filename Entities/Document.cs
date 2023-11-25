@@ -73,11 +73,16 @@ public class Document
     [Column(TypeName = "decimal(6, 4)")]
     public decimal? RetentionWeight { get; set; } = 0.0m;
     
-    [Column(TypeName = "decimal(6, 4)")]
+    [Column(TypeName = "decimal(4, 2)")]
     public decimal? Retention { get; set; } = decimal.Zero;
 
-    [Column(TypeName = "decimal(6, 4)")]
+    [Column(TypeName = "decimal(4, 2)")]
     public decimal? Deduction { get; set; } = decimal.Zero;
+
+    public int contractorDelay { get; set; } = 0;
+    public int consultantDelay { get; set; } = 0;
+
+
     public int ProjectId { get; set; }
     public Project Project { get; set; }
 

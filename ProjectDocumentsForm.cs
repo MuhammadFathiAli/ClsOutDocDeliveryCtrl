@@ -30,6 +30,7 @@ namespace ClsOutDocDeliveryCtrl
         private DataGridViewComboBoxColumn thirdRspCodeCombBoxCol;
         private DataGridViewComboBoxColumn submitalFormatCol;
         public frm_ProjectDosc(Project project)
+
         {
             _project = project;
             InitializeComponent();
@@ -236,7 +237,9 @@ namespace ClsOutDocDeliveryCtrl
 
             gridView_ProjectDocs.Columns["RetentionWeight"].HeaderText = "Retention Weight";
             gridView_ProjectDocs.Columns["Retention"].HeaderText = "Retention (% from total project value)";
+            gridView_ProjectDocs.Columns["Retention"].ReadOnly = true;
             gridView_ProjectDocs.Columns["Deduction"].HeaderText = "Deduction (% from total project value)";
+            gridView_ProjectDocs.Columns["Deduction"].ReadOnly = true;
         }
         private void AddComboBoxColumns()
         {
@@ -757,13 +760,6 @@ namespace ClsOutDocDeliveryCtrl
             }
             foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
             {
-                //totalRetentions += (decimal)row.Cells["Retention"].Value;
-                //if (totalRetentions > maxRetention)
-                //{
-                //    MessageBox.Show($"Document retentions exceed the maximum retention of this project : {maxRetention}",
-                //        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    row.Cells[e.ColumnIndex].Value = 0;
-                //}
                 decimal retentionValue = 0;
                 decimal retentionValueDisplayed = 0;
                 try
@@ -1157,16 +1153,6 @@ namespace ClsOutDocDeliveryCtrl
         }
         private void ShowOwnerContent(bool show)
         {
-            //var deadLineCol = new DataGridViewTextBoxColumn();
-            //deadLineCol.HeaderText = "DeadLine";
-            //deadLineCol.ValueType = typeof(DateTime);
-            //deadLineCol.Name = "DeadLine";
-            //deadLineCol.ReadOnly = true;
-            //deadLineCol.DefaultCellStyle.Format = "d";
-
-            //gridView_ProjectDocs.Columns.Insert(2, deadLineCol);
-            //FillDeadLineColumn(deadLineCol);
-
             tabControl1.SelectTab("tabPage_SubmitToOwner");
             gridView_ProjectDocs.Columns["Name"].Visible = true;
             gridView_ProjectDocs.Columns["OwnerSubmitalDeadline"].Visible = show;
@@ -1180,25 +1166,6 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["Comment"].Visible = show;
             gridView_ProjectDocs.Columns["ReceivedBy"].Visible = show;
         }
-
-        //private void FillDeadLineColumn()
-        //{
-        //    foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
-        //    {
-        //        if (row.Cells["RcmdDeadlineBeforeHandover"].Value != null)
-        //        {
-        //            row.Cells["OwnerSubmitalDeadline"].Value = _project.PlannedEndDate;
-        //        }
-        //        else
-        //        {
-        //            DateTime? actFirstCTRSubmitDeadline = row.Cells["ActFirstCTRSubmitDeadline"].Value as DateTime?;
-        //            if (actFirstCTRSubmitDeadline != null)
-        //            {
-        //                row.Cells["OwnerSubmitalDeadline"].Value = actFirstCTRSubmitDeadline.Value.AddDays(14).Date;
-        //            }
-        //        }
-        //    }
-        //}
 
         //Retentions-Deductions View
         private void RetentionsDeductionsView()
@@ -1363,11 +1330,12 @@ namespace ClsOutDocDeliveryCtrl
                 {
                     totalRetention += retentionValue;
                 }
-                if (totalRetention >= 100)
+                if (totalRetention != _project.RetentionforDocumentsDelivery && totalRetention != 0)
                 {
-                    MessageBox.Show("Retention value can't be more than Project value", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    lbl_TotalRetentions.Text = "N.A";
-                    return;
+                    totalRetention = _project.RetentionforDocumentsDelivery;
+                    //MessageBox.Show("Retention value can't be more than Project max retention value", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //lbl_TotalRetentions.Text = "N.A";
+                    //return;
                 }
             }
             lbl_TotalRetentions.Text = totalRetention.ToString();
