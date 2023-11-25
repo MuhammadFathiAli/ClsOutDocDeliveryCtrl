@@ -161,6 +161,7 @@
             // 
             // label7
             // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.label7.Location = new System.Drawing.Point(473, 22);
@@ -180,6 +181,7 @@
             // 
             // lbl_TotalDedName
             // 
+            this.lbl_TotalDedName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_TotalDedName.AutoSize = true;
             this.lbl_TotalDedName.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbl_TotalDedName.Location = new System.Drawing.Point(915, 54);
@@ -190,6 +192,7 @@
             // 
             // lbl_TotalRetName
             // 
+            this.lbl_TotalRetName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_TotalRetName.AutoSize = true;
             this.lbl_TotalRetName.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbl_TotalRetName.Location = new System.Drawing.Point(915, 10);
@@ -201,6 +204,7 @@
             // 
             // lbl_DedPercentage
             // 
+            this.lbl_DedPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_DedPercentage.AutoSize = true;
             this.lbl_DedPercentage.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_DedPercentage.Location = new System.Drawing.Point(1189, 51);
@@ -211,6 +215,7 @@
             // 
             // lbl_RetPercentage
             // 
+            this.lbl_RetPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_RetPercentage.AutoSize = true;
             this.lbl_RetPercentage.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_RetPercentage.Location = new System.Drawing.Point(1189, 7);
@@ -221,6 +226,7 @@
             // 
             // lbl_TotalDeductions
             // 
+            this.lbl_TotalDeductions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_TotalDeductions.AutoSize = true;
             this.lbl_TotalDeductions.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_TotalDeductions.Location = new System.Drawing.Point(1113, 51);
@@ -231,6 +237,7 @@
             // 
             // lbl_TotalRetentions
             // 
+            this.lbl_TotalRetentions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_TotalRetentions.AutoSize = true;
             this.lbl_TotalRetentions.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lbl_TotalRetentions.Location = new System.Drawing.Point(1113, 7);
@@ -276,6 +283,7 @@
             // 
             // label6
             // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.label6.Location = new System.Drawing.Point(432, 20);
@@ -321,6 +329,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.label4.Location = new System.Drawing.Point(394, 20);
@@ -366,6 +375,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(394, 20);
@@ -411,6 +421,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(473, 22);
@@ -520,6 +531,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.label3.Location = new System.Drawing.Point(473, 22);
@@ -564,6 +576,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point);
             this.label5.Location = new System.Drawing.Point(473, 22);
@@ -671,8 +684,8 @@
             // exportAsPDFToolStripMenuItem
             // 
             this.exportAsPDFToolStripMenuItem.Name = "exportAsPDFToolStripMenuItem";
-            this.exportAsPDFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exportAsPDFToolStripMenuItem.Text = "Export As PDF";
+            this.exportAsPDFToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.exportAsPDFToolStripMenuItem.Text = "Handover-Print Final Report (PDF)";
             this.exportAsPDFToolStripMenuItem.Click += new System.EventHandler(this.exportAsPDFToolStripMenuItem_Click);
             // 
             // frm_ProjectDosc

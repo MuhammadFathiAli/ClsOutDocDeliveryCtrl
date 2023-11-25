@@ -77,7 +77,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         var totalConsultantDelay = _documents.Sum(d => d.consultantDelay);
 
                         #region ProjectInfo contributers Row
-                        Documentt document = new Documentt(PageSize.A4.Rotate(), 1f, 1f, 150f, 150f);
+                        Documentt document = new Documentt(PageSize.A4.Rotate(), 1f, 1f, 100f, 100f);
 
                         PdfWriter.GetInstance(document, new FileStream(save.FileName, FileMode.Create));
                         document.Open();
