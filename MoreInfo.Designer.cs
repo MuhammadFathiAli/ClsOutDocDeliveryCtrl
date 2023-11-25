@@ -79,6 +79,7 @@
             // 
             this.lbl_DescriptionValue.AutoSize = true;
             this.lbl_DescriptionValue.Location = new System.Drawing.Point(304, 116);
+            this.lbl_DescriptionValue.MaximumSize = new System.Drawing.Size(300, 0);
             this.lbl_DescriptionValue.Name = "lbl_DescriptionValue";
             this.lbl_DescriptionValue.Size = new System.Drawing.Size(126, 15);
             this.lbl_DescriptionValue.TabIndex = 4;

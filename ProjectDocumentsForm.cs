@@ -1638,6 +1638,73 @@ namespace ClsOutDocDeliveryCtrl
             }
             return false;
         }
-    }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ShowMoreInfo();
+        }
+        private void btn_MoreInfo1_Click(object sender, EventArgs e)
+        {
+            ShowMoreInfo();
+        }
+        private void ShowMoreInfo()
+        {
+            var count = gridView_ProjectDocs.SelectedRows.Count;
+            if (count != 1)
+            {
+                MessageBox.Show("Please select a single document to show its info.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            DataGridViewRow selectedRow = gridView_ProjectDocs.SelectedRows[0];
+            var docName = selectedRow.Cells[1].Value.ToString();
+            var projectName = selectedRow.Cells[1]?.Value?.ToString() ?? string.Empty;
+
+            // Fetch the object to be edited from the database
+            using (var context = new AppDBContext())
+            {
+                var docToEdit = context.Documents.FirstOrDefault(d => (d.ProjectId == _project.ProjectId) && (d.Name == docName));
+                if (docToEdit == null)
+                {
+                    MessageBox.Show("Selected document not found in the database.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                frm_MoreInfo frmMoreInfo = new(docToEdit);
+                this.Hide();
+                frmMoreInfo.ShowDialog();
+                this.Show();
+            }
+
+        }
+
+        private void brn_MoreInfo2_Click(object sender, EventArgs e)
+        {
+            ShowMoreInfo();
+        }
+
+        private void btn_MoreInfo3_Click(object sender, EventArgs e)
+        {
+            ShowMoreInfo();
+        }
+
+        private void btn_MoreInfo4_Click(object sender, EventArgs e)
+        {
+            ShowMoreInfo();
+        }
+
+        private void btn_MoreInfo5_Click(object sender, EventArgs e)
+        {
+            ShowMoreInfo();
+        }
+
+        private void btn_MoreInfo6_Click(object sender, EventArgs e)
+        {
+            ShowMoreInfo();
+        }
+
+        private void btn_MoreInfo7_Click(object sender, EventArgs e)
+        {
+            ShowMoreInfo();
+        }
+    }
 }

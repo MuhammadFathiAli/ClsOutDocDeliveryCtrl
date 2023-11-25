@@ -34,6 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gridView_ProjectDocs = new System.Windows.Forms.DataGridView();
             this.tabPage_Retentions = new System.Windows.Forms.TabPage();
+            this.btn_MoreInfo7 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.lbl_DescRet = new System.Windows.Forms.Label();
             this.lbl_TotalDedName = new System.Windows.Forms.Label();
@@ -45,31 +46,38 @@
             this.btn_RetDedBack = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
             this.tabPage_SubmitToOwner = new System.Windows.Forms.TabPage();
+            this.btn_MoreInfo6 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.btn_OwnerSubmitBack = new System.Windows.Forms.Button();
             this.btn_OwnerSubmitNext = new System.Windows.Forms.Button();
             this.tabPage_ThirdCTRSubmit = new System.Windows.Forms.TabPage();
+            this.btn_MoreInfo4 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.btn_ThirdCTRBack = new System.Windows.Forms.Button();
             this.btn_ThirdCTRSubmit = new System.Windows.Forms.Button();
             this.tabPage_SecondCTRSubmit = new System.Windows.Forms.TabPage();
+            this.brn_MoreInfo2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_SecondCTRBack = new System.Windows.Forms.Button();
             this.btn_SecondCTRNext = new System.Windows.Forms.Button();
             this.tabPage_ConsultFirstResponse = new System.Windows.Forms.TabPage();
+            this.btn_MoreInfo1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_FirstResponseBack = new System.Windows.Forms.Button();
             this.btn_FirstResponseNext = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_FirstCTRSubmit = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.lbl_CTRFirstSub = new System.Windows.Forms.Label();
             this.btn_FirstCTRCancel = new System.Windows.Forms.Button();
             this.btn_FirstCTRNext = new System.Windows.Forms.Button();
             this.tabPage_ConsultSecondResponse = new System.Windows.Forms.TabPage();
+            this.btn_MoreInfo3 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.btn_SecondResponseBack = new System.Windows.Forms.Button();
             this.btn_SecondResponseNext = new System.Windows.Forms.Button();
             this.tabPage_ConsultThirdResponse = new System.Windows.Forms.TabPage();
+            this.btn_MoreInfo5 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.btn_ThirdResponseBack = new System.Windows.Forms.Button();
             this.btn_ThirdResponseNext = new System.Windows.Forms.Button();
@@ -142,6 +150,7 @@
             // tabPage_Retentions
             // 
             this.tabPage_Retentions.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_Retentions.Controls.Add(this.btn_MoreInfo7);
             this.tabPage_Retentions.Controls.Add(this.label7);
             this.tabPage_Retentions.Controls.Add(this.lbl_DescRet);
             this.tabPage_Retentions.Controls.Add(this.lbl_TotalDedName);
@@ -158,6 +167,16 @@
             this.tabPage_Retentions.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_Retentions.TabIndex = 5;
             this.tabPage_Retentions.Text = "Retention - Deduction";
+            // 
+            // btn_MoreInfo7
+            // 
+            this.btn_MoreInfo7.Location = new System.Drawing.Point(567, 599);
+            this.btn_MoreInfo7.Name = "btn_MoreInfo7";
+            this.btn_MoreInfo7.Size = new System.Drawing.Size(75, 23);
+            this.btn_MoreInfo7.TabIndex = 56;
+            this.btn_MoreInfo7.Text = "More Info";
+            this.btn_MoreInfo7.UseVisualStyleBackColor = true;
+            this.btn_MoreInfo7.Click += new System.EventHandler(this.btn_MoreInfo7_Click);
             // 
             // label7
             // 
@@ -271,6 +290,7 @@
             // tabPage_SubmitToOwner
             // 
             this.tabPage_SubmitToOwner.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_SubmitToOwner.Controls.Add(this.btn_MoreInfo6);
             this.tabPage_SubmitToOwner.Controls.Add(this.label6);
             this.tabPage_SubmitToOwner.Controls.Add(this.btn_OwnerSubmitBack);
             this.tabPage_SubmitToOwner.Controls.Add(this.btn_OwnerSubmitNext);
@@ -280,6 +300,16 @@
             this.tabPage_SubmitToOwner.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_SubmitToOwner.TabIndex = 4;
             this.tabPage_SubmitToOwner.Text = "Submittal to Owner";
+            // 
+            // btn_MoreInfo6
+            // 
+            this.btn_MoreInfo6.Location = new System.Drawing.Point(567, 599);
+            this.btn_MoreInfo6.Name = "btn_MoreInfo6";
+            this.btn_MoreInfo6.Size = new System.Drawing.Size(75, 23);
+            this.btn_MoreInfo6.TabIndex = 55;
+            this.btn_MoreInfo6.Text = "More Info";
+            this.btn_MoreInfo6.UseVisualStyleBackColor = true;
+            this.btn_MoreInfo6.Click += new System.EventHandler(this.btn_MoreInfo6_Click);
             // 
             // label6
             // 
@@ -317,6 +347,7 @@
             // tabPage_ThirdCTRSubmit
             // 
             this.tabPage_ThirdCTRSubmit.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_ThirdCTRSubmit.Controls.Add(this.btn_MoreInfo4);
             this.tabPage_ThirdCTRSubmit.Controls.Add(this.label4);
             this.tabPage_ThirdCTRSubmit.Controls.Add(this.btn_ThirdCTRBack);
             this.tabPage_ThirdCTRSubmit.Controls.Add(this.btn_ThirdCTRSubmit);
@@ -326,6 +357,16 @@
             this.tabPage_ThirdCTRSubmit.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_ThirdCTRSubmit.TabIndex = 3;
             this.tabPage_ThirdCTRSubmit.Text = "Contractor 3rd  Submittal";
+            // 
+            // btn_MoreInfo4
+            // 
+            this.btn_MoreInfo4.Location = new System.Drawing.Point(567, 599);
+            this.btn_MoreInfo4.Name = "btn_MoreInfo4";
+            this.btn_MoreInfo4.Size = new System.Drawing.Size(75, 23);
+            this.btn_MoreInfo4.TabIndex = 53;
+            this.btn_MoreInfo4.Text = "More Info";
+            this.btn_MoreInfo4.UseVisualStyleBackColor = true;
+            this.btn_MoreInfo4.Click += new System.EventHandler(this.btn_MoreInfo4_Click);
             // 
             // label4
             // 
@@ -363,6 +404,7 @@
             // tabPage_SecondCTRSubmit
             // 
             this.tabPage_SecondCTRSubmit.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_SecondCTRSubmit.Controls.Add(this.brn_MoreInfo2);
             this.tabPage_SecondCTRSubmit.Controls.Add(this.label2);
             this.tabPage_SecondCTRSubmit.Controls.Add(this.btn_SecondCTRBack);
             this.tabPage_SecondCTRSubmit.Controls.Add(this.btn_SecondCTRNext);
@@ -372,6 +414,16 @@
             this.tabPage_SecondCTRSubmit.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_SecondCTRSubmit.TabIndex = 1;
             this.tabPage_SecondCTRSubmit.Text = "Contractor 2nd Submittal";
+            // 
+            // brn_MoreInfo2
+            // 
+            this.brn_MoreInfo2.Location = new System.Drawing.Point(567, 599);
+            this.brn_MoreInfo2.Name = "brn_MoreInfo2";
+            this.brn_MoreInfo2.Size = new System.Drawing.Size(75, 23);
+            this.brn_MoreInfo2.TabIndex = 51;
+            this.brn_MoreInfo2.Text = "More Info";
+            this.brn_MoreInfo2.UseVisualStyleBackColor = true;
+            this.brn_MoreInfo2.Click += new System.EventHandler(this.brn_MoreInfo2_Click);
             // 
             // label2
             // 
@@ -409,6 +461,7 @@
             // tabPage_ConsultFirstResponse
             // 
             this.tabPage_ConsultFirstResponse.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_ConsultFirstResponse.Controls.Add(this.btn_MoreInfo1);
             this.tabPage_ConsultFirstResponse.Controls.Add(this.label1);
             this.tabPage_ConsultFirstResponse.Controls.Add(this.btn_FirstResponseBack);
             this.tabPage_ConsultFirstResponse.Controls.Add(this.btn_FirstResponseNext);
@@ -418,6 +471,16 @@
             this.tabPage_ConsultFirstResponse.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_ConsultFirstResponse.TabIndex = 6;
             this.tabPage_ConsultFirstResponse.Text = "Consultant 1st response";
+            // 
+            // btn_MoreInfo1
+            // 
+            this.btn_MoreInfo1.Location = new System.Drawing.Point(567, 599);
+            this.btn_MoreInfo1.Name = "btn_MoreInfo1";
+            this.btn_MoreInfo1.Size = new System.Drawing.Size(75, 23);
+            this.btn_MoreInfo1.TabIndex = 50;
+            this.btn_MoreInfo1.Text = "More Info";
+            this.btn_MoreInfo1.UseVisualStyleBackColor = true;
+            this.btn_MoreInfo1.Click += new System.EventHandler(this.btn_MoreInfo1_Click);
             // 
             // label1
             // 
@@ -473,6 +536,7 @@
             // tabPage_FirstCTRSubmit
             // 
             this.tabPage_FirstCTRSubmit.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_FirstCTRSubmit.Controls.Add(this.button1);
             this.tabPage_FirstCTRSubmit.Controls.Add(this.lbl_CTRFirstSub);
             this.tabPage_FirstCTRSubmit.Controls.Add(this.btn_FirstCTRCancel);
             this.tabPage_FirstCTRSubmit.Controls.Add(this.btn_FirstCTRNext);
@@ -482,6 +546,16 @@
             this.tabPage_FirstCTRSubmit.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_FirstCTRSubmit.TabIndex = 0;
             this.tabPage_FirstCTRSubmit.Text = "Contractor 1st Submittal";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(567, 599);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 49;
+            this.button1.Text = "More Info";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lbl_CTRFirstSub
             // 
@@ -519,6 +593,7 @@
             // tabPage_ConsultSecondResponse
             // 
             this.tabPage_ConsultSecondResponse.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_ConsultSecondResponse.Controls.Add(this.btn_MoreInfo3);
             this.tabPage_ConsultSecondResponse.Controls.Add(this.label3);
             this.tabPage_ConsultSecondResponse.Controls.Add(this.btn_SecondResponseBack);
             this.tabPage_ConsultSecondResponse.Controls.Add(this.btn_SecondResponseNext);
@@ -528,6 +603,16 @@
             this.tabPage_ConsultSecondResponse.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_ConsultSecondResponse.TabIndex = 2;
             this.tabPage_ConsultSecondResponse.Text = "Consultant 2nd response";
+            // 
+            // btn_MoreInfo3
+            // 
+            this.btn_MoreInfo3.Location = new System.Drawing.Point(567, 599);
+            this.btn_MoreInfo3.Name = "btn_MoreInfo3";
+            this.btn_MoreInfo3.Size = new System.Drawing.Size(75, 23);
+            this.btn_MoreInfo3.TabIndex = 52;
+            this.btn_MoreInfo3.Text = "More Info";
+            this.btn_MoreInfo3.UseVisualStyleBackColor = true;
+            this.btn_MoreInfo3.Click += new System.EventHandler(this.btn_MoreInfo3_Click);
             // 
             // label3
             // 
@@ -565,6 +650,7 @@
             // tabPage_ConsultThirdResponse
             // 
             this.tabPage_ConsultThirdResponse.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_ConsultThirdResponse.Controls.Add(this.btn_MoreInfo5);
             this.tabPage_ConsultThirdResponse.Controls.Add(this.label5);
             this.tabPage_ConsultThirdResponse.Controls.Add(this.btn_ThirdResponseBack);
             this.tabPage_ConsultThirdResponse.Controls.Add(this.btn_ThirdResponseNext);
@@ -573,6 +659,16 @@
             this.tabPage_ConsultThirdResponse.Size = new System.Drawing.Size(1271, 630);
             this.tabPage_ConsultThirdResponse.TabIndex = 7;
             this.tabPage_ConsultThirdResponse.Text = "Consultant 3rd response";
+            // 
+            // btn_MoreInfo5
+            // 
+            this.btn_MoreInfo5.Location = new System.Drawing.Point(567, 599);
+            this.btn_MoreInfo5.Name = "btn_MoreInfo5";
+            this.btn_MoreInfo5.Size = new System.Drawing.Size(75, 23);
+            this.btn_MoreInfo5.TabIndex = 54;
+            this.btn_MoreInfo5.Text = "More Info";
+            this.btn_MoreInfo5.UseVisualStyleBackColor = true;
+            this.btn_MoreInfo5.Click += new System.EventHandler(this.btn_MoreInfo5_Click);
             // 
             // label5
             // 
@@ -777,5 +873,13 @@
         private Label label4;
         private Label label5;
         private Label label7;
+        private Button button1;
+        private Button brn_MoreInfo2;
+        private Button btn_MoreInfo1;
+        private Button btn_MoreInfo3;
+        private Button btn_MoreInfo4;
+        private Button btn_MoreInfo7;
+        private Button btn_MoreInfo6;
+        private Button btn_MoreInfo5;
     }
 }

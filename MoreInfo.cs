@@ -15,7 +15,7 @@ namespace ClsOutDocDeliveryCtrl
         {
             this.lbl_DocNameValue.Text = _document.Name;
             this.lbl_DescriptionValue.Text = _document.Description;
-            this.lbl_ContentValue.Text = "Tacle of Content";
+            this.lbl_ContentValue.Text = "Table of Content";
         }
     }
 }
