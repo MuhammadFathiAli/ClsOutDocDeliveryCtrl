@@ -4,8 +4,8 @@
     {
         NotSet,
         Approved,
-        ApprovedAsSubmitted,
         ResubmitAsPerNoted,
+        Rejected
     }
     public static class SubmittalCodeExtensions
     {
@@ -17,8 +17,8 @@
                     return "Not Set";
                 case ResponseCode.Approved:
                     return "Approved";
-                case ResponseCode.ApprovedAsSubmitted:
-                    return "Approved as submitted";
+                case ResponseCode.Rejected:
+                    return "Rejected";
                 case ResponseCode.ResubmitAsPerNoted:
                     return "Resubmit as per noted";
                 default:

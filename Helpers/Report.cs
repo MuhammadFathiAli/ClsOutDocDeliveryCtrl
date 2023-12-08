@@ -124,7 +124,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         pTable.AddCell(projectNameCell);
 
 
-                        PdfPCell endDateCell = new PdfPCell(new Phrase($"Handover Date: {_project.PlannedEndDate.ToShortDateString()}",
+                        PdfPCell endDateCell = new PdfPCell(new Phrase($"Planned End Date: {_project.PlannedEndDate.ToShortDateString()}",
                             new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
                         endDateCell.Padding = 5; // Set padding
                         endDateCell.MinimumHeight = 10f; // Set minimum height
@@ -149,6 +149,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemHeaderCell.Padding = 5; // Set padding
                         itemHeaderCell.MinimumHeight = 10f; // Set minimum height
                         itemHeaderCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemHeaderCell.Colspan = 2; // Set horizontal alignment
                         pTable.AddCell(itemHeaderCell);
 
                         PdfPCell valueHeaderCell = new PdfPCell(new Phrase("Value",
@@ -159,13 +160,13 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valueHeaderCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valueHeaderCell);
 
-                        PdfPCell commentHeaderCell = new PdfPCell(new Phrase("Comment",
-                            new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12)));
-                        commentHeaderCell.BackgroundColor = new BaseColor(Color.LightSkyBlue); // Set background color to light green
-                        commentHeaderCell.Padding = 5; // Set padding
-                        commentHeaderCell.MinimumHeight = 15f; // Set minimum height
-                        commentHeaderCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentHeaderCell);
+                        //PdfPCell commentHeaderCell = new PdfPCell(new Phrase("Comment",
+                        //    new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12)));
+                        //commentHeaderCell.BackgroundColor = new BaseColor(Color.LightSkyBlue); // Set background color to light green
+                        //commentHeaderCell.Padding = 5; // Set padding
+                        //commentHeaderCell.MinimumHeight = 15f; // Set minimum height
+                        //commentHeaderCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentHeaderCell);
                         #endregion
 
                         #region Total - Retention
@@ -174,6 +175,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemTotalRetentionCell.Padding = 5; // Set padding
                         itemTotalRetentionCell.MinimumHeight = 10f; // Set minimum height
                         itemTotalRetentionCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemTotalRetentionCell.Colspan = 2;
                         pTable.AddCell(itemTotalRetentionCell);
 
                         PdfPCell valueTotalRetentionCell = new PdfPCell(new Phrase($"{retentions} %",
@@ -183,11 +185,11 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valueTotalRetentionCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valueTotalRetentionCell);
 
-                        PdfPCell commentTotalRetentionCell = new PdfPCell(new Phrase(""));
-                        commentTotalRetentionCell.Padding = 5; // Set padding
-                        commentTotalRetentionCell.MinimumHeight = 10f; // Set minimum height
-                        commentTotalRetentionCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentTotalRetentionCell);
+                        //PdfPCell commentTotalRetentionCell = new PdfPCell(new Phrase(""));
+                        //commentTotalRetentionCell.Padding = 5; // Set padding
+                        //commentTotalRetentionCell.MinimumHeight = 10f; // Set minimum height
+                        //commentTotalRetentionCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentTotalRetentionCell);
                         #endregion
 
                         #region Total - Deduction
@@ -196,6 +198,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemTotalDeductionCell.Padding = 5; // Set padding
                         itemTotalDeductionCell.MinimumHeight = 10f; // Set minimum height
                         itemTotalDeductionCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemTotalDeductionCell.Colspan = 2;
                         pTable.AddCell(itemTotalDeductionCell);
 
                         PdfPCell valueTotalDeductionCell = new PdfPCell(new Phrase($"{deductions} %",
@@ -205,11 +208,11 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valueTotalDeductionCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valueTotalDeductionCell);
 
-                        PdfPCell commentTotalDeductionCell = new PdfPCell(new Phrase(""));
-                        commentTotalDeductionCell.Padding = 5; // Set padding
-                        commentTotalDeductionCell.MinimumHeight = 10f; // Set minimum height
-                        commentTotalDeductionCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentTotalDeductionCell);
+                        //PdfPCell commentTotalDeductionCell = new PdfPCell(new Phrase(""));
+                        //commentTotalDeductionCell.Padding = 5; // Set padding
+                        //commentTotalDeductionCell.MinimumHeight = 10f; // Set minimum height
+                        //commentTotalDeductionCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentTotalDeductionCell);
                         #endregion
 
                         #region Release
@@ -217,6 +220,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemReleaseCell.Padding = 5; // Set padding
                         itemReleaseCell.MinimumHeight = 10f; // Set minimum height
                         itemReleaseCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemReleaseCell.Colspan = 2;
                         pTable.AddCell(itemReleaseCell);
 
                         PdfPCell valueReleaseCell = new PdfPCell(new Phrase($"{release} %",
@@ -226,11 +230,11 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valueReleaseCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valueReleaseCell);
 
-                        PdfPCell commentReleaseCell = new PdfPCell(new Phrase(""));
-                        commentReleaseCell.Padding = 5; // Set padding
-                        commentReleaseCell.MinimumHeight = 10f; // Set minimum height
-                        commentReleaseCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentReleaseCell);
+                        //PdfPCell commentReleaseCell = new PdfPCell(new Phrase(""));
+                        //commentReleaseCell.Padding = 5; // Set padding
+                        //commentReleaseCell.MinimumHeight = 10f; // Set minimum height
+                        //commentReleaseCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentReleaseCell);
                         #endregion
 
                         #region Total Required Docs No
@@ -238,6 +242,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemReqDocsCell.Padding = 5; // Set padding
                         itemReqDocsCell.MinimumHeight = 10f; // Set minimum height
                         itemReqDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemReqDocsCell.Colspan = 2;
                         pTable.AddCell(itemReqDocsCell);
 
                         PdfPCell valueReqDocsCell = new PdfPCell(new Phrase($"{totalRequiredDocs}",
@@ -247,11 +252,11 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valueReqDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valueReqDocsCell);
 
-                        PdfPCell commentReqDocsCell = new PdfPCell(new Phrase(""));
-                        commentReqDocsCell.Padding = 5; // Set padding
-                        commentReqDocsCell.MinimumHeight = 10f; // Set minimum height
-                        commentReqDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentReqDocsCell);
+                        //PdfPCell commentReqDocsCell = new PdfPCell(new Phrase(""));
+                        //commentReqDocsCell.Padding = 5; // Set padding
+                        //commentReqDocsCell.MinimumHeight = 10f; // Set minimum height
+                        //commentReqDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentReqDocsCell);
                         #endregion
 
                         #region Total Deliverd to owner No 
@@ -260,6 +265,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemDeliveredDocsCell.Padding = 5; // Set padding
                         itemDeliveredDocsCell.MinimumHeight = 10f; // Set minimum height
                         itemDeliveredDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemDeliveredDocsCell.Colspan = 2;
                         pTable.AddCell(itemDeliveredDocsCell);
 
                         PdfPCell valueDeliveredDocsCell = new PdfPCell(new Phrase($"{totalDeliveredToOwner}",
@@ -269,11 +275,11 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valueDeliveredDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valueDeliveredDocsCell);
 
-                        PdfPCell commentDeliveredDocsCell = new PdfPCell(new Phrase(""));
-                        commentDeliveredDocsCell.Padding = 5; // Set padding
-                        commentDeliveredDocsCell.MinimumHeight = 10f; // Set minimum height
-                        commentDeliveredDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentDeliveredDocsCell);
+                        //PdfPCell commentDeliveredDocsCell = new PdfPCell(new Phrase(""));
+                        //commentDeliveredDocsCell.Padding = 5; // Set padding
+                        //commentDeliveredDocsCell.MinimumHeight = 10f; // Set minimum height
+                        //commentDeliveredDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentDeliveredDocsCell);
                         #endregion
 
                         #region Total Delivered Late
@@ -282,6 +288,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemLateDocsCell.Padding = 5; // Set padding
                         itemLateDocsCell.MinimumHeight = 10f; // Set minimum height
                         itemLateDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemLateDocsCell.Colspan = 2;
                         pTable.AddCell(itemLateDocsCell);
 
                         PdfPCell valueLateDocsCell = new PdfPCell(new Phrase($"{totalDeliveredLate}",
@@ -291,11 +298,11 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valueLateDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valueLateDocsCell);
 
-                        PdfPCell commentLateDocsCell = new PdfPCell(new Phrase(""));
-                        commentLateDocsCell.Padding = 5; // Set padding
-                        commentLateDocsCell.MinimumHeight = 10f; // Set minimum height
-                        commentLateDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentLateDocsCell);
+                        //PdfPCell commentLateDocsCell = new PdfPCell(new Phrase(""));
+                        //commentLateDocsCell.Padding = 5; // Set padding
+                        //commentLateDocsCell.MinimumHeight = 10f; // Set minimum height
+                        //commentLateDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentLateDocsCell);
                         #endregion
 
                         #region Total Not Delivered
@@ -304,6 +311,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemNotDeliveredDocsCell.Padding = 5; // Set padding
                         itemNotDeliveredDocsCell.MinimumHeight = 10f; // Set minimum height
                         itemNotDeliveredDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemNotDeliveredDocsCell.Colspan= 2;
                         pTable.AddCell(itemNotDeliveredDocsCell);
 
                         PdfPCell valueNotDeliveredDocsCell = new PdfPCell(new Phrase($"{totalNotDelivered}",
@@ -313,11 +321,11 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valueNotDeliveredDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valueNotDeliveredDocsCell);
 
-                        PdfPCell commentNotDeliveredDocsCell = new PdfPCell(new Phrase(""));
-                        commentNotDeliveredDocsCell.Padding = 5; // Set padding
-                        commentNotDeliveredDocsCell.MinimumHeight = 10f; // Set minimum height
-                        commentNotDeliveredDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentNotDeliveredDocsCell);
+                        //PdfPCell commentNotDeliveredDocsCell = new PdfPCell(new Phrase(""));
+                        //commentNotDeliveredDocsCell.Padding = 5; // Set padding
+                        //commentNotDeliveredDocsCell.MinimumHeight = 10f; // Set minimum height
+                        //commentNotDeliveredDocsCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentNotDeliveredDocsCell);
                         #endregion
 
                         #region Contractor Delay
@@ -326,6 +334,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemContctorDelayCell.Padding = 5; // Set padding
                         itemContctorDelayCell.MinimumHeight = 10f; // Set minimum height
                         itemContctorDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemContctorDelayCell.Colspan = 2;
                         pTable.AddCell(itemContctorDelayCell);
 
                         PdfPCell valueContctorDelayCell = new PdfPCell(new Phrase($"{totalContactorDelay}",
@@ -335,11 +344,11 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valueContctorDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valueContctorDelayCell);
 
-                        PdfPCell commentContctorDelayCell = new PdfPCell(new Phrase(""));
-                        commentContctorDelayCell.Padding = 5; // Set padding
-                        commentContctorDelayCell.MinimumHeight = 10f; // Set minimum height
-                        commentContctorDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentContctorDelayCell);
+                        //PdfPCell commentContctorDelayCell = new PdfPCell(new Phrase(""));
+                        //commentContctorDelayCell.Padding = 5; // Set padding
+                        //commentContctorDelayCell.MinimumHeight = 10f; // Set minimum height
+                        //commentContctorDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentContctorDelayCell);
                         #endregion
 
                         #region Consultant Delay
@@ -348,6 +357,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemConsultantDelayCell.Padding = 5; // Set padding
                         itemConsultantDelayCell.MinimumHeight = 10f; // Set minimum height
                         itemConsultantDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemConsultantDelayCell.Colspan= 2; 
                         pTable.AddCell(itemConsultantDelayCell);
 
                         PdfPCell valueConsultantDelayCell = new PdfPCell(new Phrase($"{totalConsultantDelay}",
@@ -357,11 +367,11 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valueConsultantDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valueConsultantDelayCell);
 
-                        PdfPCell commentConsultantDelayCell = new PdfPCell(new Phrase(""));
-                        commentConsultantDelayCell.Padding = 5; // Set padding
-                        commentConsultantDelayCell.MinimumHeight = 10f; // Set minimum height
-                        commentConsultantDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentConsultantDelayCell);
+                        //PdfPCell commentConsultantDelayCell = new PdfPCell(new Phrase(""));
+                        //commentConsultantDelayCell.Padding = 5; // Set padding
+                        //commentConsultantDelayCell.MinimumHeight = 10f; // Set minimum height
+                        //commentConsultantDelayCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentConsultantDelayCell);
                         #endregion
 
                         #region Project Total Duration
@@ -370,6 +380,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemtotalDurationCell.Padding = 5; // Set padding
                         itemtotalDurationCell.MinimumHeight = 10f; // Set minimum height
                         itemtotalDurationCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemtotalDurationCell.Colspan = 2;
                         pTable.AddCell(itemtotalDurationCell);
 
                         PdfPCell valuetotalDurationCell = new PdfPCell(new Phrase($"{(_project.PlannedEndDate - _project.StartDate).Days}",
@@ -379,11 +390,11 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valuetotalDurationCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valuetotalDurationCell);
 
-                        PdfPCell commenttotalDurationCell = new PdfPCell(new Phrase(""));
-                        commenttotalDurationCell.Padding = 5; // Set padding
-                        commenttotalDurationCell.MinimumHeight = 10f; // Set minimum height
-                        commenttotalDurationCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commenttotalDurationCell);
+                        //PdfPCell commenttotalDurationCell = new PdfPCell(new Phrase(""));
+                        //commenttotalDurationCell.Padding = 5; // Set padding
+                        //commenttotalDurationCell.MinimumHeight = 10f; // Set minimum height
+                        //commenttotalDurationCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commenttotalDurationCell);
                         #endregion
 
 
@@ -393,6 +404,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemContractPriceCell.Padding = 5; // Set padding
                         itemContractPriceCell.MinimumHeight = 10f; // Set minimum height
                         itemContractPriceCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemContractPriceCell.Colspan= 2;
                         pTable.AddCell(itemContractPriceCell);
 
                         PdfPCell valueContractPriceCell = new PdfPCell(new Phrase($"{_project.ContractValue}",
@@ -402,11 +414,11 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valueContractPriceCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valueContractPriceCell);
 
-                        PdfPCell commentContractPriceCell = new PdfPCell(new Phrase(""));
-                        commentContractPriceCell.Padding = 5; // Set padding
-                        commentContractPriceCell.MinimumHeight = 10f; // Set minimum height
-                        commentContractPriceCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentContractPriceCell);
+                        //PdfPCell commentContractPriceCell = new PdfPCell(new Phrase(""));
+                        //commentContractPriceCell.Padding = 5; // Set padding
+                        //commentContractPriceCell.MinimumHeight = 10f; // Set minimum height
+                        //commentContractPriceCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentContractPriceCell);
                         #endregion
 
                         #region Total Deduction Value
@@ -415,20 +427,21 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemDeductionValueCell.Padding = 5; // Set padding
                         itemDeductionValueCell.MinimumHeight = 10f; // Set minimum height
                         itemDeductionValueCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(itemContractPriceCell);
+                        itemDeductionValueCell.Colspan = 2;
+                        pTable.AddCell(itemDeductionValueCell);
 
-                        PdfPCell valueDeductionValueCell = new PdfPCell(new Phrase($"{_project.ContractValue * deductions * (decimal)0.01}",
+                        PdfPCell valueDeductionValueCell = new PdfPCell(new Phrase($"{Math.Round((_project.ContractValue * deductions * (decimal)0.01)??decimal.Zero,2)}",
                             new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
                         valueDeductionValueCell.Padding = 5; // Set padding
                         valueDeductionValueCell.MinimumHeight = 10f; // Set minimum height
                         valueDeductionValueCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valueDeductionValueCell);
 
-                        PdfPCell commentDeductionValueCell = new PdfPCell(new Phrase(""));
-                        commentDeductionValueCell.Padding = 5; // Set padding
-                        commentDeductionValueCell.MinimumHeight = 10f; // Set minimum height
-                        commentDeductionValueCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentDeductionValueCell);
+                        //PdfPCell commentDeductionValueCell = new PdfPCell(new Phrase(""));
+                        //commentDeductionValueCell.Padding = 5; // Set padding
+                        //commentDeductionValueCell.MinimumHeight = 10f; // Set minimum height
+                        //commentDeductionValueCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentDeductionValueCell);
                         #endregion
 
                         #region Performance
@@ -438,6 +451,7 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         itemPerformanceCell.Padding = 5; // Set padding
                         itemPerformanceCell.MinimumHeight = 10f; // Set minimum height
                         itemPerformanceCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        itemPerformanceCell.Colspan=2;
                         pTable.AddCell(itemPerformanceCell);
 
                         PdfPCell valuePerformanceCell = new PdfPCell(new Phrase($"{performance} %",
@@ -447,12 +461,12 @@ namespace ClsOutDocDeliveryCtrl.Helpers
                         valuePerformanceCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
                         pTable.AddCell(valuePerformanceCell);
 
-                        PdfPCell commentPerformanceCell = new PdfPCell(new Phrase("The reason behind that is the late response of the consultant",
-                            new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
-                        commentPerformanceCell.Padding = 5; // Set padding
-                        commentPerformanceCell.MinimumHeight = 10f; // Set minimum height
-                        commentPerformanceCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
-                        pTable.AddCell(commentPerformanceCell);
+                        //PdfPCell commentPerformanceCell = new PdfPCell(new Phrase("The reason behind that is the late response of the consultant",
+                        //    new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)));
+                        //commentPerformanceCell.Padding = 5; // Set padding
+                        //commentPerformanceCell.MinimumHeight = 10f; // Set minimum height
+                        //commentPerformanceCell.HorizontalAlignment = Element.ALIGN_CENTER; // Set horizontal alignment
+                        //pTable.AddCell(commentPerformanceCell);
                         #endregion
 
                         document.Add(pTable);

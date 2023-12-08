@@ -98,7 +98,7 @@ namespace ClsOutDocDeliveryCtrl
                 }
             }
             else
-                MessageBox.Show($"Select a prject whole row");
+                MessageBox.Show($"Select a project whole row");
         }
 
         private void openProjectToolStripMenuItem_Click(object sender, EventArgs e)

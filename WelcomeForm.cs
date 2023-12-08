@@ -26,7 +26,6 @@ namespace ClsOutDocDeliveryCtrl
 
         private void cmbox_Recents_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //frm
             if (cmbox_Recents.SelectedIndex > 0)
             {
                 var projectName = cmbox_Recents.SelectedItem;
@@ -44,15 +43,6 @@ namespace ClsOutDocDeliveryCtrl
                 }
             }
 
-            //if (cmbox_Recents.SelectedItem is Project selectedProject)
-            //{
-            //        frm_ProjectDosc projectDocumentsForm = new(selectedProject);
-            //        this.Hide();
-            //        projectDocumentsForm.ShowDialog();
-            //        this.Show();
-            //}
-            //else
-            //    MessageBox.Show($"Project Not exists");
 
         }
 

@@ -26,6 +26,6 @@ public class Project
     [Range(0.0, 10.0, ErrorMessage = "Retention for Documents Delivery must be between 0.00% and 10.00%")]
     public decimal RetentionforDocumentsDelivery { get; set; }
 
-    // Navigation property for many-to-many relationship with documents
+    // Navigation property for one-to-many relationship with documents
     public ICollection<Document> Documents { get; set; } = new HashSet<Document>();
 }

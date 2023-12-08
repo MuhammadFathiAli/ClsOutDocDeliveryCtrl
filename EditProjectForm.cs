@@ -108,6 +108,10 @@ namespace ClsOutDocDeliveryCtrl
             decimal maxRetention = projectToUpdate.RetentionforDocumentsDelivery;
             decimal retentionValue = 0;
             decimal retentionValueDisplayed = 0;
+            if (totalWeights == 0)
+            {
+                return;
+            }
             try
             {
                 retentionValue = ((decimal)document.RetentionWeight * maxRetention) / (totalWeights);
@@ -121,15 +125,29 @@ namespace ClsOutDocDeliveryCtrl
 
         private void UpdateDocumentOwnerSubmitlStatus(Document document, Project projectToUpdate)
         {
-            if (document.OwnerSubmitalDeadline is DateTime deadLine && document.ActOwnerSubmitDate is null)
+            if (document.OwnerSubmitalDeadline is DateTime deadLine)
             {
-                if (deadLine.Date < DateTime.Today.Date)
+                if (document.ActOwnerSubmitDate is null)
                 {
-                    document.OwnerSubmitStatus = DeliveryStatus.Late;
+                    if (deadLine.Date < DateTime.Today.Date)
+                    {
+                        document.OwnerSubmitStatus = DeliveryStatus.Late;
+                    }
+                    else
+                    {
+                        document.OwnerSubmitStatus = DeliveryStatus.Required;
+                    }
                 }
                 else
                 {
-                    document.OwnerSubmitStatus = DeliveryStatus.Required;
+                    if (deadLine.Date < document.ActOwnerSubmitDate.Value.Date)
+                    {
+                        document.OwnerSubmitStatus = DeliveryStatus.DeliveredLate;
+                    }
+                    else
+                    {
+                        document.OwnerSubmitStatus = DeliveryStatus.DeliveredOnTime;
+                    }
                 }
             }
         }

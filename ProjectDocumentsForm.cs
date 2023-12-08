@@ -20,6 +20,7 @@ namespace ClsOutDocDeliveryCtrl
         private bool ISShownSecondSubmital;
         private bool ISShownThirdSubmital;
         private bool IsCanceledClose;
+        private bool IsEditClose;
 
         private Project _project;
         private DataGridViewCell _clickedCell;
@@ -36,6 +37,7 @@ namespace ClsOutDocDeliveryCtrl
             InitializeComponent();
             _dtp = new DateTimePicker { Visible = false, Format = DateTimePickerFormat.Short };
             gridView_ProjectDocs.Controls.Add(_dtp);
+
             _dtp.TextChanged += _dtp_TextChanged;
             gridView_ProjectDocs.CellClick += GridView_ProjectDocs_CellClick;
             gridView_ProjectDocs.Scroll += GridView_ProjectDocs_Scroll;
@@ -60,7 +62,9 @@ namespace ClsOutDocDeliveryCtrl
 
         private void ProjectDocumentsForm_FormClosing(object? sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Are you sure to exit Project Documents Form?", "Warning", MessageBoxButtons.YesNo,
+            if (IsEditClose)
+                IsCanceledClose = false;
+            else if (MessageBox.Show("Are you sure to exit Project Documents Form?", "Warning", MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
             {
                 e.Cancel = true;
@@ -146,10 +150,6 @@ namespace ClsOutDocDeliveryCtrl
         {
             SetDateFormat();
             SetupStatusColsFormat();
-            //HidePermenantCols();
-            //HideSecondSubmits(true);
-            //HideThirdSubmits(true);
-
             renameCols();
         }
         private void SetDateFormat()
@@ -317,7 +317,8 @@ namespace ClsOutDocDeliveryCtrl
         private void SetSubmitColsVisibility()
         {
             bool isResubmitAsPerNotedPresent = gridView_ProjectDocs.Rows.Cast<DataGridViewRow>()
-                .Any(row => (row.Cells[firstRspCodeCombBoxCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.ResubmitAsPerNoted.ToString());
+                .Any(row => ((row.Cells[firstRspCodeCombBoxCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.ResubmitAsPerNoted.ToString()
+                    || (row.Cells[firstRspCodeCombBoxCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.Rejected.ToString()));
 
 
             if (isResubmitAsPerNotedPresent)
@@ -354,7 +355,8 @@ namespace ClsOutDocDeliveryCtrl
         private void SetSecondSubmitColVisibilty()
         {
             bool isResubmitAsPerNotedPresent = gridView_ProjectDocs.Rows.Cast<DataGridViewRow>()
-                .Any(row => (row.Cells[secondRspCodeCombBoxCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.ResubmitAsPerNoted.ToString());
+    .Any(row => ((row.Cells[secondRspCodeCombBoxCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.ResubmitAsPerNoted.ToString()
+        || (row.Cells[secondRspCodeCombBoxCol.Index].Value?.ToString() ?? string.Empty) == ResponseCode.Rejected.ToString()));
             if (isResubmitAsPerNotedPresent)
             {
                 ShowThirdSubmital = true;
@@ -375,7 +377,8 @@ namespace ClsOutDocDeliveryCtrl
         {
             var defColor = gridView_ProjectDocs.Rows[e.RowIndex].Cells["Name"].Style.BackColor;
             var cellValue = gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-            bool isResubmitAsPerNoted = (cellValue?.ToString() ?? String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString();
+            bool isResubmitAsPerNoted = (cellValue?.ToString() ?? String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString()
+                    || (cellValue?.ToString() ?? String.Empty) == ResponseCode.Rejected.ToString();
             var secondTrailcells = new List<DataGridViewCell>()
                     {
                         gridView_ProjectDocs.Rows[e.RowIndex].Cells["ActSecondCTRSubmitDeadline"],
@@ -506,11 +509,11 @@ namespace ClsOutDocDeliveryCtrl
                         }
                     }
 
-                    else if ((DateTime)deadlineCellValue >= (DateTime)deliveryDateCellValue)
+                    else if (((DateTime)deadlineCellValue).Date >= ((DateTime)deliveryDateCellValue).Date)
                     {
                         row.Cells[statusColName].Value = DeliveryStatus.DeliveredOnTime;
                     }
-                    else if ((DateTime)deadlineCellValue < (DateTime)deliveryDateCellValue)
+                    else if (((DateTime)deadlineCellValue).Date < ((DateTime)deliveryDateCellValue).Date)
                     {
                         row.Cells[statusColName].Value = DeliveryStatus.DeliveredLate;
                     }
@@ -621,6 +624,26 @@ namespace ClsOutDocDeliveryCtrl
                 e.Value = value.ToDescriptionString();
                 cell.Style.BackColor = backColor;
             }
+            if (e.ColumnIndex == gridView_ProjectDocs.Columns["Description"].Index && e.Value is string)
+            {
+                e.Value = (e.Value?.ToString()?.Length > 20) ? e.Value?.ToString()?.Substring(0,20) + "..." : e.Value?.ToString();
+            }
+            //if (e.ColumnIndex == gridView_ProjectDocs.Columns["SoftCopyLink"].Index && e.Value is string linkValue)
+            //{
+            //    if (linkValue.StartsWith("https://", true, null) || linkValue.StartsWith("www", true, null))
+            //    {
+            //        gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex].Style = new DataGridViewCellStyle
+            //        {
+                        
+            //            LinkBehavior = LinkBehavior.HoverUnderline,
+            //            ForeColor = Color.Blue,
+            //            Font = new Font(gridView_ProjectDocs.Font, FontStyle.Underline)
+            //        };
+
+            //        // Set the formatted value as the original value
+            //        e.Value = linkValue;
+            //    }
+            //}
         }
         private void GridView_ProjectDocs_EditingControlShowing(object? sender, DataGridViewEditingControlShowingEventArgs e)
         {
@@ -649,7 +672,6 @@ namespace ClsOutDocDeliveryCtrl
                 var comboBox = e.Control as ComboBox;
                 comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
                 comboBox.FlatStyle = FlatStyle.Flat;
-
             }
         }
         private void GridView_ProjectDocs_CellValueChanged(object? sender, DataGridViewCellEventArgs e)
@@ -719,7 +741,8 @@ namespace ClsOutDocDeliveryCtrl
             else if (columnName == "ActFirstConsultRspDate" || columnName == "ExpFirstConsultRspDate")
             {
                 SetResponseStatusColumn(SubmitalPhase.first);
-                bool isResubmit = (gridView_ProjectDocs.Rows[e.RowIndex].Cells[firstRspCodeCombBoxCol.Index].Value?.ToString() ?? String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString();
+                bool isResubmit = (gridView_ProjectDocs.Rows[e.RowIndex].Cells[firstRspCodeCombBoxCol.Index].Value?.ToString() ?? String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString()
+                    || (gridView_ProjectDocs.Rows[e.RowIndex].Cells[firstRspCodeCombBoxCol.Index].Value?.ToString() ?? String.Empty) == ResponseCode.Rejected.ToString();
                 if (columnName == "ActFirstConsultRspDate" && isResubmit)
                 {
                     SetActualExtraSubmitDeadline(e, second: true);
@@ -729,8 +752,9 @@ namespace ClsOutDocDeliveryCtrl
             else if (columnName == "ActSecondConsultRspDate" || columnName == "ExpSecondConsultRspDate")
             {
                 SetResponseStatusColumn(SubmitalPhase.second);
-                bool isResubmit = (gridView_ProjectDocs.Rows[e.RowIndex].Cells[secondRspCodeCombBoxCol.Index].Value?.ToString() ?? String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString();
-                if (columnName == "ActFirstConsultRspDate" && isResubmit)
+                bool isResubmit = (gridView_ProjectDocs.Rows[e.RowIndex].Cells[secondRspCodeCombBoxCol.Index].Value?.ToString() ?? String.Empty) == ResponseCode.ResubmitAsPerNoted.ToString()
+                                    || (gridView_ProjectDocs.Rows[e.RowIndex].Cells[secondRspCodeCombBoxCol.Index].Value?.ToString() ?? String.Empty) == ResponseCode.Rejected.ToString();
+                if (columnName == "ActSecondConsultRspDate" && isResubmit)
                 {
                     SetActualExtraSubmitDeadline(e, second: false);
                 }
@@ -752,8 +776,8 @@ namespace ClsOutDocDeliveryCtrl
             }
             else if (columnName == "RetentionWeight")
             {
-                CalculateRetentions(e);
-                CalculateAllDeductions(e);
+                CalculateRetentions();
+                CalculateAllDeductions();
             }
             else if (columnName == "Deduction")
             {
@@ -764,8 +788,6 @@ namespace ClsOutDocDeliveryCtrl
                 CalculateDeductions(e);
             }
         }
-
-
 
         private void UpdateConsultantDelay(DataGridViewCellEventArgs e)
         {
@@ -811,7 +833,7 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Rows[e.RowIndex].Cells["contractorDelay"].Value = Cummulativedelay;
         }
 
-        private void CalculateRetentions(DataGridViewCellEventArgs e)
+        private void CalculateRetentions()
         {
             decimal totalWeights = decimal.Zero;
             decimal totalRetentions = decimal.Zero;
@@ -826,7 +848,7 @@ namespace ClsOutDocDeliveryCtrl
                 decimal retentionValueDisplayed = decimal.Zero;
                 try
                 {
-                    retentionValue = ((decimal)row.Cells[e.ColumnIndex].Value * maxRetention) / (totalWeights);
+                    retentionValue = ((decimal)row.Cells["RetentionWeight"].Value * maxRetention) / (totalWeights);
                     retentionValueDisplayed = Math.Ceiling(retentionValue / (decimal)0.01) * (decimal)0.01;
                 }
                 finally
@@ -837,7 +859,7 @@ namespace ClsOutDocDeliveryCtrl
                 //CalculateDeductions(e);
             }
         }
-        private void CalculateAllDeductions(DataGridViewCellEventArgs e)
+        private void CalculateAllDeductions()
         {
             foreach (DataGridViewRow row in gridView_ProjectDocs.Rows)
             {
@@ -1000,11 +1022,11 @@ namespace ClsOutDocDeliveryCtrl
             var columnName = gridView_ProjectDocs.Columns[e.ColumnIndex].Name;
             var cell = gridView_ProjectDocs.Rows[e.RowIndex].Cells[e.ColumnIndex];
             if (cell.Value != null && columnName == thirdRspCodeCombBoxCol.Name
-               && (ResponseCode)cell.Value == ResponseCode.ResubmitAsPerNoted)
+               && ((ResponseCode)cell.Value == ResponseCode.ResubmitAsPerNoted || (ResponseCode)cell.Value == ResponseCode.Rejected))
             {
-                MessageBox.Show("Error: ResubmitAsPerNoted is not allowed in the third submit," +
+                MessageBox.Show("Error: ResubmitAsPerNoted / Rejected is not allowed in the third submit," +
                     " Max trails of document submit is [Three times].", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                cell.Value = ResponseCode.ApprovedAsSubmitted;
+                cell.Value = ResponseCode.Approved;
             }
         }
 
@@ -1293,6 +1315,8 @@ namespace ClsOutDocDeliveryCtrl
             gridView_ProjectDocs.Columns["OwnerSubmitStatus"].DisplayIndex = 43;
             gridView_ProjectDocs.Columns["contractorDelay"].Visible = show;
             gridView_ProjectDocs.Columns["consultantDelay"].Visible = show;
+            CalculateRetentions();
+            CalculateAllDeductions();
             CalculateTotalRetention();
             CalculateTotalDeductions();
         }
@@ -1589,6 +1613,7 @@ namespace ClsOutDocDeliveryCtrl
                 return;
             }
             frm_EditProject frmEditProject = new(_project);
+            IsEditClose = true;
             this.Close();
             if (!IsCanceledClose)
             {
@@ -1652,7 +1677,7 @@ namespace ClsOutDocDeliveryCtrl
             var count = gridView_ProjectDocs.SelectedRows.Count;
             if (count != 1)
             {
-                MessageBox.Show("Please select a single document to show its info.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select a whole row to show its info.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             DataGridViewRow selectedRow = gridView_ProjectDocs.SelectedRows[0];

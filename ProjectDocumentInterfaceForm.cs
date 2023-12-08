@@ -15,7 +15,16 @@ namespace ClsOutDocDeliveryCtrl
             this.btn_DeleteDoc.Enabled = false;
             this.btn_Info.Enabled = false;
             this.gridView_ProjectDocsList.SelectionChanged += GridView_ProjectDocsList_SelectionChanged;
+            this.gridView_ProjectDocsList.CellFormatting += GridView_ProjectDocsList_CellFormatting;
+        }
 
+        private void GridView_ProjectDocsList_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == gridView_ProjectDocsList.Columns[2].Index && e.Value is string)
+            {
+
+                e.Value = (e.Value?.ToString()?.Length > 20) ? e.Value?.ToString()?.Substring(0, 20) + "..." : e.Value?.ToString();
+            }
         }
 
         private void GridView_ProjectDocsList_SelectionChanged(object? sender, EventArgs e)

@@ -112,7 +112,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridView_ProjectDocs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gridView_ProjectDocs.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.gridView_ProjectDocs.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Silver;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -143,6 +143,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.gridView_ProjectDocs.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.gridView_ProjectDocs.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.gridView_ProjectDocs.Size = new System.Drawing.Size(1271, 503);
             this.gridView_ProjectDocs.TabIndex = 46;
@@ -170,6 +171,7 @@
             // 
             // btn_MoreInfo7
             // 
+            this.btn_MoreInfo7.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btn_MoreInfo7.Location = new System.Drawing.Point(567, 599);
             this.btn_MoreInfo7.Name = "btn_MoreInfo7";
             this.btn_MoreInfo7.Size = new System.Drawing.Size(75, 23);
@@ -303,6 +305,7 @@
             // 
             // btn_MoreInfo6
             // 
+            this.btn_MoreInfo6.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btn_MoreInfo6.Location = new System.Drawing.Point(567, 599);
             this.btn_MoreInfo6.Name = "btn_MoreInfo6";
             this.btn_MoreInfo6.Size = new System.Drawing.Size(75, 23);
@@ -360,6 +363,7 @@
             // 
             // btn_MoreInfo4
             // 
+            this.btn_MoreInfo4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btn_MoreInfo4.Location = new System.Drawing.Point(567, 599);
             this.btn_MoreInfo4.Name = "btn_MoreInfo4";
             this.btn_MoreInfo4.Size = new System.Drawing.Size(75, 23);
@@ -417,6 +421,7 @@
             // 
             // brn_MoreInfo2
             // 
+            this.brn_MoreInfo2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.brn_MoreInfo2.Location = new System.Drawing.Point(567, 599);
             this.brn_MoreInfo2.Name = "brn_MoreInfo2";
             this.brn_MoreInfo2.Size = new System.Drawing.Size(75, 23);
@@ -474,6 +479,7 @@
             // 
             // btn_MoreInfo1
             // 
+            this.btn_MoreInfo1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btn_MoreInfo1.Location = new System.Drawing.Point(567, 599);
             this.btn_MoreInfo1.Name = "btn_MoreInfo1";
             this.btn_MoreInfo1.Size = new System.Drawing.Size(75, 23);
@@ -549,6 +555,7 @@
             // 
             // button1
             // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button1.Location = new System.Drawing.Point(567, 599);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -606,6 +613,7 @@
             // 
             // btn_MoreInfo3
             // 
+            this.btn_MoreInfo3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btn_MoreInfo3.Location = new System.Drawing.Point(567, 599);
             this.btn_MoreInfo3.Name = "btn_MoreInfo3";
             this.btn_MoreInfo3.Size = new System.Drawing.Size(75, 23);
@@ -662,6 +670,7 @@
             // 
             // btn_MoreInfo5
             // 
+            this.btn_MoreInfo5.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btn_MoreInfo5.Location = new System.Drawing.Point(567, 599);
             this.btn_MoreInfo5.Name = "btn_MoreInfo5";
             this.btn_MoreInfo5.Size = new System.Drawing.Size(75, 23);
@@ -794,7 +803,7 @@
             this.Controls.Add(this.menuStrip_);
             this.MainMenuStrip = this.menuStrip_;
             this.Name = "frm_ProjectDosc";
-            this.Text = "ProjectDocumentsForm";
+            this.Text = "Project Documents";
             this.Load += new System.EventHandler(this.ProjectDocumentsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridView_ProjectDocs)).EndInit();
             this.tabPage_Retentions.ResumeLayout(false);
